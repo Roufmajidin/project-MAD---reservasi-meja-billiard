@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_mad/app/modules/semuaPaket/bindings/semua_paket_binding.dart';
 import 'package:project_mad/app/modules/semuaPaket/views/semua_paket_view.dart';
-
+import 'package:iconify_flutter/iconify_flutter.dart';
+import 'package:iconify_flutter/icons/ph.dart';
+import 'package:iconify_flutter/icons/ri.dart';
+import 'package:iconify_flutter/icons/bi.dart';
 import '../controllers/home_controller.dart';
 import 'dart:math';
 
@@ -52,12 +55,13 @@ class _Home extends State<Home> {
       backgroundColor: Color(0xf19191E),
       body: SafeArea(
           child: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding:
+            EdgeInsets.only(left: Get.width * 0.018, right: Get.width * 0.018),
         child: Column(children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Image(image: AssetImage('assets/gambar/logo_2.png')),
+            children: const [
+              Image(image: AssetImage('assets/gambar/logo_2.png')),
               Text('Home',
                   style: TextStyle(
                       color: Colors.white,
@@ -89,120 +93,119 @@ class _Home extends State<Home> {
                     ))
                 .toList(),
             options: CarouselOptions(
-              height: 250,
+              height: Get.height * 0.25,
               viewportFraction: 1,
               autoPlay: true,
             ),
           ),
 
           SingleChildScrollView(
-            child: Container(
-              child: Column(
-                children: [
-                  Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Packages",
-                          style: TextStyle(color: Colors.white, fontSize: 18),
-                        ),
-                        Container(
-                          child: Row(children: [
-                            InkWell(
-                              onTap: () {
-                                Get.to(SemuaPaketView());
-                              },
-                              child: Text(
-                                "See All",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 15),
-                              ),
-                            ),
-                            Icon(Icons.arrow_forward_ios_rounded,
-                                size: 12, color: Colors.white)
-                          ]),
-                        )
-                      ],
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      "Packages",
+                      style: TextStyle(color: Colors.white, fontSize: 18),
                     ),
-                  )
-                ],
-              ),
+                    Container(
+                      child: Row(children: [
+                        InkWell(
+                          onTap: () {
+                            Get.to(const SemuaPaketView());
+                          },
+                          child: const Text(
+                            "See All",
+                            style: TextStyle(color: Colors.white, fontSize: 15),
+                          ),
+                        ),
+                        const Icon(Icons.arrow_forward_ios_rounded,
+                            size: 12, color: Colors.white)
+                      ]),
+                    )
+                  ],
+                )
+              ],
             ),
           ),
-          SizedBox(height: 12),
+          SizedBox(height: Get.height * 0.04),
 
           //listview geser pinggir
           _listPaket(paket),
           SizedBox(height: 12),
 
           // list view bawah
-          Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Top Menu",
-                  style: TextStyle(color: Colors.white, fontSize: 18),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                "Top Menu",
+                style: TextStyle(color: Colors.white, fontSize: 18),
+              ),
+              Row(children: [
+                InkWell(
+                  onTap: () {},
+                  child: const Text(
+                    "See All",
+                    style: TextStyle(color: Colors.white, fontSize: 15),
+                  ),
                 ),
-                Container(
-                  child: Row(children: [
-                    InkWell(
-                      onTap: () {},
-                      child: Text(
-                        "See All",
-                        style: TextStyle(color: Colors.white, fontSize: 15),
-                      ),
-                    ),
-                    Icon(Icons.arrow_forward_ios_rounded,
-                        size: 12, color: Colors.white)
-                  ]),
-                )
-              ],
-            ),
+                const Icon(Icons.arrow_forward_ios_rounded,
+                    size: 12, color: Colors.white)
+              ])
+            ],
           ),
           _menu(),
 
           SizedBox(
-            height: 40,
-          ),
-          BottomNavigationBar(
-            backgroundColor: Colors.black,
-            unselectedIconTheme: IconThemeData(color: Colors.grey[400]),
-            selectedIconTheme: const IconThemeData(color: Colors.white),
-            unselectedLabelStyle: TextStyle(color: Colors.grey[400]),
-            selectedLabelStyle: const TextStyle(color: Colors.white),
-            fixedColor: Colors.white,
-            type: BottomNavigationBarType.fixed,
-
-            // currentIndex: ,
-            items: const [
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.home_filled,
-                    size: 28,
-                  ),
-                  label: 'Home'),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.dashboard),
-                label: 'Reservation',
-              ),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.account_box), label: 'Account'),
-            ],
+            height: Get.height * 0.001,
           ),
         ]),
 
         // alamat
       )),
+      bottomNavigationBar: navBar(),
     );
+  }
+
+  BottomNavigationBar navBar() {
+    return BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: Colors.white,
+        backgroundColor: Colors.black,
+        showSelectedLabels: true,
+        showUnselectedLabels: false,
+        currentIndex: 0,
+        onTap: (index) {},
+        items: const [
+          BottomNavigationBarItem(
+              icon: Iconify(
+                Ri.home_5_line,
+                color: Colors.white,
+              ),
+              label: 'Home'),
+          BottomNavigationBarItem(
+            icon: Iconify(
+              Bi.calendar4_week,
+              color: Colors.white,
+            ),
+            label: 'Reservation',
+          ),
+          BottomNavigationBarItem(
+              icon: Iconify(
+                Ri.account_pin_box_line,
+                color: Colors.white,
+              ),
+              label: 'Account'),
+        ]);
   }
 
   Container _menu() {
     return Container(
-      padding: EdgeInsets.only(top: 10, bottom: 5),
-      width: 600,
-      height: 240,
+      padding: const EdgeInsets.only(top: 10, bottom: 5),
+      width: Get.width * 0.98,
+      height: Get.width * 0.59,
       // height: MediaQuery.of(context).size.height * 0.3,
       child: ListView(
         scrollDirection: Axis.vertical,
@@ -210,31 +213,139 @@ class _Home extends State<Home> {
           InkWell(
             onTap: () {},
             child: Container(
-                padding: EdgeInsets.only(top: 5, left: 10),
-                height: 120,
-                width: 350,
+                padding: const EdgeInsets.only(top: 2, left: 1),
+                height: Get.height * 0.14,
+                width: Get.width * 0.7,
                 decoration: BoxDecoration(
-                    color: Color.fromARGB(250, 18, 30, 54).withOpacity(0.5),
+                    color:
+                        const Color.fromARGB(250, 18, 30, 54).withOpacity(0.5),
                     borderRadius: BorderRadius.circular(4)),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      padding: EdgeInsets.all(12),
+                      padding: EdgeInsets.all(Get.width * 0.027),
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
+                                const Text(
                                   "Gillboys Gin (350) Ml",
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20),
                                 ),
-                                SizedBox(height: 12),
+                                SizedBox(height: Get.height * 0.01),
+                                Container(
+                                  // padding: EdgeInsets.only(left: 10),
+                                  child: Text(
+                                    "Rp. 20.000, -",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 15),
+                                  ),
+                                )
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                Image.asset('assets/gambar/minuman.png'),
+                                SizedBox(
+                                  height: 6,
+                                ),
+                                Container(
+                                  padding: EdgeInsets.only(top: 12),
+                                  child: Row(
+                                    children: [
+                                      InkWell(
+                                        onTap: decrementCounter,
+                                        child: Container(
+                                            width: 20,
+                                            height: 20,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(6),
+                                              color: Color.fromARGB(
+                                                  109, 74, 74, 74),
+                                            ),
+                                            child: Icon(
+                                              Icons.remove,
+                                              color: Colors.white,
+                                              size: 15,
+                                            )),
+                                      ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        "$counter",
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 15),
+                                      ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      InkWell(
+                                        onTap: incrementCounter,
+                                        child: Container(
+                                            width: 20,
+                                            height: 20,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(6),
+                                              color: Color.fromARGB(
+                                                  109, 74, 74, 74),
+                                            ),
+                                            child: Icon(
+                                              Icons.add,
+                                              color: Colors.white,
+                                              size: 15,
+                                            )),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            )
+                          ]),
+                    )
+                  ],
+                )),
+          ),
+          SizedBox(
+            height: 8,
+          ),
+          InkWell(
+            onTap: () {},
+            child: Container(
+                padding: const EdgeInsets.only(top: 2, left: 1),
+                height: Get.height * 0.14,
+                width: Get.width * 0.7,
+                decoration: BoxDecoration(
+                    color:
+                        const Color.fromARGB(250, 18, 30, 54).withOpacity(0.5),
+                    borderRadius: BorderRadius.circular(4)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(Get.width * 0.027),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text(
+                                  "Gillboys Gin (350) Ml",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20),
+                                ),
+                                SizedBox(height: Get.height * 0.01),
                                 Container(
                                   // padding: EdgeInsets.only(left: 10),
                                   child: Text(
@@ -316,31 +427,32 @@ class _Home extends State<Home> {
           InkWell(
             onTap: () {},
             child: Container(
-                padding: EdgeInsets.only(top: 5, left: 10),
-                height: 120,
-                width: 350,
+                padding: const EdgeInsets.only(top: 2, left: 1),
+                height: Get.height * 0.14,
+                width: Get.width * 0.7,
                 decoration: BoxDecoration(
-                    color: Color.fromARGB(250, 18, 30, 54).withOpacity(0.5),
+                    color:
+                        const Color.fromARGB(250, 18, 30, 54).withOpacity(0.5),
                     borderRadius: BorderRadius.circular(4)),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
-                      padding: EdgeInsets.all(12),
+                      padding: EdgeInsets.all(Get.width * 0.027),
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
+                                const Text(
                                   "Gillboys Gin (350) Ml",
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20),
                                 ),
-                                SizedBox(height: 12),
+                                SizedBox(height: Get.height * 0.01),
                                 Container(
                                   // padding: EdgeInsets.only(left: 10),
                                   child: Text(
@@ -362,11 +474,7 @@ class _Home extends State<Home> {
                                   child: Row(
                                     children: [
                                       InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            print("object");
-                                          });
-                                        },
+                                        onTap: decrementCounter,
                                         child: Container(
                                             width: 20,
                                             height: 20,
@@ -386,7 +494,7 @@ class _Home extends State<Home> {
                                         width: 5,
                                       ),
                                       Text(
-                                        "1",
+                                        "$counter",
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 15),
                                       ),
@@ -394,11 +502,7 @@ class _Home extends State<Home> {
                                         width: 5,
                                       ),
                                       InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            print("add");
-                                          });
-                                        },
+                                        onTap: incrementCounter,
                                         child: Container(
                                             width: 20,
                                             height: 20,
@@ -424,9 +528,6 @@ class _Home extends State<Home> {
                   ],
                 )),
           ),
-          SizedBox(
-            height: 9,
-          ),
         ],
       ),
     );
@@ -435,7 +536,7 @@ class _Home extends State<Home> {
   Container _listPaket(List<dynamic> paket) {
     return Container(
         padding: EdgeInsets.only(top: 10, bottom: 5),
-        width: 670,
+        width: 675,
         height: 180,
         // height: MediaQuery.of(context).size.height * 0.3,
         child: ListView.builder(
@@ -443,11 +544,10 @@ class _Home extends State<Home> {
           itemCount: paket.length,
           itemBuilder: (BuildContext context, index) {
             return Padding(
-              padding: EdgeInsets.only(left: 9),
-              child: new Container(
-                padding: EdgeInsets.only(top: 9),
-                height: 100,
-                width: 150,
+              padding: const EdgeInsets.only(left: 9),
+              child: Container(
+                padding: const EdgeInsets.only(top: 9),
+                width: Get.width * 0.5,
                 decoration: BoxDecoration(
                     color: Color.fromARGB(250, 18, 30, 54).withOpacity(0.5),
                     borderRadius: BorderRadius.circular(4)),
@@ -463,12 +563,12 @@ class _Home extends State<Home> {
                             fontSize: 20),
                       ),
                     ),
-                    SizedBox(height: 12),
+                    SizedBox(height: Get.height * 0.013),
                     Container(
                         padding: EdgeInsets.only(left: 20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
+                          children: const [
                             Text(
                               "lorem ipsum",
                               style:
@@ -482,7 +582,7 @@ class _Home extends State<Home> {
                           ],
                         )),
                     SizedBox(
-                      height: 46,
+                      height: Get.height * 0.029,
                     ),
                     InkWell(
                       onTap: () {
@@ -497,7 +597,7 @@ class _Home extends State<Home> {
                             padding: const EdgeInsets.only(top: 8.0),
                             child: Center(
                               child: Column(
-                                children: [
+                                children: const [
                                   Text(
                                     "Rp. 100.000, -",
                                     style: TextStyle(
@@ -544,7 +644,7 @@ class _Home extends State<Home> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
+                            children: const [
                               Text("PAKET A",
                                   style: TextStyle(
                                       color: Color.fromARGB(255, 164, 164, 164),
