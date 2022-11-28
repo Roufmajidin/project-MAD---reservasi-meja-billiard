@@ -48,7 +48,7 @@ class SemuaPaketView extends GetView<SemuaPaketController> {
                 color: Colors.yellowAccent,
               ),
               Card(
-                color: Colors.deepOrange,
+                color: Colors.red,
               ),
               Card(
                 color: Colors.red,
