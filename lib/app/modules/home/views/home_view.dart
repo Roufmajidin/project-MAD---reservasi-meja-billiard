@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:icony/icony_ikonate.dart';
 import 'package:project_mad/app/modules/semuaPaket/bindings/semua_paket_binding.dart';
 import 'package:project_mad/app/modules/semuaPaket/views/semua_paket_view.dart';
 
 import '../controllers/home_controller.dart';
-import 'dart:math';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
+
+import 'package:icony/icony_gameicons.dart';
 
 class Home extends StatefulWidget {
   Home({super.key});
@@ -52,21 +54,21 @@ class _Home extends State<Home> {
       backgroundColor: Color(0xf19191E),
       body: SafeArea(
           child: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: EdgeInsets.all(12.0),
         child: Column(children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Image(image: AssetImage('assets/gambar/logo_2.png')),
+              Image(image: AssetImage('assets/gambar/logo_2.png')),
               Text('Home',
                   style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontSize: 20.0)),
-              Icon(
-                Icons.card_travel_rounded,
+              const Ikonate(
+                Ikonate.cart,
                 color: Colors.white,
-              )
+              ),
             ],
           ),
           // SizedBox(height: 12),
@@ -95,39 +97,37 @@ class _Home extends State<Home> {
             ),
           ),
 
-          SingleChildScrollView(
-            child: Container(
-              child: Column(
-                children: [
-                  Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Packages",
-                          style: TextStyle(color: Colors.white, fontSize: 18),
-                        ),
-                        Container(
-                          child: Row(children: [
-                            InkWell(
-                              onTap: () {
-                                Get.to(SemuaPaketView());
-                              },
-                              child: Text(
-                                "See All",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 15),
-                              ),
+          Container(
+            child: Column(
+              children: [
+                Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Packages",
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+                      Container(
+                        child: Row(children: [
+                          InkWell(
+                            onTap: () {
+                              Get.to(SemuaPaketView());
+                            },
+                            child: Text(
+                              "See All",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 15),
                             ),
-                            Icon(Icons.arrow_forward_ios_rounded,
-                                size: 12, color: Colors.white)
-                          ]),
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              ),
+                          ),
+                          Icon(Icons.arrow_forward_ios_rounded,
+                              size: 12, color: Colors.white)
+                        ]),
+                      )
+                    ],
+                  ),
+                )
+              ],
             ),
           ),
           SizedBox(height: 12),
@@ -179,7 +179,7 @@ class _Home extends State<Home> {
             items: const [
               BottomNavigationBarItem(
                   icon: Icon(
-                    Icons.home_filled,
+                    Icons.home,
                     size: 28,
                   ),
                   label: 'Home'),
@@ -637,28 +637,31 @@ class _Home extends State<Home> {
                     ],
                   ),
                   Center(
-                    child: Container(
-                      height: 40,
-                      width: 300,
-                      decoration: BoxDecoration(
-                          color: Color.fromARGB(
-                            255,
-                            238,
-                            233,
-                            126,
-                          ),
-                          borderRadius: BorderRadius.circular(8)),
-                      child: Center(
-                        child: InkWell(
-                          onTap: () {
-                            Get.to(Home());
-                          },
-                          child: Text(
-                            "Done",
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 33, 33, 33),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20),
+                    child: InkWell(
+                      onTap: () {},
+                      child: Container(
+                        height: 40,
+                        width: 300,
+                        decoration: BoxDecoration(
+                            color: Color.fromARGB(
+                              255,
+                              238,
+                              233,
+                              126,
+                            ),
+                            borderRadius: BorderRadius.circular(8)),
+                        child: Center(
+                          child: InkWell(
+                            onTap: () {
+                              Get.to(Home());
+                            },
+                            child: Text(
+                              "Done",
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 33, 33, 33),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20),
+                            ),
                           ),
                         ),
                       ),
