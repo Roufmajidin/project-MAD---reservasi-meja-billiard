@@ -21,9 +21,14 @@ class SemuaPaketView extends GetView<SemuaPaketController> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Iconify(
-                  Bi.arrow_left,
-                  color: Colors.white,
+                InkWell(
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: Iconify(
+                    Bi.arrow_left,
+                    color: Colors.white,
+                  ),
                 ),
                 Text('Packages',
                     style: TextStyle(

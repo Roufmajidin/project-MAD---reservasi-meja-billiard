@@ -67,10 +67,10 @@ class _Home extends State<Home> {
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                       fontSize: 20.0)),
-              Icon(
-                Icons.card_travel_rounded,
+              Iconify(
+                Bi.cart,
                 color: Colors.white,
-              )
+              ),
             ],
           ),
           // SizedBox(height: 12),
