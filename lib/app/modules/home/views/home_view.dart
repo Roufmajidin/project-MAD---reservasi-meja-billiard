@@ -205,7 +205,7 @@ class _Home extends State<Home> {
     return Container(
       padding: const EdgeInsets.only(top: 10, bottom: 5),
       width: Get.width * 0.98,
-      height: Get.width * 0.59,
+      height: Get.width * 0.66,
       // height: MediaQuery.of(context).size.height * 0.3,
       child: ListView(
         scrollDirection: Axis.vertical,
