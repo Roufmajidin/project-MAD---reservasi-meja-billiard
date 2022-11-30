@@ -53,117 +53,134 @@ class _Home extends State<Home> {
     final List paket = ['Paket A', 'Paket B', 'Paket C'];
     return Scaffold(
       backgroundColor: Color(0xf19191E),
-      body: SafeArea(
-          child: Padding(
-        padding:
-            EdgeInsets.only(left: Get.width * 0.018, right: Get.width * 0.018),
-        child: Column(children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Image(image: AssetImage('assets/gambar/logo_2.png')),
-              Text('Home',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0)),
-              Iconify(
-                Bi.cart,
-                color: Colors.white,
-              ),
-            ],
+      appBar: AppBar(
+        title: Image.asset(
+          'assets/gambar/logo_2.png',
+          fit: BoxFit.fitHeight,
+          height: 20,
+        ),
+        actions: [
+          // Text('Home',
+          //     style: TextStyle(
+          //         color: Colors.white,
+          //         fontWeight: FontWeight.bold,
+          //         fontSize: 20.0)),
+          Padding(
+            padding: EdgeInsets.symmetric(
+                horizontal: Get.width * 0.3, vertical: Get.width * 0.04),
+            child: Text('Home',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20.0)),
           ),
-          // SizedBox(height: 12),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: Get.width * 0.04),
+            child: Iconify(
+              Bi.cart,
+              color: Colors.white,
+            ),
+          ),
+        ],
+        backgroundColor: Color(0xf19191E),
+      ),
+      body: SafeArea(
+          child: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.only(
+              left: Get.width * 0.015, right: Get.width * 0.015),
+          child: Column(children: [
+            // slider carousel
 
-          // slider coursele
+            CarouselSlider(
+              items: items
+                  .map((image) => Builder(
+                        builder: (BuildContext context) {
+                          return Container(
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage(image),
+                                fit: BoxFit.fitWidth,
+                              ),
+                            ),
+                          );
+                        },
+                      ))
+                  .toList(),
+              options: CarouselOptions(
+                height: Get.height * 0.25,
+                viewportFraction: 1,
+                autoPlay: true,
+              ),
+            ),
 
-          CarouselSlider(
-            items: items
-                .map((image) => Builder(
-                      builder: (BuildContext context) {
-                        return Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(image),
-                              fit: BoxFit.fitWidth,
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "Packages",
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+                      Container(
+                        child: Row(children: [
+                          InkWell(
+                            onTap: () {
+                              Get.to(const SemuaPaketView());
+                            },
+                            child: const Text(
+                              "See All",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 15),
                             ),
                           ),
-                        );
-                      },
-                    ))
-                .toList(),
-            options: CarouselOptions(
-              height: Get.height * 0.25,
-              viewportFraction: 1,
-              autoPlay: true,
+                          const Icon(Icons.arrow_forward_ios_rounded,
+                              size: 12, color: Colors.white)
+                        ]),
+                      )
+                    ],
+                  )
+                ],
+              ),
             ),
-          ),
+            SizedBox(height: Get.height * 0.015),
 
-          SingleChildScrollView(
-            child: Column(
+            //listview geser pinggir
+            _listPaket(paket),
+            SizedBox(height: Get.height * 0.015),
+
+            // list view bawah
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      "Packages",
-                      style: TextStyle(color: Colors.white, fontSize: 18),
+                const Text(
+                  "Top Menu",
+                  style: TextStyle(color: Colors.white, fontSize: 18),
+                ),
+                Row(children: [
+                  InkWell(
+                    onTap: () {},
+                    child: const Text(
+                      "See All",
+                      style: TextStyle(color: Colors.white, fontSize: 15),
                     ),
-                    Container(
-                      child: Row(children: [
-                        InkWell(
-                          onTap: () {
-                            Get.to(const SemuaPaketView());
-                          },
-                          child: const Text(
-                            "See All",
-                            style: TextStyle(color: Colors.white, fontSize: 15),
-                          ),
-                        ),
-                        const Icon(Icons.arrow_forward_ios_rounded,
-                            size: 12, color: Colors.white)
-                      ]),
-                    )
-                  ],
-                )
+                  ),
+                  const Icon(Icons.arrow_forward_ios_rounded,
+                      size: 12, color: Colors.white)
+                ])
               ],
             ),
-          ),
-          SizedBox(height: Get.height * 0.04),
+            _menu(),
 
-          //listview geser pinggir
-          _listPaket(paket),
-          SizedBox(height: 12),
+            SizedBox(
+              height: Get.height * 0.001,
+            ),
+          ]),
 
-          // list view bawah
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                "Top Menu",
-                style: TextStyle(color: Colors.white, fontSize: 18),
-              ),
-              Row(children: [
-                InkWell(
-                  onTap: () {},
-                  child: const Text(
-                    "See All",
-                    style: TextStyle(color: Colors.white, fontSize: 15),
-                  ),
-                ),
-                const Icon(Icons.arrow_forward_ios_rounded,
-                    size: 12, color: Colors.white)
-              ])
-            ],
-          ),
-          _menu(),
-
-          SizedBox(
-            height: Get.height * 0.001,
-          ),
-        ]),
-
-        // alamat
+          // alamat
+        ),
       )),
       bottomNavigationBar: navBar(),
     );
@@ -535,9 +552,8 @@ class _Home extends State<Home> {
 
   Container _listPaket(List<dynamic> paket) {
     return Container(
-        padding: EdgeInsets.only(top: 10, bottom: 5),
-        width: 675,
-        height: 180,
+        padding: EdgeInsets.only(bottom: 5),
+        height: Get.height * 0.25,
         // height: MediaQuery.of(context).size.height * 0.3,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
@@ -582,7 +598,7 @@ class _Home extends State<Home> {
                           ],
                         )),
                     SizedBox(
-                      height: Get.height * 0.029,
+                      height: Get.height * 0.084,
                     ),
                     InkWell(
                       onTap: () {
