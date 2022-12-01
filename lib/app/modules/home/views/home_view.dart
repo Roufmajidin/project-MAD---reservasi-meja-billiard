@@ -7,6 +7,8 @@ import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/ph.dart';
 import 'package:iconify_flutter/icons/ri.dart';
 import 'package:iconify_flutter/icons/bi.dart';
+import 'package:project_mad/data/datapaket.dart';
+import 'package:project_mad/data/menu.dart';
 import '../controllers/home_controller.dart';
 import 'dart:math';
 
@@ -50,7 +52,8 @@ class _Home extends State<Home> {
 
   Widget build(BuildContext context) {
     // final counterModel = Provider.of<MyCounter>(context);
-    final List paket = ['Paket A', 'Paket B', 'Paket C'];
+    // final List paket = ['Paket A', 'Paket B', 'Paket C'];
+
     return Scaffold(
       backgroundColor: Color(0xf19191E),
       appBar: AppBar(
@@ -148,8 +151,96 @@ class _Home extends State<Home> {
             SizedBox(height: Get.height * 0.015),
 
             //listview geser pinggir
-            _listPaket(paket),
+
             SizedBox(height: Get.height * 0.015),
+            Container(
+                padding: EdgeInsets.only(bottom: 5),
+                height: Get.height * 0.25,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: paket.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 9),
+                      child: Container(
+                        padding: const EdgeInsets.only(top: 9),
+                        width: Get.width * 0.5,
+                        decoration: BoxDecoration(
+                            color: Color.fromARGB(250, 18, 30, 54)
+                                .withOpacity(0.5),
+                            borderRadius: BorderRadius.circular(4)),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Center(
+                              child: Text(
+                                paket[index]["namapaket"],
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20),
+                              ),
+                            ),
+                            SizedBox(height: Get.height * 0.013),
+                            Container(
+                                padding: EdgeInsets.only(left: 20),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      paket[index]["inklud"][0],
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 15),
+                                    ),
+                                    Text(
+                                      paket[index]["inklud"][1],
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 15),
+                                    ),
+                                  ],
+                                )),
+                            SizedBox(
+                              height: Get.height * 0.084,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                modalBawah(context, index);
+                              },
+                              child: Container(
+                                  padding: EdgeInsets.only(bottom: 15),
+                                  decoration: BoxDecoration(
+                                      color: Color.fromARGB(21, 255, 255, 255),
+                                      borderRadius: BorderRadius.circular(4)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
+                                    child: Center(
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            "Rp." +
+                                                paket[index]["harga"]
+                                                    .toString(),
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 15),
+                                          ),
+                                          Text(
+                                            "Add to Cart",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 15),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                )),
 
             // list view bawah
             Row(
@@ -172,7 +263,133 @@ class _Home extends State<Home> {
                 ])
               ],
             ),
-            _menu(),
+
+            Container(
+              padding: const EdgeInsets.only(top: 10, bottom: 5),
+              // width: Get.width * 0.98,
+              // height: Get.width * 0.80,
+              // height: MediaQuery.of(context).size.height * 0.3,
+              child: ListView.builder(
+                itemCount: menu.length,
+                scrollDirection: Axis.vertical,
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                      onTap: () {},
+                      child: Container(
+                          padding: const EdgeInsets.only(top: 2, left: 1),
+                          margin: EdgeInsets.only(bottom: 8),
+                          height: Get.height * 0.14,
+                          width: Get.width * 0.7,
+                          decoration: BoxDecoration(
+                              color: const Color.fromARGB(250, 18, 30, 54)
+                                  .withOpacity(0.5),
+                              borderRadius: BorderRadius.circular(4)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(Get.width * 0.027),
+                                child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            menu[index]["namamenu"],
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 20),
+                                          ),
+                                          SizedBox(height: Get.height * 0.01),
+                                          Container(
+                                            // padding: EdgeInsets.only(left: 10),
+                                            child: Text(
+                                              "Rp." + menu[index]["harga"],
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 15),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      Column(
+                                        children: [
+                                          Image.asset(
+                                              'assets/gambar/minuman.png'),
+                                          SizedBox(
+                                            height: 6,
+                                          ),
+                                          Container(
+                                            padding: EdgeInsets.only(top: 12),
+                                            child: Row(
+                                              children: [
+                                                InkWell(
+                                                  onTap: decrementCounter,
+                                                  child: Container(
+                                                      width: 20,
+                                                      height: 20,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(6),
+                                                        color: Color.fromARGB(
+                                                            109, 74, 74, 74),
+                                                      ),
+                                                      child: Icon(
+                                                        Icons.remove,
+                                                        color: Colors.white,
+                                                        size: 15,
+                                                      )),
+                                                ),
+                                                SizedBox(
+                                                  width: 5,
+                                                ),
+                                                Text(
+                                                  "$counter",
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 15),
+                                                ),
+                                                SizedBox(
+                                                  width: 5,
+                                                ),
+                                                InkWell(
+                                                  onTap: incrementCounter,
+                                                  child: Container(
+                                                      width: 20,
+                                                      height: 20,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(6),
+                                                        color: Color.fromARGB(
+                                                            109, 74, 74, 74),
+                                                      ),
+                                                      child: Icon(
+                                                        Icons.add,
+                                                        color: Colors.white,
+                                                        size: 15,
+                                                      )),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      )
+                                    ]),
+                              ),
+                            ],
+                          )));
+                },
+                // SizedBox(height: Get.height * 0.01),
+              ),
+            ),
 
             SizedBox(
               height: Get.height * 0.001,
@@ -182,462 +399,12 @@ class _Home extends State<Home> {
           // alamat
         ),
       )),
-      bottomNavigationBar: navBar(),
+      bottomNavigationBar: bottomNavigation(),
     );
   }
 
-  BottomNavigationBar navBar() {
-    return BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.white,
-        backgroundColor: Colors.black,
-        showSelectedLabels: true,
-        showUnselectedLabels: false,
-        currentIndex: 0,
-        onTap: (index) {},
-        items: const [
-          BottomNavigationBarItem(
-              icon: Iconify(
-                Ri.home_5_line,
-                color: Colors.white,
-              ),
-              label: 'Home'),
-          BottomNavigationBarItem(
-            icon: Iconify(
-              Bi.calendar4_week,
-              color: Colors.white,
-            ),
-            label: 'Reservation',
-          ),
-          BottomNavigationBarItem(
-              icon: Iconify(
-                Ri.account_pin_box_line,
-                color: Colors.white,
-              ),
-              label: 'Account'),
-        ]);
-  }
-
-  Container _menu() {
-    return Container(
-      padding: const EdgeInsets.only(top: 10, bottom: 5),
-      width: Get.width * 0.98,
-      height: Get.width * 0.66,
-      // height: MediaQuery.of(context).size.height * 0.3,
-      child: ListView(
-        scrollDirection: Axis.vertical,
-        children: [
-          InkWell(
-            onTap: () {},
-            child: Container(
-                padding: const EdgeInsets.only(top: 2, left: 1),
-                height: Get.height * 0.14,
-                width: Get.width * 0.7,
-                decoration: BoxDecoration(
-                    color:
-                        const Color.fromARGB(250, 18, 30, 54).withOpacity(0.5),
-                    borderRadius: BorderRadius.circular(4)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(Get.width * 0.027),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  "Gillboys Gin (350) Ml",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20),
-                                ),
-                                SizedBox(height: Get.height * 0.01),
-                                Container(
-                                  // padding: EdgeInsets.only(left: 10),
-                                  child: Text(
-                                    "Rp. 20.000, -",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 15),
-                                  ),
-                                )
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Image.asset('assets/gambar/minuman.png'),
-                                SizedBox(
-                                  height: 6,
-                                ),
-                                Container(
-                                  padding: EdgeInsets.only(top: 12),
-                                  child: Row(
-                                    children: [
-                                      InkWell(
-                                        onTap: decrementCounter,
-                                        child: Container(
-                                            width: 20,
-                                            height: 20,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(6),
-                                              color: Color.fromARGB(
-                                                  109, 74, 74, 74),
-                                            ),
-                                            child: Icon(
-                                              Icons.remove,
-                                              color: Colors.white,
-                                              size: 15,
-                                            )),
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      Text(
-                                        "$counter",
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 15),
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      InkWell(
-                                        onTap: incrementCounter,
-                                        child: Container(
-                                            width: 20,
-                                            height: 20,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(6),
-                                              color: Color.fromARGB(
-                                                  109, 74, 74, 74),
-                                            ),
-                                            child: Icon(
-                                              Icons.add,
-                                              color: Colors.white,
-                                              size: 15,
-                                            )),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            )
-                          ]),
-                    )
-                  ],
-                )),
-          ),
-          SizedBox(
-            height: 8,
-          ),
-          InkWell(
-            onTap: () {},
-            child: Container(
-                padding: const EdgeInsets.only(top: 2, left: 1),
-                height: Get.height * 0.14,
-                width: Get.width * 0.7,
-                decoration: BoxDecoration(
-                    color:
-                        const Color.fromARGB(250, 18, 30, 54).withOpacity(0.5),
-                    borderRadius: BorderRadius.circular(4)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(Get.width * 0.027),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  "Gillboys Gin (350) Ml",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20),
-                                ),
-                                SizedBox(height: Get.height * 0.01),
-                                Container(
-                                  // padding: EdgeInsets.only(left: 10),
-                                  child: Text(
-                                    "Rp. 20.000, -",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 15),
-                                  ),
-                                )
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Image.asset('assets/gambar/minuman.png'),
-                                SizedBox(
-                                  height: 6,
-                                ),
-                                Container(
-                                  padding: EdgeInsets.only(top: 12),
-                                  child: Row(
-                                    children: [
-                                      InkWell(
-                                        onTap: decrementCounter,
-                                        child: Container(
-                                            width: 20,
-                                            height: 20,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(6),
-                                              color: Color.fromARGB(
-                                                  109, 74, 74, 74),
-                                            ),
-                                            child: Icon(
-                                              Icons.remove,
-                                              color: Colors.white,
-                                              size: 15,
-                                            )),
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      Text(
-                                        "$counter",
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 15),
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      InkWell(
-                                        onTap: incrementCounter,
-                                        child: Container(
-                                            width: 20,
-                                            height: 20,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(6),
-                                              color: Color.fromARGB(
-                                                  109, 74, 74, 74),
-                                            ),
-                                            child: Icon(
-                                              Icons.add,
-                                              color: Colors.white,
-                                              size: 15,
-                                            )),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            )
-                          ]),
-                    )
-                  ],
-                )),
-          ),
-          SizedBox(
-            height: 9,
-          ),
-          InkWell(
-            onTap: () {},
-            child: Container(
-                padding: const EdgeInsets.only(top: 2, left: 1),
-                height: Get.height * 0.14,
-                width: Get.width * 0.7,
-                decoration: BoxDecoration(
-                    color:
-                        const Color.fromARGB(250, 18, 30, 54).withOpacity(0.5),
-                    borderRadius: BorderRadius.circular(4)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(Get.width * 0.027),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  "Gillboys Gin (350) Ml",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20),
-                                ),
-                                SizedBox(height: Get.height * 0.01),
-                                Container(
-                                  // padding: EdgeInsets.only(left: 10),
-                                  child: Text(
-                                    "Rp. 20.000, -",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 15),
-                                  ),
-                                )
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Image.asset('assets/gambar/minuman.png'),
-                                SizedBox(
-                                  height: 6,
-                                ),
-                                Container(
-                                  padding: EdgeInsets.only(top: 12),
-                                  child: Row(
-                                    children: [
-                                      InkWell(
-                                        onTap: decrementCounter,
-                                        child: Container(
-                                            width: 20,
-                                            height: 20,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(6),
-                                              color: Color.fromARGB(
-                                                  109, 74, 74, 74),
-                                            ),
-                                            child: Icon(
-                                              Icons.remove,
-                                              color: Colors.white,
-                                              size: 15,
-                                            )),
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      Text(
-                                        "$counter",
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 15),
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      InkWell(
-                                        onTap: incrementCounter,
-                                        child: Container(
-                                            width: 20,
-                                            height: 20,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(6),
-                                              color: Color.fromARGB(
-                                                  109, 74, 74, 74),
-                                            ),
-                                            child: Icon(
-                                              Icons.add,
-                                              color: Colors.white,
-                                              size: 15,
-                                            )),
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            )
-                          ]),
-                    )
-                  ],
-                )),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Container _listPaket(List<dynamic> paket) {
-    return Container(
-        padding: EdgeInsets.only(bottom: 5),
-        height: Get.height * 0.25,
-        // height: MediaQuery.of(context).size.height * 0.3,
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: paket.length,
-          itemBuilder: (BuildContext context, index) {
-            return Padding(
-              padding: const EdgeInsets.only(left: 9),
-              child: Container(
-                padding: const EdgeInsets.only(top: 9),
-                width: Get.width * 0.5,
-                decoration: BoxDecoration(
-                    color: Color.fromARGB(250, 18, 30, 54).withOpacity(0.5),
-                    borderRadius: BorderRadius.circular(4)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Center(
-                      child: Text(
-                        paket[index],
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20),
-                      ),
-                    ),
-                    SizedBox(height: Get.height * 0.013),
-                    Container(
-                        padding: EdgeInsets.only(left: 20),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Text(
-                              "lorem ipsum",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 15),
-                            ),
-                            Text(
-                              "lorem ipsum1",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 15),
-                            ),
-                          ],
-                        )),
-                    SizedBox(
-                      height: Get.height * 0.084,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        modalBawah(context);
-                      },
-                      child: Container(
-                          padding: EdgeInsets.only(bottom: 15),
-                          decoration: BoxDecoration(
-                              color: Color.fromARGB(21, 255, 255, 255),
-                              borderRadius: BorderRadius.circular(4)),
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: Center(
-                              child: Column(
-                                children: const [
-                                  Text(
-                                    "Rp. 100.000, -",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 15),
-                                  ),
-                                  Text(
-                                    "Add to Cart",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 15),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
-        ));
-  }
-
-  void modalBawah(BuildContext context) {
+  modalBawah(BuildContext context, int index) {
+    paket;
     showModalBottomSheet(
         backgroundColor: Color(0xff19191e),
         context: context,
@@ -660,11 +427,12 @@ class _Home extends State<Home> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
-                            children: const [
-                              Text("PAKET A",
+                            children: [
+                              Text(paket[index]["namapaket"].toString(),
                                   style: TextStyle(
                                       color: Color.fromARGB(255, 164, 164, 164),
-                                      fontSize: 16)),
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w800)),
                               SizedBox(height: 21),
                               Text("TABLE",
                                   style: TextStyle(
@@ -738,12 +506,12 @@ class _Home extends State<Home> {
                               ],
                             ),
                             SizedBox(height: 21),
-                            Text("Table 4",
+                            Text(paket[index]["meja"],
                                 style: TextStyle(
                                     color: Color.fromARGB(255, 164, 164, 164),
                                     fontSize: 16)),
                             SizedBox(height: 21),
-                            Text("16:00",
+                            Text(paket[index]["waktu"],
                                 style: TextStyle(
                                     color: Color.fromARGB(255, 164, 164, 164),
                                     fontSize: 16))
@@ -785,5 +553,44 @@ class _Home extends State<Home> {
             ),
           );
         });
+  }
+}
+
+class bottomNavigation extends StatelessWidget {
+  const bottomNavigation({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: Colors.white,
+        backgroundColor: Colors.black,
+        showSelectedLabels: true,
+        showUnselectedLabels: false,
+        currentIndex: 0,
+        onTap: (index) {},
+        items: const [
+          BottomNavigationBarItem(
+              icon: Iconify(
+                Ri.home_5_line,
+                color: Colors.white,
+              ),
+              label: 'Home'),
+          BottomNavigationBarItem(
+            icon: Iconify(
+              Bi.calendar4_week,
+              color: Colors.white,
+            ),
+            label: 'Reservation',
+          ),
+          BottomNavigationBarItem(
+              icon: Iconify(
+                Ri.account_pin_box_line,
+                color: Colors.white,
+              ),
+              label: 'Account'),
+        ]);
   }
 }
