@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:project_mad/app/modules/keranjang/views/keranjang_view.dart';
 import 'package:project_mad/app/modules/semuaPaket/bindings/semua_paket_binding.dart';
 import 'package:project_mad/app/modules/semuaPaket/views/semua_paket_view.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/ph.dart';
 import 'package:iconify_flutter/icons/ri.dart';
 import 'package:iconify_flutter/icons/bi.dart';
+import 'package:project_mad/app/utils/trollyTap.dart';
 import 'package:project_mad/data/datapaket.dart';
 import 'package:project_mad/data/menu.dart';
 import '../controllers/home_controller.dart';
@@ -77,13 +79,7 @@ class _Home extends State<Home> {
                     fontWeight: FontWeight.bold,
                     fontSize: 20.0)),
           ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: Get.width * 0.04),
-            child: Iconify(
-              Bi.cart,
-              color: Colors.white,
-            ),
-          ),
+          trollyTap(),
         ],
         backgroundColor: Color(0xf19191E),
       ),
@@ -116,7 +112,7 @@ class _Home extends State<Home> {
                 autoPlay: true,
               ),
             ),
-
+            SizedBox(height: 12),
             SingleChildScrollView(
               child: Column(
                 children: [
@@ -155,7 +151,7 @@ class _Home extends State<Home> {
             SizedBox(height: Get.height * 0.015),
             Container(
                 padding: EdgeInsets.only(bottom: 5),
-                height: Get.height * 0.25,
+                height: 220,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: paket.length,
@@ -243,6 +239,8 @@ class _Home extends State<Home> {
                 )),
 
             // list view bawah
+            SizedBox(height: 12),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -263,6 +261,7 @@ class _Home extends State<Home> {
                 ])
               ],
             ),
+            SizedBox(height: 12),
 
             Container(
               padding: const EdgeInsets.only(top: 10, bottom: 5),
@@ -488,7 +487,9 @@ class _Home extends State<Home> {
                                   //     print("add");
                                   //   });
                                   // },
-                                  onTap: incrementCounter,
+                                  onTap: () {
+                                    // setS
+                                  },
 
                                   child: Container(
                                       width: 20,

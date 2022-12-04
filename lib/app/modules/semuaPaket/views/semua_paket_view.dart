@@ -5,6 +5,8 @@ import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/bi.dart';
 import 'package:iconify_flutter/icons/ri.dart';
 import 'package:project_mad/app/modules/home/views/home_view.dart';
+import 'package:project_mad/app/utils/trollyTap.dart';
+import 'package:project_mad/widget/bottomNav.dart';
 
 import '../controllers/semua_paket_controller.dart';
 
@@ -35,10 +37,7 @@ class SemuaPaketView extends GetView<SemuaPaketController> {
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
                         fontSize: 20.0)),
-                Iconify(
-                  Bi.cart,
-                  color: Colors.white,
-                )
+                trollyTap(),
               ],
             ),
           ),
@@ -767,38 +766,6 @@ class SemuaPaketView extends GetView<SemuaPaketController> {
           ),
         ])),
         bottomNavigationBar: navBar());
-  }
-
-  BottomNavigationBar navBar() {
-    return BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.white,
-        backgroundColor: Colors.black,
-        showSelectedLabels: true,
-        showUnselectedLabels: false,
-        currentIndex: 0,
-        onTap: (index) {},
-        items: [
-          BottomNavigationBarItem(
-              icon: Iconify(
-                Ri.home_5_line,
-                color: Colors.white,
-              ),
-              label: 'Home'),
-          BottomNavigationBarItem(
-            icon: Iconify(
-              Bi.calendar4_week,
-              color: Colors.white,
-            ),
-            label: 'Reservation',
-          ),
-          BottomNavigationBarItem(
-              icon: Iconify(
-                Ri.account_pin_box_line,
-                color: Colors.white,
-              ),
-              label: 'Account'),
-        ]);
   }
 
   void modalBawah(BuildContext context) {

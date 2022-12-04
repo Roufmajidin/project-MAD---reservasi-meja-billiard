@@ -6,6 +6,7 @@ abstract class Routes {
   static const HOME = _Paths.HOME;
   static const LOGIN = _Paths.LOGIN;
   static const SEMUA_PAKET = _Paths.SEMUA_PAKET;
+  static const KERANJANG = _Paths.KERANJANG;
 }
 
 abstract class _Paths {
@@ -13,4 +14,5 @@ abstract class _Paths {
   static const HOME = '/home';
   static const LOGIN = '/login';
   static const SEMUA_PAKET = '/semua-paket';
+  static const KERANJANG = '/keranjang';
 }
