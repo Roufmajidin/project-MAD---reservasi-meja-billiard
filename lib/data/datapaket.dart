@@ -2,7 +2,7 @@ List paket = [
   {
     "namapaket": "Paket A",
     "inklud": [
-      "kondom free",
+      "lorem",
       "Ruangan Ber AC",
     ],
     "meja": "4",
@@ -12,7 +12,7 @@ List paket = [
   {
     "namapaket": "Paket B",
     "inklud": [
-      "kondom Kondoman",
+      "lorem",
       "Ruangan Ber AC",
     ],
     "meja": "3",
@@ -22,7 +22,7 @@ List paket = [
   {
     "namapaket": "Paket C",
     "inklud": [
-      "kondom Kondoman",
+      "lorem",
       "Ruangan Ber AC",
     ],
     "meja": "2",
