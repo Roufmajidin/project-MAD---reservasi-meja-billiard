@@ -106,9 +106,9 @@ class SemuaPaketView extends GetView<SemuaPaketController> {
                                 padding: const EdgeInsets.only(top: 8.0),
                                 child: Center(
                                   child: Column(
-                                    children: const [
+                                    children: [
                                       Text(
-                                        "Rp. 100.000, -",
+                                        allpaket[index]["harga"],
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 15),
                                       ),
