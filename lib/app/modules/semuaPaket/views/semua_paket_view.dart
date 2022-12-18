@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/bi.dart';
-import 'package:iconify_flutter/icons/ri.dart';
 import 'package:project_mad/app/modules/home/views/home_view.dart';
 import 'package:project_mad/app/utils/trollyTap.dart';
 import 'package:project_mad/widget/bottomNav.dart';
@@ -18,28 +17,37 @@ class SemuaPaketView extends GetView<SemuaPaketController> {
         backgroundColor: Color(0xf19191E),
         body: SafeArea(
             child: Column(children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 18.0, left: 14, right: 14),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                InkWell(
-                  onTap: () {
-                    Get.back();
-                  },
-                  child: Iconify(
-                    Bi.arrow_left,
-                    color: Colors.white,
-                  ),
-                ),
-                Text('Packages',
-                    style: TextStyle(
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 18.0, left: 14, right: 14),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    InkWell(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Iconify(
+                        Bi.arrow_left,
                         color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20.0)),
-                trollyTap(),
-              ],
-            ),
+                      ),
+                    ),
+                    Text('Packages',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20.0)),
+                    trollyTap(),
+                  ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 10),
+                height: 2,
+                decoration: BoxDecoration(color: Colors.white),
+              )
+            ],
           ),
           SizedBox(
             height: Get.height * 0.012,
@@ -55,8 +63,9 @@ class SemuaPaketView extends GetView<SemuaPaketController> {
                 return Card(
                   color: Color.fromARGB(250, 18, 30, 54).withOpacity(0.5),
                   child: Container(
-                    padding: EdgeInsets.only(top: Get.height * 0.0004),
-                    width: Get.width * 0.5,
+                    // height: 80,
+                    padding: EdgeInsets.all(18),
+                    // width: 20,
                     decoration:
                         BoxDecoration(borderRadius: BorderRadius.circular(4)),
                     child: Column(
@@ -69,7 +78,7 @@ class SemuaPaketView extends GetView<SemuaPaketController> {
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 24),
+                                fontSize: 20),
                           ),
                         ),
                         SizedBox(height: Get.height * 0.007),
@@ -81,12 +90,12 @@ class SemuaPaketView extends GetView<SemuaPaketController> {
                                 Text(
                                   allpaket[index]["inklud"][0],
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: 18),
+                                      color: Colors.white, fontSize: 12),
                                 ),
                                 Text(
                                   allpaket[index]["inklud"][1],
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: 18),
+                                      color: Colors.white, fontSize: 12),
                                 ),
                               ],
                             )),
@@ -98,12 +107,12 @@ class SemuaPaketView extends GetView<SemuaPaketController> {
                             modalBawah(context);
                           },
                           child: Container(
-                              padding: EdgeInsets.only(bottom: 15),
+                              padding: EdgeInsets.only(bottom: 18),
                               decoration: BoxDecoration(
                                   color: Color.fromARGB(21, 255, 255, 255),
                                   borderRadius: BorderRadius.circular(4)),
                               child: Padding(
-                                padding: const EdgeInsets.only(top: 8.0),
+                                padding: const EdgeInsets.only(top: 1.0),
                                 child: Center(
                                   child: Column(
                                     children: [
