@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:project_mad/app/modules/allMenu/views/all_menu_view.dart';
 import 'package:project_mad/app/modules/keranjang/views/keranjang_view.dart';
+import 'package:project_mad/app/modules/reservation/views/reservation_view.dart';
 import 'package:project_mad/app/modules/semuaPaket/bindings/semua_paket_binding.dart';
 import 'package:project_mad/app/modules/semuaPaket/views/semua_paket_view.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
@@ -128,7 +129,8 @@ class _Home extends State<Home> {
                         child: Row(children: [
                           InkWell(
                             onTap: () {
-                              Get.to(const SemuaPaketView());
+                              // Get.to(const SemuaPaketView());
+                              Get.to(ReservationView());
                             },
                             child: const Text(
                               "See All",

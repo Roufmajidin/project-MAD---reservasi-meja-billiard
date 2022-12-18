@@ -8,6 +8,8 @@ import '../modules/keranjang/bindings/keranjang_binding.dart';
 import '../modules/keranjang/views/keranjang_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
+import '../modules/reservation/bindings/reservation_binding.dart';
+import '../modules/reservation/views/reservation_view.dart';
 import '../modules/semuaPaket/bindings/semua_paket_binding.dart';
 import '../modules/semuaPaket/views/semua_paket_view.dart';
 
@@ -48,6 +50,11 @@ class AppPages {
       page: () => const AllMenuView(),
       binding: AllMenuBinding(),
       transition: Transition.noTransition,
+    ),
+    GetPage(
+      name: _Paths.RESERVATION,
+      page: () => ReservationView(),
+      binding: ReservationBinding(),
     ),
   ];
 }
