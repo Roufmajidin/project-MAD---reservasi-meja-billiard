@@ -5,8 +5,9 @@ class ReservationController extends GetxController {
 
   var count = 0.obs;
   //
+  var tabIndex = 0;
 
-  RxBool isVisible = false.obs;
+  RxBool isVisible = true.obs;
 
   void showContainer() {
     isVisible.value = true;
@@ -41,6 +42,11 @@ class ReservationController extends GetxController {
   }
 
   // void increment() => count.value++;
+  void changeTabIndex(int index) {
+    tabIndex = index;
+    update();
+  }
+
   void halprogress() => count.value = 1;
   void halHistory() => count.value = 2;
 }
