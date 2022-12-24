@@ -5,12 +5,13 @@ import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/bi.dart';
 import 'package:project_mad/app/modules/home/views/home_view.dart';
 import 'package:project_mad/app/utils/trollyTap.dart';
+import 'package:project_mad/data/menu.dart';
 import 'package:project_mad/widget/bottomNav.dart';
-import 'package:project_mad/data/allpaket.dart';
-import '../controllers/semua_paket_controller.dart';
 
-class SemuaPaketView extends GetView<SemuaPaketController> {
-  const SemuaPaketView({Key? key}) : super(key: key);
+import '../controllers/all_menu_controller.dart';
+
+class AllMenuView extends GetView<AllMenuController> {
+  const AllMenuView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +34,7 @@ class SemuaPaketView extends GetView<SemuaPaketController> {
                         color: Colors.white,
                       ),
                     ),
-                    Text('Packages',
+                    Text('Menu',
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -52,92 +53,131 @@ class SemuaPaketView extends GetView<SemuaPaketController> {
           SizedBox(
             height: Get.height * 0.012,
           ),
-          Expanded(
-            child: GridView.builder(
+          Container(
+            padding: const EdgeInsets.only(top: 10, bottom: 10),
+            // width: Get.width * 0.98,
+            height: 600,
+            // height: MediaQuery.of(context).size.height * 0.3,
+            child: ListView.builder(
+              itemCount: menu.length,
               scrollDirection: Axis.vertical,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-              ),
-              itemCount: allpaket.length,
+              // physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
               itemBuilder: (context, index) {
-                return Card(
-                  color: Color.fromARGB(250, 18, 30, 54).withOpacity(0.5),
-                  child: Container(
-                    // height: 80,
-                    padding: EdgeInsets.all(18),
-                    // width: 20,
-                    decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: Get.height * 0.007),
-                        Center(
-                          child: Text(
-                            allpaket[index]["namapaket"],
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20),
-                          ),
-                        ),
-                        SizedBox(height: Get.height * 0.007),
-                        Container(
-                            padding: const EdgeInsets.only(left: 20),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  allpaket[index]["inklud"][0],
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 12),
-                                ),
-                                Text(
-                                  allpaket[index]["inklud"][1],
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 12),
-                                ),
-                              ],
-                            )),
-                        SizedBox(
-                          height: Get.height * 0.064,
-                        ),
-                        InkWell(
-                          onTap: () {
-                            modalBawah(context);
-                          },
-                          child: Container(
-                              padding: EdgeInsets.only(bottom: 18),
-                              decoration: BoxDecoration(
-                                  color: Color.fromARGB(21, 255, 255, 255),
-                                  borderRadius: BorderRadius.circular(4)),
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 1.0),
-                                child: Center(
-                                  child: Column(
-                                    children: [
-                                      Text(
-                                        allpaket[index]["harga"],
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 15),
-                                      ),
-                                      Text(
-                                        "Add to Cart",
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 15),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              )),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
+                return InkWell(
+                    onTap: () {},
+                    child: Container(
+                        padding:
+                            const EdgeInsets.only(top: 2, left: 1, bottom: 12),
+                        margin: EdgeInsets.only(bottom: 18),
+                        height: 130,
+                        width: Get.width * 0.7,
+                        decoration: BoxDecoration(
+                            color: const Color.fromARGB(250, 18, 30, 54)
+                                .withOpacity(0.5),
+                            borderRadius: BorderRadius.circular(4)),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(Get.width * 0.027),
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          menu[index]["namamenu"],
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 20),
+                                        ),
+                                        SizedBox(height: Get.height * 0.01),
+                                        Container(
+                                          // padding: EdgeInsets.only(left: 10),
+                                          child: Text(
+                                            "Rp." + menu[index]["harga"],
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 15),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    Column(
+                                      children: [
+                                        Image.asset(
+                                            'assets/gambar/minuman.png'),
+                                        SizedBox(
+                                          height: 6,
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.only(top: 12),
+                                          child: Row(
+                                            children: [
+                                              InkWell(
+                                                onTap: () {},
+                                                child: Container(
+                                                    width: 20,
+                                                    height: 20,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              6),
+                                                      color: Color.fromARGB(
+                                                          109, 74, 74, 74),
+                                                    ),
+                                                    child: Icon(
+                                                      Icons.remove,
+                                                      color: Colors.white,
+                                                      size: 15,
+                                                    )),
+                                              ),
+                                              SizedBox(
+                                                width: 5,
+                                              ),
+                                              Text(
+                                                "1",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 15),
+                                              ),
+                                              SizedBox(
+                                                width: 5,
+                                              ),
+                                              InkWell(
+                                                onTap: () {},
+                                                child: Container(
+                                                    width: 20,
+                                                    height: 20,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              6),
+                                                      color: Color.fromARGB(
+                                                          109, 74, 74, 74),
+                                                    ),
+                                                    child: Icon(
+                                                      Icons.add,
+                                                      color: Colors.white,
+                                                      size: 15,
+                                                    )),
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                  ]),
+                            ),
+                          ],
+                        )));
               },
-              // children: [
-              //   ],
+              // SizedBox(height: Get.height * 0.01),
             ),
           ),
         ])),

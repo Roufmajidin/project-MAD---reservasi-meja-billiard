@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:project_mad/app/modules/allMenu/views/all_menu_view.dart';
 import 'package:project_mad/app/modules/keranjang/views/keranjang_view.dart';
+import 'package:project_mad/app/modules/reservation/views/reservation_view.dart';
 import 'package:project_mad/app/modules/semuaPaket/bindings/semua_paket_binding.dart';
 import 'package:project_mad/app/modules/semuaPaket/views/semua_paket_view.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
@@ -127,7 +129,8 @@ class _Home extends State<Home> {
                         child: Row(children: [
                           InkWell(
                             onTap: () {
-                              Get.to(const SemuaPaketView());
+                              // Get.to(const SemuaPaketView());
+                              Get.to(ReservationView());
                             },
                             child: const Text(
                               "See All",
@@ -151,7 +154,7 @@ class _Home extends State<Home> {
             SizedBox(height: Get.height * 0.015),
             Container(
                 padding: EdgeInsets.only(bottom: 5),
-                height: 220,
+                height: 230,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: paket.length,
@@ -203,7 +206,7 @@ class _Home extends State<Home> {
                                 modalBawah(context, index);
                               },
                               child: Container(
-                                  padding: EdgeInsets.only(bottom: 15),
+                                  padding: EdgeInsets.only(bottom: 20),
                                   decoration: BoxDecoration(
                                       color: Color.fromARGB(21, 255, 255, 255),
                                       borderRadius: BorderRadius.circular(4)),
@@ -250,7 +253,9 @@ class _Home extends State<Home> {
                 ),
                 Row(children: [
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      Get.to(AllMenuView());
+                    },
                     child: const Text(
                       "See All",
                       style: TextStyle(color: Colors.white, fontSize: 15),
@@ -266,7 +271,6 @@ class _Home extends State<Home> {
             Container(
               padding: const EdgeInsets.only(top: 10, bottom: 5),
               // width: Get.width * 0.98,
-              // height: Get.width * 0.80,
               // height: MediaQuery.of(context).size.height * 0.3,
               child: ListView.builder(
                 itemCount: menu.length,
@@ -279,7 +283,7 @@ class _Home extends State<Home> {
                       child: Container(
                           padding: const EdgeInsets.only(top: 2, left: 1),
                           margin: EdgeInsets.only(bottom: 8),
-                          height: Get.height * 0.14,
+                          height: 130,
                           width: Get.width * 0.7,
                           decoration: BoxDecoration(
                               color: const Color.fromARGB(250, 18, 30, 54)
