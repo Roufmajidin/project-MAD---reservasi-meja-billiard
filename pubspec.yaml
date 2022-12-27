@@ -80,6 +80,7 @@ flutter:
     - assets/gambar/Screenshot_2.png
     - assets/gambar/Screenshot_1.png
     - assets/gambar/minuman.png
+    - assets/gambar/profile.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
