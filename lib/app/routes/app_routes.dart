@@ -9,6 +9,7 @@ abstract class Routes {
   static const KERANJANG = _Paths.KERANJANG;
   static const ALL_MENU = _Paths.ALL_MENU;
   static const RESERVATION = _Paths.RESERVATION;
+  static const DASHBOARD = _Paths.DASHBOARD;
 }
 
 abstract class _Paths {
@@ -19,4 +20,5 @@ abstract class _Paths {
   static const KERANJANG = '/keranjang';
   static const ALL_MENU = '/all-menu';
   static const RESERVATION = '/reservation';
+  static const DASHBOARD = '/dashboard';
 }

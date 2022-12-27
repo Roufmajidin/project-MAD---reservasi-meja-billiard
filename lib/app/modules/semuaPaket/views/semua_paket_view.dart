@@ -140,8 +140,7 @@ class SemuaPaketView extends GetView<SemuaPaketController> {
               //   ],
             ),
           ),
-        ])),
-        bottomNavigationBar: navBar());
+        ])));
   }
 
   void modalBawah(BuildContext context) {
