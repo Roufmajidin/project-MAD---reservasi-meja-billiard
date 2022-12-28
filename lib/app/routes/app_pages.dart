@@ -1,5 +1,9 @@
 import 'package:get/get.dart';
 
+import '../modules/Dashboard/bindings/dashboard_binding.dart';
+import '../modules/Dashboard/views/dashboard_view.dart';
+import '../modules/UserAkun/bindings/user_akun_binding.dart';
+import '../modules/UserAkun/views/user_akun_view.dart';
 import '../modules/allMenu/bindings/all_menu_binding.dart';
 import '../modules/allMenu/views/all_menu_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -18,7 +22,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.HOME;
+  static const INITIAL = Routes.DASHBOARD;
 
   static final routes = [
     GetPage(
@@ -55,6 +59,16 @@ class AppPages {
       name: _Paths.RESERVATION,
       page: () => ReservationView(),
       binding: ReservationBinding(),
+    ),
+    GetPage(
+      name: _Paths.DASHBOARD,
+      page: () => const DashboardView(),
+      binding: DashboardBinding(),
+    ),
+    GetPage(
+      name: _Paths.USER_AKUN,
+      page: () => const UserAkunView(),
+      binding: UserAkunBinding(),
     ),
   ];
 }

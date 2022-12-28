@@ -130,7 +130,7 @@ class _Home extends State<Home> {
                           InkWell(
                             onTap: () {
                               // Get.to(const SemuaPaketView());
-                              Get.to(ReservationView());
+                              Get.to(SemuaPaketView());
                             },
                             child: const Text(
                               "See All",
@@ -279,11 +279,15 @@ class _Home extends State<Home> {
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
                   return InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        print("object");
+                      },
                       child: Container(
-                          padding: const EdgeInsets.only(top: 2, left: 1),
+                          padding: EdgeInsets.symmetric(vertical: 10),
+
+                          // padding: const EdgeInsets.sy(top: 2, left: 1),
                           margin: EdgeInsets.only(bottom: 8),
-                          height: 130,
+                          height: 135,
                           width: Get.width * 0.7,
                           decoration: BoxDecoration(
                               color: const Color.fromARGB(250, 18, 30, 54)
@@ -324,65 +328,13 @@ class _Home extends State<Home> {
                                       Column(
                                         children: [
                                           Image.asset(
-                                              'assets/gambar/minuman.png'),
+                                              'assets/gambar/minuman.png',
+                                              width: 76,
+                                              height: 80,
+                                              fit: BoxFit.fill),
                                           SizedBox(
-                                            height: 6,
+                                            height: 8,
                                           ),
-                                          Container(
-                                            padding: EdgeInsets.only(top: 12),
-                                            child: Row(
-                                              children: [
-                                                InkWell(
-                                                  onTap: decrementCounter,
-                                                  child: Container(
-                                                      width: 20,
-                                                      height: 20,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(6),
-                                                        color: Color.fromARGB(
-                                                            109, 74, 74, 74),
-                                                      ),
-                                                      child: Icon(
-                                                        Icons.remove,
-                                                        color: Colors.white,
-                                                        size: 15,
-                                                      )),
-                                                ),
-                                                SizedBox(
-                                                  width: 5,
-                                                ),
-                                                Text(
-                                                  "$counter",
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 15),
-                                                ),
-                                                SizedBox(
-                                                  width: 5,
-                                                ),
-                                                InkWell(
-                                                  onTap: incrementCounter,
-                                                  child: Container(
-                                                      width: 20,
-                                                      height: 20,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(6),
-                                                        color: Color.fromARGB(
-                                                            109, 74, 74, 74),
-                                                      ),
-                                                      child: Icon(
-                                                        Icons.add,
-                                                        color: Colors.white,
-                                                        size: 15,
-                                                      )),
-                                                ),
-                                              ],
-                                            ),
-                                          )
                                         ],
                                       )
                                     ]),
@@ -402,7 +354,6 @@ class _Home extends State<Home> {
           // alamat
         ),
       )),
-      bottomNavigationBar: bottomNavigation(),
     );
   }
 
@@ -558,44 +509,5 @@ class _Home extends State<Home> {
             ),
           );
         });
-  }
-}
-
-class bottomNavigation extends StatelessWidget {
-  const bottomNavigation({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.white,
-        backgroundColor: Colors.black,
-        showSelectedLabels: true,
-        showUnselectedLabels: false,
-        currentIndex: 0,
-        onTap: (index) {},
-        items: const [
-          BottomNavigationBarItem(
-              icon: Iconify(
-                Ri.home_5_line,
-                color: Colors.white,
-              ),
-              label: 'Home'),
-          BottomNavigationBarItem(
-            icon: Iconify(
-              Bi.calendar4_week,
-              color: Colors.white,
-            ),
-            label: 'Reservation',
-          ),
-          BottomNavigationBarItem(
-              icon: Iconify(
-                Ri.account_pin_box_line,
-                color: Colors.white,
-              ),
-              label: 'Account'),
-        ]);
   }
 }
