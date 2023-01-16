@@ -1,0 +1,4 @@
+#Wed Dec 28 10:47:41 ICT 2022
+base.0=D\:\\data Kuliah\\flutterku\\project_mad\\build\\host\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+renamed.0=classes.dex
+path.0=classes.dex
