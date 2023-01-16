@@ -59,16 +59,19 @@ class AppPages {
       name: _Paths.RESERVATION,
       page: () => ReservationView(),
       binding: ReservationBinding(),
+      transition: Transition.noTransition,
     ),
     GetPage(
       name: _Paths.DASHBOARD,
       page: () => const DashboardView(),
       binding: DashboardBinding(),
+      transition: Transition.noTransition,
     ),
     GetPage(
       name: _Paths.USER_AKUN,
       page: () => const UserAkunView(),
       binding: UserAkunBinding(),
+      transition: Transition.noTransition,
     ),
   ];
 }
