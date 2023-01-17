@@ -3,14 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/bi.dart';
-import 'package:project_mad/app/modules/home/views/home_view.dart';
-import 'package:project_mad/app/utils/trollyTap.dart';
-import 'package:project_mad/widget/bottomNav.dart';
-import 'package:project_mad/data/allpaket.dart';
+
+import '../../../data/format_harga.dart';
+import '../../../data/lokalData/appColor.dart';
+import '../../../data/lokalData/datapaket.dart';
+import '../../../data/lokalData/menu.dart';
+import '../../../data/widget/trollyTap.dart';
+import '../../cart/controllers/cart_controller.dart';
+import '../../cart/data/allPaket.dart';
 import '../controllers/semua_paket_controller.dart';
 
-class SemuaPaketView extends GetView<SemuaPaketController> {
-  const SemuaPaketView({Key? key}) : super(key: key);
+class SemuaPaketView extends StatelessWidget {
+  SemuaPaketView({Key? key}) : super(key: key);
+  final CartController controller = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,7 +109,7 @@ class SemuaPaketView extends GetView<SemuaPaketController> {
                         ),
                         InkWell(
                           onTap: () {
-                            modalBawah(context);
+                            modalBawah(context, index);
                           },
                           child: Container(
                               padding: EdgeInsets.only(bottom: 18),
@@ -117,7 +122,8 @@ class SemuaPaketView extends GetView<SemuaPaketController> {
                                   child: Column(
                                     children: [
                                       Text(
-                                        allpaket[index]["harga"],
+                                        CurrencyFormat.convertToIdr(
+                                            allpaket[index]["harga"], 2),
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 15),
                                       ),
@@ -143,17 +149,21 @@ class SemuaPaketView extends GetView<SemuaPaketController> {
         ])));
   }
 
-  void modalBawah(BuildContext context) {
+  void modalBawah(BuildContext context, index) {
+    allpaket;
     showModalBottomSheet(
-        backgroundColor: Color(0xff19191e),
+        backgroundColor: Color.fromARGB(255, 24, 30, 42),
         context: context,
         builder: (context) {
           return Container(
+            // width: 700,
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
             ),
             child: SizedBox(
-              height: 190,
+              height: 300,
+              // width: 600,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 // mainAxisSize: MainAxisSize.min,
@@ -162,27 +172,25 @@ class SemuaPaketView extends GetView<SemuaPaketController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                          padding: EdgeInsets.all(20),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: const [
-                              Text("PAKET A",
-                                  style: TextStyle(
-                                      color: Color.fromARGB(255, 164, 164, 164),
-                                      fontSize: 16)),
-                              SizedBox(height: 21),
-                              Text("TABLE",
-                                  style: TextStyle(
-                                      color: Color.fromARGB(255, 164, 164, 164),
-                                      fontSize: 16)),
-                              SizedBox(height: 21),
-                              Text("TIME",
-                                  style: TextStyle(
-                                      color: Color.fromARGB(255, 164, 164, 164),
-                                      fontSize: 16))
-                            ],
-                          )),
+                        padding: EdgeInsets.all(12),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(allpaket[index]["namapaket"],
+                                style: TextStyle(
+                                    color: judul,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600)),
+                            SizedBox(height: 21),
+                            Text("Table",
+                                style: TextStyle(color: judul, fontSize: 16)),
+                            SizedBox(height: 21),
+                            Text("Time",
+                                style: TextStyle(color: judul, fontSize: 16)),
+                          ],
+                        ),
+                      ),
                       Container(
                         padding: EdgeInsets.all(12),
                         child: Column(
@@ -190,8 +198,10 @@ class SemuaPaketView extends GetView<SemuaPaketController> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                InkWell(
-                                  onTap: () {},
+                                GestureDetector(
+                                  onTap: () {
+                                    controller.removeProduct();
+                                  },
                                   child: Container(
                                       width: 20,
                                       height: 20,
@@ -201,32 +211,28 @@ class SemuaPaketView extends GetView<SemuaPaketController> {
                                       ),
                                       child: Icon(
                                         Icons.remove,
-                                        color:
-                                            Color.fromARGB(255, 164, 164, 164),
+                                        color: judul,
                                         size: 15,
                                       )),
                                 ),
                                 SizedBox(
-                                  width: 5,
+                                  width: 10,
                                 ),
-                                // Text(
-                                //   '$counter',
-                                //   style: TextStyle(
-                                //       color: Color.fromARGB(255, 164, 164, 164),
-                                //       fontSize: 15),
-                                // ),
-                                Text('1', style: TextStyle(fontSize: 20.0)),
+                                Obx(
+                                  () => Text(controller.count().toString(),
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          color: judul,
+                                          fontWeight: FontWeight.w600)),
+                                ),
                                 SizedBox(
-                                  width: 5,
+                                  width: 10,
                                 ),
-                                InkWell(
-                                  // onTap: () {
-                                  //   setState(() {
-                                  //     print("add");
-                                  //   });
-                                  // },
-                                  onTap: () {},
-
+                                GestureDetector(
+                                  onTap: () {
+                                    controller.addProduct();
+                                    print(controller.count);
+                                  },
                                   child: Container(
                                       width: 20,
                                       height: 20,
@@ -236,26 +242,98 @@ class SemuaPaketView extends GetView<SemuaPaketController> {
                                       ),
                                       child: Icon(
                                         Icons.add,
-                                        color: Colors.white,
+                                        color: judul,
                                         size: 15,
                                       )),
                                 ),
                               ],
                             ),
                             SizedBox(height: 21),
-                            Text("Table 4",
+                            Text(allpaket[index]["meja"].toString(),
                                 style: TextStyle(
                                     color: Color.fromARGB(255, 164, 164, 164),
                                     fontSize: 16)),
                             SizedBox(height: 21),
-                            Text("16:00",
+                            Text(allpaket[index]["waktu"],
                                 style: TextStyle(
                                     color: Color.fromARGB(255, 164, 164, 164),
-                                    fontSize: 16))
+                                    fontSize: 16)),
+
+                            //
                           ],
                         ),
-                      )
+                      ),
                     ],
+                  ),
+
+                  // listonn modal
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                    child: Container(
+                      width: 400,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 3.0, vertical: 2.0),
+                      height: 60,
+                      child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: menu.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Obx(
+                              () => Container(
+                                width: 130,
+                                // height: 30,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    controller.toogle(menu, index);
+                                    // controller.g();
+                                  },
+                                  child: Card(
+                                    color: controller.selected.contains(index)
+                                        ? Color.fromARGB(
+                                            255,
+                                            238,
+                                            233,
+                                            126,
+                                          ).withOpacity(0.8)
+                                        : Color.fromARGB(76, 0, 0, 0),
+                                    child: Container(
+                                      padding: EdgeInsets.only(top: 4),
+                                      child: Center(
+                                          child: Column(
+                                        children: [
+                                          Container(
+                                              padding: EdgeInsets.only(top: 4),
+                                              child: Text(
+                                                  controller.selected
+                                                          .contains(index)
+                                                      ? "Selected"
+                                                      : "Pilih",
+                                                  style: TextStyle(
+                                                      color: Color.fromARGB(
+                                                          255, 22, 21, 21),
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.bold))),
+                                          Text(
+                                            menu[index]['namamenu'].toString(),
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 13),
+                                          ),
+                                        ],
+                                      )),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          }),
+                    ),
+                  ),
+
+                  // end
+                  SizedBox(
+                    height: 60,
                   ),
                   Center(
                     child: Container(
@@ -269,11 +347,13 @@ class SemuaPaketView extends GetView<SemuaPaketController> {
                             126,
                           ),
                           borderRadius: BorderRadius.circular(8)),
-                      child: Center(
-                        child: InkWell(
-                          onTap: () {
-                            Get.to(Home());
-                          },
+                      child: InkWell(
+                        onTap: () {
+                          controller.addPesanan(allpaket, index, context);
+                          // controller.minuman();
+                          Navigator.pop(context);
+                        },
+                        child: Center(
                           child: Text(
                             "Done",
                             style: TextStyle(

@@ -1,12 +1,11 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/bi.dart';
-import 'package:project_mad/app/modules/home/views/home_view.dart';
+import 'package:rf_majid/app/modules/home/views/home_view.dart';
 
+import '../../../data/controller/auth_controller.dart';
 import '../controllers/user_akun_controller.dart';
 
 class UserAkunView extends GetView<UserAkunController> {
@@ -87,7 +86,7 @@ class buttonLogout extends StatelessWidget {
         child: Center(
           child: InkWell(
             onTap: () {
-              Get.to(Home());
+              Get.to(HomeView());
             },
             child: Text(
               "LOG OUT",
@@ -104,10 +103,10 @@ class buttonLogout extends StatelessWidget {
 }
 
 class profileUser extends StatelessWidget {
-  const profileUser({
+  profileUser({
     Key? key,
   }) : super(key: key);
-
+  final authCon = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -117,20 +116,21 @@ class profileUser extends StatelessWidget {
           color: Color.fromARGB(249, 24, 33, 50),
           borderRadius: BorderRadius.circular(5)),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
             padding: EdgeInsets.only(top: 12),
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(50),
-                child: Image.asset(
-                  'assets/gambar/profile.png',
+                child: Image.network(
+                  authCon.auth.currentUser!.photoURL!,
                   height: 50,
                 )),
             // width: 100.0,
           ),
-          SizedBox(
-            width: 20,
-          ),
+          // SizedBox(
+          //   width: 20,
+          // ),
           Container(
             padding: EdgeInsets.only(
               top: 12,
@@ -139,7 +139,7 @@ class profileUser extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Rouf Majid",
+                  authCon.auth.currentUser!.displayName!,
                   style: TextStyle(
                       color: Colors.white, fontWeight: FontWeight.w600),
                 ),
@@ -147,7 +147,7 @@ class profileUser extends StatelessWidget {
                   height: 3,
                 ),
                 Text(
-                  "+62 84323901290",
+                  authCon.auth.currentUser!.email!,
                   style: TextStyle(
                     color: Colors.white,
                   ),
@@ -155,6 +155,31 @@ class profileUser extends StatelessWidget {
               ],
             ),
           )
+
+          // poin user
+
+          ,
+          SizedBox(
+            width: 20,
+          ),
+          Container(
+            child: Row(
+              children: [
+                const Iconify(
+                  Bi.coin,
+                  color: Colors.white,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  "2 poin",
+                  style: TextStyle(color: Colors.white, fontSize: 12),
+                )
+              ],
+            ),
+          )
+          //
         ],
       ),
     );
