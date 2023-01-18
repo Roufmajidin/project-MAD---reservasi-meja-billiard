@@ -1,6 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter/icons/bi.dart';
@@ -16,6 +15,7 @@ import 'package:rf_majid/app/modules/home/controllers/home_controller.dart';
 import 'package:rf_majid/app/modules/semuaPaket/controllers/semua_paket_controller.dart';
 import 'package:rf_majid/app/modules/semuaPaket/views/semua_paket_view.dart';
 
+// import '../../cart/data/allPaket.dart';
 import '../../cart/views/cart_view.dart';
 
 class HomeView extends StatelessWidget {
@@ -173,102 +173,136 @@ class HomeView extends StatelessWidget {
             Container(
                 padding: EdgeInsets.only(bottom: 5),
                 height: 230,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: paket.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(left: 9),
-                      child: Container(
-                        padding: const EdgeInsets.only(top: 12),
-                        width: Get.width * 0.5,
-                        decoration: BoxDecoration(
-                            color: Color.fromARGB(248, 24, 30, 42)
-                                .withOpacity(0.5),
-                            borderRadius: BorderRadius.circular(8)),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Center(
-                              child: Text(
-                                paket[index]["namapaket"],
-                                style: TextStyle(
-                                    fontFamily: 'Sofia Sans Condensed',
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20),
-                              ),
-                            ),
-                            SizedBox(height: Get.height * 0.013),
-                            Container(
-                                padding: EdgeInsets.only(left: 20),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      paket[index]["inklud"][0],
+                child: StreamBuilder(
+                    stream: FirebaseFirestore.instance
+                        .collection('allpaket')
+                        .snapshots(),
+                    builder: (__,
+                        AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                            snapshot) {
+                      if (snapshot.hasError) {
+                        return Text(
+                          "eor",
+                          style: TextStyle(
+                              fontSize: 100,
+                              color: Color.fromARGB(255, 226, 7, 7)),
+                        );
+                      }
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Text(
+                          "Loading",
+                          style: TextStyle(color: Colors.white),
+                        );
+                      }
+                      final data = snapshot.requireData;
+
+                      return ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        // itemCount: allpaket.length < 3 ? allpaket.length : 3,
+                        itemCount: data.size,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(left: 9),
+                            child: Container(
+                              padding: const EdgeInsets.only(top: 12),
+                              width: Get.width * 0.5,
+                              decoration: BoxDecoration(
+                                  color: Color.fromARGB(248, 24, 30, 42)
+                                      .withOpacity(0.5),
+                                  borderRadius: BorderRadius.circular(8)),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Center(
+                                    child: Text(
+                                      // allpaket[index]["namapaket"],
+                                      data.docs[index]["namapaket"],
                                       style: TextStyle(
-                                          color: judul,
-                                          fontSize: 14,
-                                          fontFamily: 'Poppins',
-                                          fontWeight: FontWeight.w600),
+                                          fontFamily: 'Sofia Sans Condensed',
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20),
                                     ),
-                                    Text(
-                                      paket[index]["inklud"][1],
-                                      style: TextStyle(
-                                          color: judul,
-                                          fontSize: 14,
-                                          fontFamily: 'Poppins',
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                  ],
-                                )),
-                            SizedBox(
-                              height: Get.height * 0.084,
-                            ),
-                            InkWell(
-                              onTap: () {
-                                modalBawah(context, index);
-                              },
-                              child: Container(
-                                  padding: EdgeInsets.only(bottom: 15),
-                                  decoration: BoxDecoration(
-                                      color: Color.fromARGB(19, 140, 140, 140),
-                                      borderRadius: BorderRadius.circular(4)),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top: 8.0),
-                                    child: Center(
+                                  ),
+                                  SizedBox(height: Get.height * 0.013),
+                                  Container(
+                                      padding: EdgeInsets.only(left: 20),
                                       child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            "Rp." +
-                                                paket[index]["harga"]
-                                                    .toString(),
+                                            data.docs[index]["inklud"][0],
                                             style: TextStyle(
-                                                color: Colors.white,
+                                                color: judul,
                                                 fontSize: 14,
-                                                fontWeight: FontWeight.bold,
-                                                fontFamily: 'Roboto Condensed'),
+                                                fontFamily: 'Poppins',
+                                                fontWeight: FontWeight.w600),
                                           ),
                                           Text(
-                                            "Add to Cart",
+                                            // allpaket[index]["inklud"][1],
+                                            data.docs[index]["inklud"][1],
                                             style: TextStyle(
-                                              color: judul,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w500,
-                                            ),
+                                                color: judul,
+                                                fontSize: 14,
+                                                fontFamily: 'Poppins',
+                                                fontWeight: FontWeight.w600),
                                           ),
                                         ],
-                                      ),
-                                    ),
-                                  )),
+                                      )),
+                                  SizedBox(
+                                    height: Get.height * 0.084,
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      modalBawah(context, index, data);
+                                    },
+                                    child: Container(
+                                        padding: EdgeInsets.only(bottom: 15),
+                                        decoration: BoxDecoration(
+                                            color: Color.fromARGB(
+                                                19, 140, 140, 140),
+                                            borderRadius:
+                                                BorderRadius.circular(4)),
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 8.0),
+                                          child: Center(
+                                            child: Column(
+                                              children: [
+                                                Text(
+                                                  "Rp." +
+                                                      // allpaket[index]["harga"]
+                                                      data.docs[index]["harga"]
+                                                          .toString(),
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontFamily:
+                                                          'Roboto Condensed'),
+                                                ),
+                                                Text(
+                                                  "Add to Cart",
+                                                  style: TextStyle(
+                                                    color: judul,
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        )),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                )),
+                          );
+                        },
+                      );
+                    })),
 
             // list view bawah
             SizedBox(height: 12),
@@ -393,8 +427,8 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  modalBawah(BuildContext context, int index) {
-    paket;
+  modalBawah(BuildContext context, int index, data) {
+    // allpaket;
     showModalBottomSheet(
         backgroundColor: Color.fromARGB(255, 24, 30, 42),
         context: context,
@@ -421,7 +455,7 @@ class HomeView extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text(paket[index]["namapaket"].toString(),
+                            Text(data.docs[index]["namapaket"].toString(),
                                 style: TextStyle(
                                     color: judul,
                                     fontSize: 16,
@@ -493,12 +527,14 @@ class HomeView extends StatelessWidget {
                               ],
                             ),
                             SizedBox(height: 21),
-                            Text(paket[index]["meja"],
+                            // Text(allpaket[index]["meja"],
+                            Text(data.docs[index]["meja"],
                                 style: TextStyle(
                                     color: Color.fromARGB(255, 164, 164, 164),
                                     fontSize: 16)),
                             SizedBox(height: 21),
-                            Text(paket[index]["waktu"],
+                            // Text(allpaket[index]["waktu"],
+                            Text(data.docs[index]["waktu"],
                                 style: TextStyle(
                                     color: Color.fromARGB(255, 164, 164, 164),
                                     fontSize: 16)),

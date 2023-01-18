@@ -63,7 +63,7 @@ class SemuaPaketView extends StatelessWidget {
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
               ),
-              itemCount: allpaket.length,
+              itemCount: allpaket.length < 4 ? allpaket.length : 4,
               itemBuilder: (context, index) {
                 return Card(
                   color: Color.fromARGB(250, 18, 30, 54).withOpacity(0.5),
