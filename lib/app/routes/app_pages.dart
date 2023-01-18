@@ -12,6 +12,8 @@ import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/preventHome/bindings/prevent_home_binding.dart';
 import '../modules/preventHome/views/prevent_home_view.dart';
+import '../modules/prevent_home_admin/bindings/prevent_home_admin_binding.dart';
+import '../modules/prevent_home_admin/views/prevent_home_admin_view.dart';
 import '../modules/reservation/bindings/reservation_binding.dart';
 import '../modules/reservation/views/reservation_view.dart';
 import '../modules/semuaPaket/bindings/semua_paket_binding.dart';
@@ -22,7 +24,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.PREVENT_HOME;
+  static const INITIAL = Routes.LOGIN;
 
   static final routes = [
     GetPage(
@@ -58,13 +60,18 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.USER_AKUN,
-      page: () => const UserAkunView(),
+      page: () => UserAkunView(),
       binding: UserAkunBinding(),
     ),
     GetPage(
       name: _Paths.SEMUA_PAKET,
       page: () => SemuaPaketView(),
       binding: SemuaPaketBinding(),
+    ),
+    GetPage(
+      name: _Paths.PREVENT_HOME_ADMIN,
+      page: () => PreventHomeAdminView(),
+      binding: PreventHomeAdminBinding(),
     ),
   ];
 }

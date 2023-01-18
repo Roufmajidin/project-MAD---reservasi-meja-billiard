@@ -57,6 +57,7 @@ class HomeView extends StatelessWidget {
     Get.put(CartController(), permanent: true);
     Get.put(HomeController(), permanent: true);
     Get.put(SemuaPaketController(), permanent: true);
+
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 20, 20, 20),
       appBar: AppBar(

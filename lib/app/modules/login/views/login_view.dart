@@ -213,7 +213,7 @@ class LoginView extends GetView<LoginController> {
                 final user = await _auth.signInWithEmailAndPassword(
                     email: email, password: password);
                 if (user != null) {
-                  Get.offAllNamed(Routes.HOME);
+                  Get.offAllNamed(Routes.PREVENT_HOME_ADMIN);
                 }
               },
               child: const Text('LOGIN',

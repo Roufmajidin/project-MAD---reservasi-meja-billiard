@@ -12,6 +12,8 @@ abstract class Routes {
   static const RESERVATION = _Paths.RESERVATION;
   static const USER_AKUN = _Paths.USER_AKUN;
   static const SEMUA_PAKET = _Paths.SEMUA_PAKET;
+  static const PREVENT_H_O_M_E_A_D_M_I_N = _Paths.PREVENT_H_O_M_E_A_D_M_I_N;
+  static const PREVENT_HOME_ADMIN = _Paths.PREVENT_HOME_ADMIN;
 }
 
 abstract class _Paths {
@@ -25,4 +27,6 @@ abstract class _Paths {
   static const RESERVATION = '/reservation';
   static const USER_AKUN = '/user-akun';
   static const SEMUA_PAKET = '/semua-paket';
+  static const PREVENT_H_O_M_E_A_D_M_I_N = '/prevent-h-o-m-e-a-d-m-i-n';
+  static const PREVENT_HOME_ADMIN = '/prevent-home-admin';
 }
