@@ -69,7 +69,7 @@ class ReservationView extends GetView<ReservationController> {
                                   : Color.fromARGB(255, 17, 17, 17),
                             ),
                             child: Text(
-                              "On Kontol",
+                              "on Progress",
                               style: TextStyle(
                                   color: controller.tabIndex == 0
                                       ? Color.fromARGB(255, 255, 255, 255)
@@ -95,7 +95,7 @@ class ReservationView extends GetView<ReservationController> {
                                   : Color.fromARGB(255, 39, 39, 39),
                             ),
                             child: Text(
-                              "Masa Lalu",
+                              "History",
                               style: TextStyle(
                                   color: controller.tabIndex == 1
                                       ? Color.fromARGB(255, 255, 255, 255)
