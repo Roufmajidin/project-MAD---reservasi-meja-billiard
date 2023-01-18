@@ -70,7 +70,9 @@ class UserAkunView extends GetView<UserAkunController> {
 }
 
 class buttonLogout extends StatelessWidget {
-  const buttonLogout({
+  final authC = Get.find<AuthController>();
+
+  buttonLogout({
     Key? key,
   }) : super(key: key);
 
@@ -86,7 +88,7 @@ class buttonLogout extends StatelessWidget {
         child: Center(
           child: InkWell(
             onTap: () {
-              Get.to(HomeView());
+              authC.logout();
             },
             child: Text(
               "LOG OUT",
