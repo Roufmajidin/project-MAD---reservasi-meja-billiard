@@ -9,7 +9,8 @@ import '../../../data/controller/auth_controller.dart';
 import '../controllers/user_akun_controller.dart';
 
 class UserAkunView extends GetView<UserAkunController> {
-  const UserAkunView({Key? key}) : super(key: key);
+  UserAkunView({Key? key}) : super(key: key);
+  final authC = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -120,16 +121,17 @@ class profileUser extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            padding: EdgeInsets.only(top: 12),
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(50),
-                child: Image.network(
-                  authCon.auth.currentUser!.photoURL!,
-                  height: 50,
-                )),
-            // width: 100.0,
-          ),
+          // Container(
+          //   padding: EdgeInsets.only(top: 12),
+          //   child:
+          //   ClipRRect(
+          //       borderRadius: BorderRadius.circular(50),
+          //       child: Image.network(
+          //         authCon.auth!.currentUser.photoURL,
+          //         height: 50,
+          //       )),
+          //   // width: 100.0,
+          // ),
           // SizedBox(
           //   width: 20,
           // ),

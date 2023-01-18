@@ -23,8 +23,13 @@ Future<void> main() async {
   runApp(StreamBuilder<User?>(
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
+        String init = Routes.LOGIN;
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
+        }
+        if (snapshot.hasData) {
+          init = Routes.PREVENT_HOME;
+          // debugPrint("Pengguna sedang masuk: ${snapshot.data!.email}");
         }
 
         return GetMaterialApp(
@@ -34,8 +39,7 @@ Future<void> main() async {
           ),
           title: "Application",
           debugShowCheckedModeBanner: false,
-          initialRoute:
-              snapshot.data != null ? Routes.PREVENT_HOME : Routes.LOGIN,
+          initialRoute: init,
           getPages: AppPages.routes,
         );
       }));
