@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:rf_majid/app/data/lokalData/menu.dart';
@@ -14,9 +15,16 @@ class CartController extends GetxController {
   var tabI = 0;
   var ubah = false;
   var tabIndex = 0.obs;
+  var menuA = [].obs;
+  var htMenu = [].obs;
   var warna = 0.obs;
   var selected = [].obs;
+  var selected2 = [].obs;
+  var selectedPR = [].obs;
   var selectedPaket = [].obs;
+  var menu = [];
+  var hargaMinuman = 0.0;
+  int totminuman = 0;
   String selectedPesanan = '';
   // final List items = ['Item1', 'Item2', 1];
   String? selectedValue;
@@ -43,18 +51,65 @@ class CartController extends GetxController {
     // .get()
   }
 
-  toogle(menu, index) {
-    if (selected.contains(index)) {
-      selected.remove(index);
-    } else if (selected.contains(index >= 1)) {
-      update();
-    } else {
-      selected.add(index);
-    }
+  menuAdd(dataa, dataMBM) {
+    hargaMinuman = 0.0;
     update();
 
-    print(selected);
+    var array = selected;
+
+    List dataa = [];
+
+    for (var element in array) {
+      dataa.add(dataMBM.docs[element]['namamenu']);
+      // dataa.add(
+      //     dataMBM.docs[element]['harga']);
+      // return dataa;
+      // menuA.add();
+    }
+
+    // print('is ${dataa}');
+    // menuA.update();
+    return menuA;
+    // update();
+  }
+
+  toogle(dataMBM, index) {
+    if (selected.contains(index)) {
+      selected.remove(index);
+      hargaMinuman -= dataMBM.docs[index]['harga'];
+      // htMenu.remove(dataMBM.docs[index]['harga']);
+      menuA.remove({
+        'namamenu': dataMBM.docs[index]['namamenu'],
+        'harga': dataMBM.docs[index]['harga']
+      });
+
+      // menuA.remove(dataMBM.docs[index]['harga']);
+
+    } else {
+      selected.add(index);
+      hargaMinuman += dataMBM.docs[index]['harga'];
+      // menuA.add(dataMBM.docs);
+      menuA.add({
+        'namamenu': dataMBM.docs[index]['namamenu'],
+        'harga': dataMBM.docs[index]['harga']
+      });
+    }
+    // var total = 0.0;
+    // for (var harga in dataMBM.docs) {
+    //   totot += harga['harga'];
+    // }
+    print(hargaMinuman);
+
+    totminuman = dataMBM.docs[index]['harga'];
+    update();
+
+    // print(dataMBM[index]);
     return selected;
+  }
+
+  refreshR() {
+    menuA.clear();
+    htMenu.clear();
   }
 
   tooglePaket(menu, index) {
@@ -273,7 +328,7 @@ class CartController extends GetxController {
   //   }
   // }
 
-  void addPesanan(allpaket, int index, context) {
+  void addPesanan(data1, int index, context) {
     var controller = CartController();
     int quant = count();
     // var array = [menu[toogle(menu, index)]['namamenu']];
@@ -281,52 +336,52 @@ class CartController extends GetxController {
     // var a = array.forEach((element) {
     //   print(menu[element]["namamenu"]);
     // });
-    List data = [];
+    List dataa = [];
 
-    for (var element in array) {
-      data.add(menu[element]);
-    }
+    // for (var element in data1) {
+    //   dataa.add(data1[element]);
+    // }
 
-    List<int> hargaMinuman = [];
-    for (var element in array) {
-      hargaMinuman.add(menu[element]['harga']);
-      print(hargaMinuman);
-    }
-    List<String> waktuPaket = [];
-    for (var element in array) {
-      waktuPaket.add(allpaket[element]['waktu']);
-    }
-    List<String> mejapaket = [];
-    for (var element in array) {
-      mejapaket.add(allpaket[element]['meja']);
-    }
+    // List<int> hargaMinuman = [];
+    // for (var element in array) {
+    //   hargaMinuman.add(menu[element]['harga']);
+    //   print(hargaMinuman);
+    // }
+    // List<String> waktuPaket = [];
+    // for (var element in array) {
+    //   waktuPaket.add(allpaket[element]['waktu']);
+    // }
+    // List<String> mejapaket = [];
+    // for (var element in array) {
+    //   mejapaket.add(allpaket[element]['meja']);
+    // }
 
-    int totalminuman = 0;
-    for (int h in hargaMinuman) {
-      totalminuman += h;
-    }
-    print(totalminuman);
+    // int totalminuman = 0;
+    // for (int h in hargaMinuman) {
+    //   totalminuman += h;
+    // }
+    // print(totalminuman);
 
-    var addPes = FirebaseFirestore.instance.collection('pesananUser')
+    // var addPes = FirebaseFirestore.instance.collection('pesananUser')
 
-        // )
-        .add({
-      'namapaket': allpaket[index]['namapaket'],
-      'harga': allpaket[index]['harga'],
-      'quantity': quant,
-      'hargaminuman': totalminuman,
-      'pemesan': FirebaseAuth.instance.currentUser!.uid,
-      'waktu': allpaket[index]['waktu'],
-      'meja': allpaket[index]['meja'],
-      'isCekhed': false,
-      'onHistory': false,
-      'isselesai': false,
-      'inklud': FieldValue.arrayUnion(data)
+    //     // )
+    //     .add({
+    //   'namapaket': allpaket[index]['namapaket'],
+    //   'harga': allpaket[index]['harga'],
+    //   'quantity': quant,
+    //   'hargaminuman': totalminuman,
+    //   'pemesan': FirebaseAuth.instance.currentUser!.uid,
+    //   'waktu': allpaket[index]['waktu'],
+    //   'meja': allpaket[index]['meja'],
+    //   'isCekhed': false,
+    //   'onHistory': false,
+    //   'isselesai': false,
+    //   'inklud': FieldValue.arrayUnion(data)
 
-      // 'inklud':
-    });
+    //   // 'inklud':
+    // });
 
-    print(data.length);
+    print('is ${data1.runtimeType}');
   }
 
   Stream<QuerySnapshot> StreamPesanan() {
@@ -549,7 +604,7 @@ class CartController extends GetxController {
 
   void historyCekot() async {
     var controller = CartController();
-    RxInt toto = controller.tot;
+    // int toto = tot;
     DateTime now = DateTime.now();
 
     var a = FirebaseFirestore.instance
@@ -630,31 +685,37 @@ class CartController extends GetxController {
 
   //rx count hitung ceklist belanjaan
   void kondisiPaket(data, int index, dataid) {
-    int harga = data.docs[index]['quantity'] * data.docs[index]['harga'] +
-        data.docs[index]['hargaminuman'];
+    List hargaM = data.docs[index]['inklud'];
+    for (var element in hargaM) {
+      print(hargaM);
+    }
+    var min = data.docs[index]['hargaminuman'];
+    int harga = data.docs[index]['quantity'] * data.docs[index]['harga'] + min;
+
     if (data.docs[index]['isCekhed'] == false) {
-      tot = tot + harga;
+      tot + harga;
       print('harga paket ${harga}');
       print('total minuman ${data.docs[index]['hargaminuman']}');
     } else if (data.docs[index]['isCekhed'] == true) {
       // up(data, index, dataid);
-      tot = tot - harga;
+      tot - harga;
     }
+    print(hargaM);
   }
 
   void obsClear(data) {
     // up(data, index, datai);
-    tot = tot - data;
+    tot - data;
     print("reseted sebanyak ${tot}");
   }
 
   void kondisiMinuman(data, int index, dataid) {
     int harga = data.docs[index]['quantity'] * data.docs[index]['harga'];
     if (data.docs[index]['isCekhed'] == false) {
-      tot = tot + harga;
+      tot + harga;
     } else if (data.docs[index]['isCekhed'] == true) {
       // up(data, index, dataid);
-      tot = tot - harga;
+      tot - harga;
     }
   }
 
@@ -665,14 +726,14 @@ class CartController extends GetxController {
     // int hargaT = dataminumannya;
     int data = dataminumannya;
     // final tot = tot + hargaT;
-    tot = tot - data;
+    tot - data;
     print(tot);
     var a = true;
     if (a == true) {
-      tot = tot + data;
+      tot + data;
     } else {
       // up(data, index, dataid);
-      tot = tot - data;
+      tot - data;
     }
   }
 

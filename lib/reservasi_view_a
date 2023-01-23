@@ -1,0 +1,601 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+
+import 'package:get/get.dart';
+import 'package:rf_majid/app/data/format_harga.dart';
+import 'package:rf_majid/app/data/lokalData/appColor.dart';
+import 'package:rf_majid/app/modules/cart/controllers/cart_controller.dart';
+
+import '../controllers/reservasi_controller.dart';
+
+class ReservasiView extends StatelessWidget {
+  ReservasiView({Key? key}) : super(key: key);
+  final CartController controllerC = Get.find();
+  final ReservasiController controllerCC = Get.find();
+  int index = 1;
+
+  @override
+  final _auth = FirebaseAuth.instance;
+  late String nama_pemesan;
+  late String jam_pesanan;
+
+  final _formKey = GlobalKey<FormState>();
+  Widget build(BuildContext context) {
+    // String nama_peme;
+    // String email;
+
+    return Scaffold(
+        backgroundColor: Colors.black,
+        appBar: AppBar(
+          title: const Text('ReservasiView'),
+          centerTitle: true,
+        ),
+        body: SafeArea(
+            child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.all(18),
+              child: Text(
+                "Buat Reservasi untuk User",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Sofia Sans Condensed',
+                  color: Color.fromARGB(255, 0, 0, 0),
+                  fontSize: 20,
+                ),
+              ),
+            ),
+            //form fild
+
+            Container(
+              padding: EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                    child: TextFormField(
+                      onChanged: (value) {
+                        nama_pemesan = value;
+                        print(value);
+                      },
+                      showCursor: false,
+                      textCapitalization: TextCapitalization.sentences,
+                      decoration: InputDecoration(
+                        hintText: 'Masukkan Nama Pemesan',
+                        hintStyle: TextStyle(color: Colors.grey.shade600),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(
+                            style: BorderStyle.solid,
+                            color: Color.fromARGB(255, 164, 164, 164),
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color.fromARGB(255, 164, 164, 164),
+                              width: 2.0),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        fillColor: Colors.grey[900],
+                        filled: true,
+                        contentPadding: const EdgeInsets.all(19),
+                      ),
+                      style: TextStyle(color: Colors.grey[50], fontSize: 17),
+                    ),
+                  ),
+                  const SizedBox(height: 22),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                    child: TextFormField(
+                      onChanged: (value) {
+                        jam_pesanan = value;
+                        print(value);
+                      },
+                      showCursor: false,
+                      // obscureText: true,
+                      textCapitalization: TextCapitalization.sentences,
+                      decoration: InputDecoration(
+                        hintText: 'jam Reserv',
+                        hintStyle: TextStyle(color: Colors.grey.shade600),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(
+                            style: BorderStyle.solid,
+                            color: Color.fromARGB(255, 0, 0, 0),
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color.fromARGB(255, 164, 164, 164),
+                          ),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        fillColor: Colors.grey[900],
+                        filled: true,
+                        contentPadding: const EdgeInsets.all(19),
+                      ),
+                      style: TextStyle(color: Colors.grey[50], fontSize: 17),
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 20, horizontal: 12),
+                    alignment: Alignment.centerLeft,
+                    child: InkWell(
+                      onTap: () {},
+                      child: Text(
+                        'Pilih Paket',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color.fromARGB(255, 182, 182, 182),
+                            fontSize: 18),
+                      ),
+                    ),
+                  ),
+                  // pilihan paket
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                    child: Container(
+                      width: 400,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 3.0, vertical: 2.0),
+                      height: 60,
+                      child: StreamBuilder(
+                          stream: FirebaseFirestore.instance
+                              .collection('allpaket')
+                              .snapshots(),
+                          builder: (__,
+                              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                                  snapshot) {
+                            if (snapshot.hasError) {
+                              return Text(
+                                "eor",
+                                style: TextStyle(
+                                    fontSize: 100,
+                                    color: Color.fromARGB(255, 226, 7, 7)),
+                              );
+                            }
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return Text(
+                                "Loading",
+                                style: TextStyle(color: Colors.white),
+                              );
+                            }
+                            // var dataMinuman =
+
+                            final dataP = snapshot.requireData;
+                            return ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: dataP.size,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Obx(
+                                    () => Container(
+                                      width: 130,
+                                      // height: 30,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          var dataid = dataP.docs[index].id;
+                                          controllerCC.tooglePR(dataP, index);
+                                          controllerCC.kondisiPaket(
+                                              dataP, index, dataid);
+                                          // controller.g();
+                                          // controllerCC.obsClear(
+                                          //     dataP.docs[index]['harga']);
+                                        },
+                                        onDoubleTap: () {},
+
+                                        child: Card(
+
+                                          color: controllerCC.selectedPR
+                                                  .contains(index)
+                                              ? Color.fromARGB(
+                                                  255,
+                                                  238,
+                                                  233,
+                                                  126,
+                                                ).withOpacity(0.8)
+                                              : Color.fromARGB(
+                                                  75, 117, 117, 117),
+                                          child: Container(
+                                            padding: EdgeInsets.only(top: 4),
+                                            child: Center(
+                                                child: Column(
+                                              children: [
+                                                Container(
+                                                    padding:
+                                                    
+                                                        EdgeInsets.only(top: 4),
+                                                    child: Text(
+                                                        controllerCC.selectedPR
+                                                                .contains(index)
+                                                            ? "Selected"
+                                                            : "",
+                                                        style: TextStyle(
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    22,
+                                                                    21,
+                                                                    21),
+                                                            fontSize: 12,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold))),
+                                                Text(
+                                                  // menu[index]['namamenu']
+                                                  //     .toString(),
+                                                  dataP.docs[index]
+                                                      ['namapaket'],
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 13),
+                                                ),
+                                              ],
+                                            )),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                });
+                          }),
+                    ),
+                  ),
+                  Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 20, horizontal: 12),
+                        alignment: Alignment.centerLeft,
+                        child: InkWell(
+                          onTap: () {},
+                          child: Text(
+                            'Qty Paket',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 182, 182, 182),
+                                fontSize: 18),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 200,
+                        padding: EdgeInsets.all(12),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    controllerC.removeProduct();
+                                  },
+                                  child: Container(
+                                      width: 20,
+                                      height: 20,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(6),
+                                        color: Color.fromARGB(109, 74, 74, 74),
+                                      ),
+                                      child: Icon(
+                                        Icons.remove,
+                                        color: judul,
+                                        size: 15,
+                                      )),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Obx(
+                                  () => Text(controllerC.count().toString(),
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          color: judul,
+                                          fontWeight: FontWeight.w600)),
+                                ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                GestureDetector(
+                                  onTap: () {
+                                    controllerC.addProduct();
+                                    print(controllerC.count);
+                                  },
+                                  child: Container(
+                                      width: 20,
+                                      height: 20,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(6),
+                                        color: Color.fromARGB(109, 74, 74, 74),
+                                      ),
+                                      child: Icon(
+                                        Icons.add,
+                                        color: judul,
+                                        size: 15,
+                                      )),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 20, horizontal: 12),
+                        alignment: Alignment.centerLeft,
+                        child: InkWell(
+                          onTap: () {},
+                          child: Text(
+                            'Minuman',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 182, 182, 182),
+                                fontSize: 18),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                        child: Container(
+                          width: 400,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 3.0, vertical: 2.0),
+                          height: 60,
+                          child: StreamBuilder(
+                              stream: FirebaseFirestore.instance
+                                  .collection('allminuman')
+                                  .snapshots(),
+                              builder: (__,
+                                  AsyncSnapshot<
+                                          QuerySnapshot<Map<String, dynamic>>>
+                                      snapshot) {
+                                if (snapshot.hasError) {
+                                  return Text(
+                                    "eor",
+                                    style: TextStyle(
+                                        fontSize: 100,
+                                        color: Color.fromARGB(255, 226, 7, 7)),
+                                  );
+                                }
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return Text(
+                                    "Loading",
+                                    style: TextStyle(color: Colors.white),
+                                  );
+                                }
+                                // var dataMinuman =
+
+                                final dataM = snapshot.requireData;
+                                return ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: dataM.size,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      return Obx(
+                                        () => Container(
+                                          width: 130,
+                                          // height: 30,
+                                          child: GestureDetector(
+                                            onTap: () {
+                                              var dataid = dataM.docs[index].id;
+                                              controllerCC.toogleMR(
+                                                  dataM, index);
+                                              // controller.g();
+                                              controllerCC.kondisiMenu(
+                                                  dataM, index, dataid);
+                                            },
+                                            child: Card(
+                                              color: controllerCC.selected2
+                                                      .contains(index)
+                                                  ? const Color.fromARGB(
+                                                      255,
+                                                      238,
+                                                      233,
+                                                      126,
+                                                    ).withOpacity(0.8)
+                                                  : Color.fromARGB(
+                                                      75, 117, 117, 117),
+                                              child: Container(
+                                                padding:
+                                                    EdgeInsets.only(top: 4),
+                                                child: Center(
+                                                    child: Column(
+                                                  children: [
+                                                    Container(
+                                                        padding: EdgeInsets
+                                                            .only(top: 4),
+                                                        child: Text(
+                                                            controllerC.selected2
+                                                                    .contains(
+                                                                        index)
+                                                                ? "Selected"
+                                                                : "",
+                                                            style: const TextStyle(
+                                                                color: Color
+                                                                    .fromARGB(
+                                                                        255,
+                                                                        22,
+                                                                        21,
+                                                                        21),
+                                                                fontSize: 12,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold))),
+                                                    Text(
+                                                      // menu[index]['namamenu']
+                                                      //     .toString(),
+                                                      dataM.docs[index]
+                                                          ['namamenu'],
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 13),
+                                                    ),
+                                                  ],
+                                                )),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    });
+                              }),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.only(top: 20),
+              alignment: Alignment.bottomCenter,
+              // color: Colors.green,
+              decoration: BoxDecoration(
+                  color: Color.fromARGB(248, 24, 30, 42),
+                  borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(14),
+                      topLeft: Radius.circular(14))),
+              height: 100,
+              // width: double.infinity,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(12),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              "Total Harga",
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                        // SizedBox(
+                        //   height: 20,
+                        // ),
+                        Obx(() {
+                          return Text(
+                            // "Rp. ${cController.tot}",
+                            CurrencyFormat.convertToIdr(
+                                controllerCC.tot.toInt(), 2),
+                            // "as",
+                            style: TextStyle(color: Colors.white, fontSize: 24),
+                          );
+                        })
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                        padding: EdgeInsets.all(12),
+                        // decoration: BoxDecoration(
+                        //     color: Colors.amber,
+                        //     borderRadius: BorderRadius.circular(12)),
+                        // tt
+                        child: GetBuilder<ReservasiController>(
+                          builder: (_) {
+                            return ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: controllerCC.tabI == 1
+                                      ? Color.fromARGB(255, 229, 216, 71)
+                                      : Color.fromARGB(248, 24, 30, 42),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 12, vertical: 12),
+                                ),
+                                onPressed: () {
+                                  var data = controllerCC.tot.toInt();
+                                  // _showDialog(context, index, data);
+                                  // cController.toogleCekout(index); ==> sudah berjalan, then
+                                  // update
+                                  // final a = cController.selected.contains(index);
+                                  // var selectedPesanann =
+                                  //     cController.selected.contains(index);
+                                  // cController.updatepesananCekot(data);
+                                  // cController.obsClear(data);
+                                  // var dataid = dataP.docs[index].id;
+                                  var dataa = controllerCC.streamJadwal();
+                                  print(dataa);
+                                  controllerCC.cekOutUser(
+                                      nama_pemesan, jam_pesanan, dataa);
+                                },
+                                // child: const Text("Show Success Confirm"),
+
+                                child: Text(
+                                  "Check Out",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ));
+                          },
+                        )),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        )));
+  }
+
+  void _showDialog(context, index, data) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          final CartController cController = Get.find();
+
+          return AlertDialog(
+            // alignment: ,
+            // iconPadding: EdgeInsets.all(40),
+            insetPadding: EdgeInsets.all(1),
+            // contentPadding: EdgeInsets.zero,
+            // clipBehavior: Clip.antiAliasWithSaveLayer,
+            elevation: 0.8,
+            backgroundColor: Color.fromARGB(248, 51, 58, 74),
+            title: const Text('Konfirmasi dong!'),
+            content: const Text('Anda Yakin akan Check Out yang terceklist?'),
+            actions: [
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('No')),
+              ElevatedButton(
+                  style:
+                      ElevatedButton.styleFrom(backgroundColor: Colors.green),
+                  onPressed: () {
+                    // Write code to delete item
+                    //  cController.toogleCekout(index); ==> sudah berjalan, then
+                    // update
+                    // final a = cController.selected.contains(index);
+                    // var data = cController.tot.toInt();
+                    var selectedPesanann = cController.selected.contains(index);
+                    // controllerCC.updatepesananCekot(data);
+
+                    // cController.obsClear(data);
+                    Navigator.pop(context);
+                  },
+                  child: const Text(
+                    'Confirm',
+                  )),
+            ],
+          );
+        });
+  }
+
+// alert
+
+}

@@ -473,7 +473,7 @@ class onHistory extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: List.generate(
                                     data.docs[index]['inklud'].length,
-                                    (index) => InkWell(
+                                    (index2) => InkWell(
                                           onTap: () {
                                             print(
                                               data.docs[0]['inklud'][index]
@@ -486,7 +486,7 @@ class onHistory extends StatelessWidget {
                                                 width: 130,
                                                 child: Text(
                                                   data.docs[index]['inklud']
-                                                      [index]['namamenu'],
+                                                      [index2]['namamenu'],
                                                   style: TextStyle(
                                                       color: Colors.white),
                                                 ),
