@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:rf_majid/app/modules/reservasi/views/reservasi_view.dart';
 
 import '../modules/UserAkun/bindings/user_akun_binding.dart';
 import '../modules/UserAkun/views/user_akun_view.dart';
@@ -8,12 +9,19 @@ import '../modules/cart/bindings/cart_binding.dart';
 import '../modules/cart/views/cart_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/homeAdmin/bindings/home_admin_binding.dart';
+import '../modules/homeAdmin/views/home_admin_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
+import '../modules/pemesanan/bindings/pemesanan_binding.dart';
+import '../modules/pemesanan/views/pemesanan_view.dart';
+import '../modules/pemesananHistory/bindings/pemesanan_history_binding.dart';
+import '../modules/pemesananHistory/views/pemesanan_history_view.dart';
 import '../modules/preventHome/bindings/prevent_home_binding.dart';
 import '../modules/preventHome/views/prevent_home_view.dart';
 import '../modules/prevent_home_admin/bindings/prevent_home_admin_binding.dart';
 import '../modules/prevent_home_admin/views/prevent_home_admin_view.dart';
+import '../modules/reservasi/bindings/reservasi_binding.dart';
 import '../modules/reservation/bindings/reservation_binding.dart';
 import '../modules/reservation/views/reservation_view.dart';
 import '../modules/semuaPaket/bindings/semua_paket_binding.dart';
@@ -72,6 +80,26 @@ class AppPages {
       name: _Paths.PREVENT_HOME_ADMIN,
       page: () => PreventHomeAdminView(),
       binding: PreventHomeAdminBinding(),
+    ),
+    GetPage(
+      name: _Paths.PEMESANAN,
+      page: () => PemesananView(),
+      binding: PemesananBinding(),
+    ),
+    GetPage(
+      name: _Paths.PEMESANAN_HISTORY,
+      page: () => PemesananHistoryView(),
+      binding: PemesananHistoryBinding(),
+    ),
+    GetPage(
+      name: _Paths.HOME_ADMIN,
+      page: () => const HomeAdminView(),
+      binding: HomeAdminBinding(),
+    ),
+    GetPage(
+      name: _Paths.RESERVASI,
+      page: () => ReservasiView(),
+      binding: ReservasiBinding(),
     ),
   ];
 }

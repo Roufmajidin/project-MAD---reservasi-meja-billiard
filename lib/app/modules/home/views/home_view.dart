@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter/icons/bi.dart';
@@ -54,7 +55,7 @@ class HomeView extends StatelessWidget {
     // Get.put(CartController(), permanent: true);
     Get.put(HomeController(), permanent: true);
     Get.put(AuthController(), permanent: true);
-    Get.put(CartController(), permanent: true);
+    // Get.put(CartController(), permanent: true);
     Get.put(HomeController(), permanent: true);
     Get.put(SemuaPaketController(), permanent: true);
 
@@ -338,81 +339,116 @@ class HomeView extends StatelessWidget {
               // width: Get.width * 0.98,
               // height: Get.width * 0.80,
               // height: MediaQuery.of(context).size.height * 0.3,
-              child: ListView.builder(
-                itemCount: menu.length,
-                scrollDirection: Axis.vertical,
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return InkWell(
-                      onTap: (() => modalBawahmenu(context, index)),
-                      child: Container(
-                          padding: const EdgeInsets.only(top: 2, left: 1),
-                          margin: EdgeInsets.only(bottom: 8),
-                          // height: Get.height * 0.20,
-                          // width: Get.width * 0.7,
-                          decoration: BoxDecoration(
-                              color: const Color.fromARGB(248, 24, 30, 42)
-                                  .withOpacity(0.5),
-                              borderRadius: BorderRadius.circular(4)),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                padding: EdgeInsets.all(Get.width * 0.027),
-                                child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            menu[index]["namamenu"].toString(),
-                                            style: TextStyle(
-                                                color: judul,
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 18),
-                                          ),
-                                          SizedBox(height: Get.height * 0.01),
-                                          Container(
-                                            // padding: EdgeInsets.only(left: 10),
-                                            child: Text(
-                                              "Rp." +
-                                                  menu[index]["harga"]
+              child: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection('allminuman')
+                      .snapshots(),
+                  builder: (__,
+                      AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                          snapshot) {
+                    if (snapshot.hasError) {
+                      return Text(
+                        "eor",
+                        style: TextStyle(
+                            fontSize: 100,
+                            color: Color.fromARGB(255, 226, 7, 7)),
+                      );
+                    }
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Text(
+                        "Loading",
+                        style: TextStyle(color: Colors.white),
+                      );
+                    }
+                    // var dataMinuman =
+
+                    final dataM = snapshot.requireData;
+                    return ListView.builder(
+                      itemCount: dataM.size,
+                      scrollDirection: Axis.vertical,
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                            onTap: (() =>
+                                modalBawahmenu(context, index, dataM)),
+                            child: Container(
+                                padding: const EdgeInsets.only(top: 2, left: 1),
+                                margin: EdgeInsets.only(bottom: 8),
+                                // height: Get.height * 0.20,
+                                // width: Get.width * 0.7,
+                                decoration: BoxDecoration(
+                                    color: const Color.fromARGB(248, 24, 30, 42)
+                                        .withOpacity(0.5),
+                                    borderRadius: BorderRadius.circular(4)),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      padding:
+                                          EdgeInsets.all(Get.width * 0.027),
+                                      child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  // menu[index]["namamenu"].toString(),
+                                                  dataM.docs[index]["namamenu"]
                                                       .toString(),
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 15),
+                                                  style: TextStyle(
+                                                      color: judul,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      fontSize: 18),
+                                                ),
+                                                SizedBox(
+                                                    height: Get.height * 0.01),
+                                                Container(
+                                                  // padding: EdgeInsets.only(left: 10),
+                                                  child: Text(
+                                                    "Rp." +
+                                                        // menu[index]["harga"]
+                                                        //     .toString(),
+                                                        dataM.docs[index]
+                                                                ["harga"]
+                                                            .toString(),
+                                                    style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 15),
+                                                  ),
+                                                )
+                                              ],
                                             ),
-                                          )
-                                        ],
-                                      ),
-                                      Column(
-                                        children: [
-                                          Image.asset(
-                                              'assets/gambar/minuman.png'),
-                                          SizedBox(
-                                            height: 6,
-                                          ),
-                                          Container(
-                                            padding: EdgeInsets.only(top: 12),
-                                            child: GestureDetector(
-                                                onTap: () {
-                                                  // controller.addDocument();
-                                                },
-                                                child: Container()),
-                                          )
-                                        ],
-                                      )
-                                    ]),
-                              ),
-                            ],
-                          )));
-                },
-                // SizedBox(height: Get.height * 0.01),
-              ),
+                                            Column(
+                                              children: [
+                                                Image.asset(
+                                                    'assets/gambar/minuman.png'),
+                                                SizedBox(
+                                                  height: 6,
+                                                ),
+                                                Container(
+                                                  padding:
+                                                      EdgeInsets.only(top: 12),
+                                                  child: GestureDetector(
+                                                      onTap: () {
+                                                        // controller.addDocument();
+                                                      },
+                                                      child: Container()),
+                                                )
+                                              ],
+                                            )
+                                          ]),
+                                    ),
+                                  ],
+                                )));
+                      },
+                      // SizedBox(height: Get.height * 0.01),
+                    );
+                  }),
             ),
 
             SizedBox(
@@ -429,6 +465,10 @@ class HomeView extends StatelessWidget {
 
   modalBawah(BuildContext context, int index, data) {
     // allpaket;
+    late PersistentBottomSheetController _controller;
+    GlobalKey<ScaffoldState> _key = GlobalKey();
+    bool _open = false;
+    data;
     showModalBottomSheet(
         backgroundColor: Color.fromARGB(255, 24, 30, 42),
         context: context,
@@ -554,59 +594,120 @@ class HomeView extends StatelessWidget {
                       padding:
                           EdgeInsets.symmetric(horizontal: 3.0, vertical: 2.0),
                       height: 60,
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: menu.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Obx(
-                              () => Container(
-                                width: 130,
-                                // height: 30,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    controller.toogle(menu, index);
-                                    // controller.g();
-                                  },
-                                  child: Card(
-                                    color: controller.selected.contains(index)
-                                        ? Color.fromARGB(
-                                            255,
-                                            238,
-                                            233,
-                                            126,
-                                          ).withOpacity(0.8)
-                                        : Color.fromARGB(76, 0, 0, 0),
-                                    child: Container(
-                                      padding: EdgeInsets.only(top: 4),
-                                      child: Center(
-                                          child: Column(
-                                        children: [
-                                          Container(
-                                              padding: EdgeInsets.only(top: 4),
-                                              child: Text(
-                                                  controller.selected
-                                                          .contains(index)
-                                                      ? "Selected"
-                                                      : "Pilih",
+                      child: StreamBuilder(
+                          stream: FirebaseFirestore.instance
+                              .collection('allminuman')
+                              .snapshots(),
+                          builder: (__,
+                              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                                  snapshot) {
+                            if (snapshot.hasError) {
+                              return Text(
+                                "eor",
+                                style: TextStyle(
+                                    fontSize: 100,
+                                    color: Color.fromARGB(255, 226, 7, 7)),
+                              );
+                            }
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return Text(
+                                "Loading",
+                                style: TextStyle(color: Colors.white),
+                              );
+                            }
+                            // var dataMinuman =
+
+                            final dataMBM = snapshot.requireData;
+                            return ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: dataMBM.size,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Obx(
+                                    () => Container(
+                                      width: 130,
+                                      // height: 30,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          controller.toogle(dataMBM, index);
+                                          // print(controller.selected);
+                                          // print(controller.totminuman);
+                                          // var array = controller.selected;
+                                          // List dataa = [];
+
+                                          // for (var element in array) {
+                                          //   dataa.add(dataMBM.docs[element]
+                                          //       ['namamenu']);
+                                          //   // dataa.add(
+                                          //   //     dataMBM.docs[element]['harga']);
+                                          //   // return dataa;
+                                          // }
+                                          // print(dataa);
+                                          // controller.menuAdd(dataa, dataMBM);
+                                          // var a = array.forEach((element) {
+                                          //   // print(dataMBM.docs[element]
+                                          //   //     ["namamenu"]);
+                                          //   dataa.add(dataMBM.docs[element]
+                                          //       ['namamenu']);
+                                          // });
+                                          // print(dataa);
+                                          // print(
+                                          //     dataMBM.docs[index]['namamenu']);
+                                          // controller.g();
+                                          // print(dataa);
+                                        },
+                                        child: Card(
+                                          color: controller.selected
+                                                  .contains(index)
+                                              ? Color.fromARGB(
+                                                  255,
+                                                  238,
+                                                  233,
+                                                  126,
+                                                ).withOpacity(0.8)
+                                              : Color.fromARGB(76, 0, 0, 0),
+                                          child: Container(
+                                            padding: EdgeInsets.only(top: 4),
+                                            child: Center(
+                                                child: Column(
+                                              children: [
+                                                Container(
+                                                    padding:
+                                                        EdgeInsets.only(top: 4),
+                                                    child: Text(
+                                                        controller.selected
+                                                                .contains(index)
+                                                            ? "Selected"
+                                                            : "Pilih",
+                                                        style: TextStyle(
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    22,
+                                                                    21,
+                                                                    21),
+                                                            fontSize: 12,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold))),
+                                                Text(
+                                                  // menu[index]['namamenu']
+                                                  //     .toString(),
+                                                  dataMBM.docs[index]
+                                                          ['namamenu']
+                                                      .toString(),
                                                   style: TextStyle(
-                                                      color: Color.fromARGB(
-                                                          255, 22, 21, 21),
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.bold))),
-                                          Text(
-                                            menu[index]['namamenu'].toString(),
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 13),
+                                                      color: Colors.white,
+                                                      fontSize: 13),
+                                                ),
+                                              ],
+                                            )),
                                           ),
-                                        ],
-                                      )),
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                              ),
-                            );
+                                  );
+                                });
                           }),
                     ),
                   ),
@@ -629,8 +730,35 @@ class HomeView extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8)),
                       child: InkWell(
                         onTap: () {
-                          controller.addPesanan(paket, index, context);
-                          // controller.minuman();
+                          var namapaket = data.docs[index]['namapaket'];
+                          var hargaPaket = data.docs[index]['harga'];
+                          // var data1 = data;
+                          var m = controller.menuA;
+                          // print(i);
+                          // List daaa = [];
+                          print(m);
+
+                          int quant = controller.count();
+                          FirebaseFirestore.instance.collection('pesananUser')
+
+                              // )
+
+                              .add({
+                            'namapaket': data.docs[index]['namapaket'],
+                            'harga': data.docs[index]['harga'],
+                            'quantity': quant,
+                            'hargaminuman': controller.hargaMinuman.toInt(),
+                            'pemesan': FirebaseAuth.instance.currentUser!.uid,
+                            'waktu': data.docs[index]['waktu'],
+                            'meja': data.docs[index]['meja'],
+                            'isCekhed': false,
+                            'onHistory': false,
+                            'isselesai': false,
+                            'inklud': FieldValue.arrayUnion(m)
+
+                            // 'inklud':
+                          });
+                          controller.refreshR();
                         },
                         child: Center(
                           child: Text(
@@ -651,8 +779,9 @@ class HomeView extends StatelessWidget {
         });
   }
 
-  modalBawahmenu(BuildContext context, int index) {
-    menu;
+  modalBawahmenu(BuildContext context, int index, dataM) {
+    // menu;
+
     showModalBottomSheet(
         backgroundColor: Color.fromARGB(248, 24, 30, 42),
         context: context,
@@ -676,7 +805,8 @@ class HomeView extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Text(menu[index]["namamenu"].toString(),
+                              // Text(menu[index]["namamenu"].toString(),
+                              Text(dataM.docs[index]["namamenu"].toString(),
                                   style: TextStyle(
                                       color: Color.fromARGB(255, 164, 164, 164),
                                       fontSize: 16,
@@ -751,7 +881,8 @@ class HomeView extends StatelessWidget {
                               ],
                             ),
                             SizedBox(height: 21),
-                            Text(menu[index]["harga"].toString(),
+                            // Text(menu[index]["harga"].toString(),
+                            Text(dataM.docs[index]["harga"].toString(),
                                 style: TextStyle(
                                     color: Color.fromARGB(255, 164, 164, 164),
                                     fontSize: 16)),
@@ -770,58 +901,88 @@ class HomeView extends StatelessWidget {
                       padding:
                           EdgeInsets.symmetric(horizontal: 3.0, vertical: 2.0),
                       height: 60,
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: paket.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Obx(
-                              () => Container(
-                                width: 130,
-                                // height: 30,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    controller.tooglePaket(menu, index);
-                                    // controller.g();
-                                  },
-                                  child: Card(
-                                    color:
-                                        controller.selectedPaket.contains(index)
-                                            ? Color.fromARGB(
-                                                255,
-                                                238,
-                                                233,
-                                                126,
-                                              )
-                                            : Color.fromARGB(76, 0, 0, 0),
-                                    child: Container(
-                                      padding: EdgeInsets.only(top: 4),
-                                      child: Center(
-                                          child: Column(
-                                        children: [
-                                          Container(
-                                              padding: EdgeInsets.only(top: 4),
-                                              child: Text(
-                                                  controller.selected
-                                                          .contains(index)
-                                                      ? "ok"
-                                                      : "Pilih",
+                      child: StreamBuilder(
+                          stream: FirebaseFirestore.instance
+                              .collection('allpaket')
+                              .snapshots(),
+                          builder: (__,
+                              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
+                                  snapshot) {
+                            if (snapshot.hasError) {
+                              return Text(
+                                "eor",
+                                style: TextStyle(
+                                    fontSize: 100,
+                                    color: Color.fromARGB(255, 226, 7, 7)),
+                              );
+                            }
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return Text(
+                                "Loading",
+                                style: TextStyle(color: Colors.white),
+                              );
+                            }
+
+                            final dataPMB = snapshot.requireData;
+                            return ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: dataPMB.size,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Obx(
+                                    () => Container(
+                                      width: 130,
+                                      // height: 30,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          controller.tooglePaket(
+                                              dataPMB, index);
+                                          // controller.g();
+                                        },
+                                        child: Card(
+                                          color: controller.selectedPaket
+                                                  .contains(index)
+                                              ? Color.fromARGB(
+                                                  255,
+                                                  238,
+                                                  233,
+                                                  126,
+                                                )
+                                              : Color.fromARGB(76, 0, 0, 0),
+                                          child: Container(
+                                            padding: EdgeInsets.only(top: 4),
+                                            child: Center(
+                                                child: Column(
+                                              children: [
+                                                Container(
+                                                    padding:
+                                                        EdgeInsets.only(top: 4),
+                                                    child: Text(
+                                                        controller.selected
+                                                                .contains(index)
+                                                            ? "ok"
+                                                            : "Pilih",
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 12))),
+                                                Text(
+                                                  // paket[index]['namapaket']
+                                                  //     .toString(),
+                                                  dataPMB.docs[index]
+                                                          ['namapaket']
+                                                      .toString(),
                                                   style: TextStyle(
                                                       color: Colors.white,
-                                                      fontSize: 12))),
-                                          Text(
-                                            paket[index]['namapaket']
-                                                .toString(),
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 13),
+                                                      fontSize: 13),
+                                                ),
+                                              ],
+                                            )),
                                           ),
-                                        ],
-                                      )),
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                              ),
-                            );
+                                  );
+                                });
                           }),
                     ),
                   ),

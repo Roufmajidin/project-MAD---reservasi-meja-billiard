@@ -219,6 +219,8 @@ class CartView extends StatelessWidget {
                                       itemBuilder: (context, index) {
                                         var value =
                                             data.docs[index]['isCekhed'];
+                                        var infoinklud =
+                                            data.docs[index]['inklud'];
                                         return Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
@@ -231,6 +233,7 @@ class CartView extends StatelessWidget {
 
                                                 // var cprint =
                                                 // print("ok");
+                                                // print(infoinklud['index2']);
                                                 var dataid =
                                                     data.docs[index].id;
                                                 cController.up(
@@ -238,9 +241,7 @@ class CartView extends StatelessWidget {
 
                                                 cController.kondisiPaket(
                                                     data, index, dataid);
-                                                // set  collection reserved user di pesanan/doc(firebaseAUth)
-                                                // cController.toogleCekout(
-                                                //     index, dataid);
+
                                                 cController.changeTabI(1);
                                                 print('diklik');
 
@@ -423,24 +424,45 @@ class CartView extends StatelessWidget {
                                                                       crossAxisAlignment:
                                                                           CrossAxisAlignment
                                                                               .start,
-                                                                      children: List.generate(
-                                                                          // growable: true,
-                                                                          data.docs[index]['inklud'].length,
-                                                                          (index) => InkWell(
-                                                                                onTap: () {
-                                                                                  print(
-                                                                                    data.docs[index]['inklud'][index]['namamenu'],
-                                                                                  );
-                                                                                },
-                                                                                child: Column(
-                                                                                  children: [
-                                                                                    Text(
-                                                                                      data.docs[0]['inklud'][index]['namamenu'],
-                                                                                      style: TextStyle(color: Colors.white),
-                                                                                    ),
-                                                                                  ],
-                                                                                ),
-                                                                              )).toList(),
+                                                                      children: List
+                                                                          .generate(
+                                                                              // growable: true,
+                                                                              infoinklud.length,
+                                                                              (index2) {
+                                                                        // List
+                                                                        //     cek =
+                                                                        //     infoinklud;
+                                                                        // int harga =
+                                                                        //     0;
+                                                                        // var nama =
+                                                                        //     '';
+                                                                        // for (var info
+                                                                        //     in cek) {
+                                                                        //   harga =
+                                                                        //       info['harga'][index2];
+                                                                        //   nama =
+                                                                        //       info['namamenu'][index2];
+                                                                        // }
+
+                                                                        return InkWell(
+                                                                          onTap:
+                                                                              () {
+                                                                            print(
+                                                                              'di ${infoinklud[index2]['harga']}',
+                                                                            );
+                                                                            // print("ok");
+                                                                          },
+                                                                          child:
+                                                                              Column(
+                                                                            children: [
+                                                                              Text(
+                                                                                infoinklud[index2]['namamenu'].toString(),
+                                                                                style: TextStyle(color: Colors.white),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        );
+                                                                      }),
                                                                     ),
                                                                   ],
                                                                 ),
@@ -569,10 +591,15 @@ class CartView extends StatelessWidget {
                           children: [
                             Row(
                               children: [
-                                Text(
-                                  "Total Harga",
-                                  style: TextStyle(
-                                    color: Colors.white,
+                                InkWell(
+                                  onTap: () {
+                                    cController.tot;
+                                  },
+                                  child: Text(
+                                    "Total Harga",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
                               ],
