@@ -10,12 +10,13 @@ import 'package:rf_majid/app/modules/cart/data/allPaket.dart';
 
 class CartController extends GetxController {
   var count = 1.obs;
-  RxInt tot = 0.obs;
+  RxDouble tot = 0.0.obs;
   // var isi = ''.obs;
   var tabI = 0;
   var ubah = false;
   var tabIndex = 0.obs;
   var menuA = [].obs;
+  var menuB = [].obs;
   var htMenu = [].obs;
   var warna = 0.obs;
   var selected = [].obs;
@@ -24,6 +25,7 @@ class CartController extends GetxController {
   var selectedPaket = [].obs;
   var menu = [];
   var hargaMinuman = 0.0;
+  var hargaPaket = 0.0;
   int totminuman = 0;
   String selectedPesanan = '';
   // final List items = ['Item1', 'Item2', 1];
@@ -90,7 +92,7 @@ class CartController extends GetxController {
       hargaMinuman += dataMBM.docs[index]['harga'];
       // menuA.add(dataMBM.docs);
       menuA.add({
-        'namamenu': dataMBM.docs[index]['namamenu'],
+        'namamenu': dataMBM.docs[index]['namamenu'].toString(),
         'harga': dataMBM.docs[index]['harga']
       });
     }
@@ -112,17 +114,28 @@ class CartController extends GetxController {
     htMenu.clear();
   }
 
-  tooglePaket(menu, index) {
+  tooglePaket(dataPMB, index) {
     if (selectedPaket.contains(index)) {
       selectedPaket.remove(index);
-    } else if (selectedPaket.contains(index >= 1)) {
-      update();
+      selected.remove(index);
+      hargaPaket -= dataPMB.docs[index]['harga'];
+      // htMenu.remove(dataMBM.docs[index]['harga']);
+      menuB.remove({
+        'namapaket': dataPMB.docs[index]['namapaket'],
+        'harga': dataPMB.docs[index]['harga']
+      });
     } else {
       selectedPaket.add(index);
+      hargaPaket += dataPMB.docs[index]['harga'];
+      // menuA.add(dataMBM.docs);
+      menuB.add({
+        'namapaket': dataPMB.docs[index]['namapaket'].toString(),
+        'harga': dataPMB.docs[index]['harga']
+      });
     }
     update();
 
-    print(selectedPaket);
+    print(' paket is :${dataPMB.docs[index]['namapaket']}');
     return selectedPaket;
   }
 
@@ -221,22 +234,23 @@ class CartController extends GetxController {
     });
   }
 
-  void addMenu(menu, int index, context) {
+  void addMenu(dataM, int index, context) {
     var controller = CartController();
 
-    int harga_t = menu[index]['harga'];
+    int harga_t = dataM.docs[index]['harga'];
     int quant = count();
     var array2 = selectedPaket;
     List data2 = [];
 
-    for (var element in array2) {
-      data2.add(menu[element]);
-    }
+    // for (var element in array2) {
+    //   data2.add(dataM.docs[element]);
+    // }
+    // print('s${data2}');
     // List<int> hargaPaket = [];
     List<int> hargaPaket = [];
     for (var element in array2) {
-      hargaPaket.add(menu[element]['harga']);
-      print(hargaPaket);
+      hargaPaket.add(dataM.docs[element]['harga']);
+      print('asas ${hargaPaket}');
     }
 
     //namapaket
@@ -264,17 +278,22 @@ class CartController extends GetxController {
 
         // )
         .add({
-      'namapaket': namapaket.toString(),
+      'namapaket': menuB[index]['namapaket'],
       'harga': totalHargaPaket,
       'quantity': quant,
-      'hargaminuman': menu[index]['harga'],
+      'hargaminuman': dataM.docs[index]['harga'],
       'pemesan': FirebaseAuth.instance.currentUser!.uid,
       'waktu': waktupaket.toString(),
       'meja': mejapaket.toString(),
       'isCekhed': false,
       'onHistory': false,
       'isselesai': false,
-      'inklud': FieldValue.arrayUnion(data2)
+      'inklud': FieldValue.arrayUnion([
+        {
+          'namamenu': dataM.docs[index]['namamenu'],
+          'harga': dataM.docs[index]['harga']
+        }
+      ])
 
       // 'inklud':
     });
@@ -604,7 +623,7 @@ class CartController extends GetxController {
 
   void historyCekot() async {
     var controller = CartController();
-    // int toto = tot;
+    RxDouble toto = controller.tot;
     DateTime now = DateTime.now();
 
     var a = FirebaseFirestore.instance
@@ -689,9 +708,8 @@ class CartController extends GetxController {
     for (var element in hargaM) {
       print(hargaM);
     }
-    var min = data.docs[index]['hargaminuman'];
-    int harga = data.docs[index]['quantity'] * data.docs[index]['harga'] + min;
-
+    int harga = data.docs[index]['quantity'] * data.docs[index]['harga'] +
+        data.docs[index]['harga'];
     if (data.docs[index]['isCekhed'] == false) {
       tot + harga;
       print('harga paket ${harga}');
@@ -710,7 +728,7 @@ class CartController extends GetxController {
   }
 
   void kondisiMinuman(data, int index, dataid) {
-    int harga = data.docs[index]['quantity'] * data.docs[index]['harga'];
+    double harga = data.docs[index]['quantity'] * data.docs[index]['harga'];
     if (data.docs[index]['isCekhed'] == false) {
       tot + harga;
     } else if (data.docs[index]['isCekhed'] == true) {

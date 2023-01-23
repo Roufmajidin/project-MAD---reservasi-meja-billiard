@@ -747,7 +747,7 @@ class HomeView extends StatelessWidget {
                             'namapaket': data.docs[index]['namapaket'],
                             'harga': data.docs[index]['harga'],
                             'quantity': quant,
-                            'hargaminuman': controller.hargaMinuman.toInt(),
+                            'hargaminuman': controller.hargaMinuman,
                             'pemesan': FirebaseAuth.instance.currentUser!.uid,
                             'waktu': data.docs[index]['waktu'],
                             'meja': data.docs[index]['meja'],
@@ -781,7 +781,7 @@ class HomeView extends StatelessWidget {
 
   modalBawahmenu(BuildContext context, int index, dataM) {
     // menu;
-
+    dataM;
     showModalBottomSheet(
         backgroundColor: Color.fromARGB(248, 24, 30, 42),
         context: context,
@@ -1003,7 +1003,7 @@ class HomeView extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8)),
                       child: InkWell(
                         onTap: () {
-                          controller.addMenu(menu, index, context);
+                          controller.addMenu(dataM, index, context);
                           Navigator.pop(context);
 
                           // controller.create_test(menu, index, context);
