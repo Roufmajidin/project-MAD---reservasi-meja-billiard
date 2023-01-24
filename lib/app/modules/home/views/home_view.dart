@@ -13,6 +13,7 @@ import 'package:rf_majid/app/data/lokalData/menu.dart';
 import 'package:rf_majid/app/modules/cart/controllers/cart_controller.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:rf_majid/app/modules/home/controllers/home_controller.dart';
+import 'package:rf_majid/app/modules/semuaMenu/views/semua_menu_view.dart';
 import 'package:rf_majid/app/modules/semuaPaket/controllers/semua_paket_controller.dart';
 import 'package:rf_majid/app/modules/semuaPaket/views/semua_paket_view.dart';
 
@@ -319,7 +320,9 @@ class HomeView extends StatelessWidget {
                   ),
                   Row(children: [
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Get.to(SemuaMenuView());
+                      },
                       child: const Text(
                         "See All",
                         style: TextStyle(color: judul, fontSize: 16),
@@ -656,15 +659,12 @@ class HomeView extends StatelessWidget {
                                           // controller.g();
                                           // print(dataa);
                                         },
+                                        // tete
                                         child: Card(
                                           color: controller.selected
                                                   .contains(index)
                                               ? Color.fromARGB(
-                                                  255,
-                                                  238,
-                                                  233,
-                                                  126,
-                                                ).withOpacity(0.8)
+                                                  255, 206, 201, 101)
                                               : Color.fromARGB(76, 0, 0, 0),
                                           child: Container(
                                             padding: EdgeInsets.only(top: 4),
@@ -758,6 +758,8 @@ class HomeView extends StatelessWidget {
 
                             // 'inklud':
                           });
+                          Navigator.pop(context);
+
                           controller.refreshR();
                         },
                         child: Center(
@@ -958,7 +960,7 @@ class HomeView extends StatelessWidget {
                                                     padding:
                                                         EdgeInsets.only(top: 4),
                                                     child: Text(
-                                                        controller.selected
+                                                        controller.selectedPaket
                                                                 .contains(index)
                                                             ? "ok"
                                                             : "Pilih",

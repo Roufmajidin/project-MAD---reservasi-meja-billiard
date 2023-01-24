@@ -117,7 +117,8 @@ class CartController extends GetxController {
   tooglePaket(dataPMB, index) {
     if (selectedPaket.contains(index)) {
       selectedPaket.remove(index);
-      selected.remove(index);
+      // selectedPaket.single(index);
+      // selected.remove(index);
       hargaPaket -= dataPMB.docs[index]['harga'];
       // htMenu.remove(dataMBM.docs[index]['harga']);
       menuB.remove({
