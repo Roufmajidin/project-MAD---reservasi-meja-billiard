@@ -13,12 +13,23 @@ class CartController extends GetxController {
   RxDouble tot = 0.0.obs;
   // var isi = ''.obs;
   var tabI = 0;
+  var cKo = false;
+  var tabUkuran = 0;
   var ubah = false;
   var tabIndex = 0.obs;
   var menuA = [].obs;
   var menuB = [].obs;
   var htMenu = [].obs;
   var warna = 0.obs;
+  // render paket selected di cart
+
+  var paket = '';
+  var meja = '';
+  RxList inklud = [].obs;
+  var hargaP = 0;
+  var inkl = [].obs;
+
+  // end
   var selected = [].obs;
   var selected2 = [].obs;
   var selectedPR = [].obs;
@@ -40,6 +51,16 @@ class CartController extends GetxController {
 
   void changeTabI(index) {
     tabI = index;
+    update();
+  }
+
+  void ckB(index) {
+    bool ckO = true;
+    update();
+  }
+
+  void changeUkuran(index) {
+    tabUkuran = index;
     update();
   }
 
@@ -703,23 +724,55 @@ class CartController extends GetxController {
     });
   }
 
+// mek
   //rx count hitung ceklist belanjaan
   void kondisiPaket(data, int index, dataid) {
-    List hargaM = data.docs[index]['inklud'];
-    for (var element in hargaM) {
-      print(hargaM);
-    }
     int harga = data.docs[index]['quantity'] * data.docs[index]['harga'] +
         data.docs[index]['harga'];
+    bool iss = true;
     if (data.docs[index]['isCekhed'] == false) {
       tot + harga;
+
+      paket = data.docs[index]['namapaket'];
+      hargaP = data.docs[index]['harga'];
+      meja = data.docs[index]['meja'];
+      var infoinklud = data.docs[index]['inklud'];
+      // var aa = List.generate(infoinklud.length, (index2) {
+      //   List a = [];
+      //   for (var element in infoinklud) {
+      //     a.add(data.docs[index]['inklud'][index2]);
+      //     // inkl += a;
+      //     update
+      //     print('asas m:${infoinklud}');
+      //   }
+      // });
+
+      // inkl = data.docs[index]['inklud'][0]['harga'];
+      // List hargaM = data.docs[index]['inklud'];
+      // List a = [];
+      // for (var element in hargaM) {
+      //   print('element is ${element}');
+      //   // a += hargaM;
+      //   inkl + element;
+      // }
+      // inkl == a;
+      update();
       print('harga paket ${harga}');
       print('total minuman ${data.docs[index]['hargaminuman']}');
     } else if (data.docs[index]['isCekhed'] == true) {
       // up(data, index, dataid);
       tot - harga;
+      tot = tot;
     }
-    print(hargaM);
+    // print(hargaM);
+    print(' data Paket :${data.docs[index]['namapaket']}');
+    print(' harga Paket :${data.docs[index]['harga']}');
+    //   List a = [];
+    //   for (var element in data.docs[index]['inklud']['harga']) {
+    //     a.add(element);
+    //   }
+    //   print(a);
+    // print(' harga inklud :${data.docs[index]['inklud']['harga']}');
   }
 
   void obsClear(data) {
