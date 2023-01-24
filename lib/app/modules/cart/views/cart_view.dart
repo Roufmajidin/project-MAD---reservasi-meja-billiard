@@ -186,6 +186,7 @@ class CartView extends StatelessWidget {
                                           .instance.currentUser!.uid)
                                   .where('onHistory', isEqualTo: false)
                                   .where('isselesai', isEqualTo: false)
+                                  // .where('isCekhed', isEqualTo: true)
                                   .snapshots(),
                               builder: (__,
                                   AsyncSnapshot<
@@ -231,15 +232,19 @@ class CartView extends StatelessWidget {
                                               // print("ok");
                                               // print(infoinklud['index2']);
                                               var dataid = data.docs[index].id;
+                                              var iss =
+                                                  data.docs[index]['isCekhed'];
                                               cController.up(
                                                   data, index, dataid);
+                                              cController.changeTabI(1);
+                                              cController.changeUkuran(1);
 
+                                              // print('diklik');
+                                              // var isC = true;
                                               cController.kondisiPaket(
                                                   data, index, dataid);
 
-                                              cController.changeTabI(1);
-                                              print('diklik');
-
+// tetet
                                               print(data.docs[index].id);
                                             },
                                             onLongPress: () {
@@ -252,7 +257,7 @@ class CartView extends StatelessWidget {
                                                   data, index, dataid);
                                               // update  collection reserved user di pesanan/doc(firebaseAUth)
                                               cController.changeTabI(0);
-                                              // cController.minAddHis(data, index, dataid);
+                                              cController.changeUkuran(0);
                                             },
                                             child: Container(
                                               decoration: BoxDecoration(
@@ -275,7 +280,8 @@ class CartView extends StatelessWidget {
                                                         GestureDetector(
                                                           onTap: () {
                                                             // var cprint =
-                                                            // print("ok");
+                                                            print(
+                                                                "cekbox aktif");
                                                             var dataid = data
                                                                 .docs[index].id;
                                                             cController
@@ -294,7 +300,8 @@ class CartView extends StatelessWidget {
                                                                 .id);
                                                           },
                                                           onLongPress: () {
-                                                            print("object");
+                                                            print(
+                                                                "cekbox nonaktif");
                                                             var dataid = data
                                                                 .docs[index].id;
 
@@ -417,27 +424,12 @@ class CartView extends StatelessWidget {
                                                                             // growable: true,
                                                                             infoinklud.length,
                                                                             (index2) {
-                                                                      // List
-                                                                      //     cek =
-                                                                      //     infoinklud;
-                                                                      // int harga =
-                                                                      //     0;
-                                                                      // var nama =
-                                                                      //     '';
-                                                                      // for (var info
-                                                                      //     in cek) {
-                                                                      //   harga =
-                                                                      //       info['harga'][index2];
-                                                                      //   nama =
-                                                                      //       info['namamenu'][index2];
-                                                                      // }
-
                                                                       return InkWell(
                                                                         onTap:
                                                                             () {
-                                                                          print(
-                                                                            'di ${infoinklud[index2]['harga']}',
-                                                                          );
+                                                                          // print(
+                                                                          //   'di ${infoinklud[index2]['harga']}',
+                                                                          // );
                                                                           // print("ok");
                                                                         },
                                                                         child:
@@ -508,94 +500,183 @@ class CartView extends StatelessWidget {
         )
       ])),
 
-      bottomNavigationBar: Container(
-        alignment: Alignment.bottomCenter,
-        // color: Colors.green,
-        decoration: BoxDecoration(
-            color: Color.fromARGB(248, 24, 30, 42),
-            borderRadius: BorderRadius.only(
-                topRight: Radius.circular(14), topLeft: Radius.circular(14))),
-        height: 100,
-        // width: double.infinity,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              padding: EdgeInsets.all(12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
+      bottomNavigationBar: GetBuilder<CartController>(
+        init: CartController(),
+        initState: (_) {},
+        builder: (_) {
+          return Container(
+            alignment: Alignment.bottomCenter,
+            decoration: BoxDecoration(
+                color: Color.fromARGB(248, 24, 30, 42),
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(14),
+                    topLeft: Radius.circular(14))),
+            height: cController.tabUkuran == 1 ? 200 : 100,
+            // width: double.infinity,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  padding: EdgeInsets.all(12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      InkWell(
-                        onTap: () {
-                          cController.tot;
-                        },
-                        child: Text(
-                          "Total Harga",
-                          style: TextStyle(
-                            color: Colors.white,
+                      Row(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              cController.tot;
+                            },
+                            child: Text(
+                              "Rincian",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 16),
+                            ),
                           ),
-                        ),
+                        ],
                       ),
+                      // SizedBox(height: 8),
+
+                      cController.tabUkuran == 1
+                          ? Container(
+                              padding: EdgeInsets.only(bottom: 12),
+                              child: Row(
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        // "Rp. ${cController.tot}",
+                                        "paket Terpilih",
+                                        // "as",
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 14),
+                                      ),
+                                      Text(
+                                        // "Rp. ${cController.tot}",
+                                        'Meja Terpilih',
+                                        // "as",
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 14),
+                                      ),
+                                      Text(
+                                        'harga Paket',
+                                        // "as",
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 14),
+                                      ),
+                                      Text(
+                                        'Inklud',
+                                        // "as",
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 14),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(width: 20),
+                                  // isi
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        // "Rp. ${cController.tot}",
+                                        ": ${cController.paket}",
+                                        // "as",
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 14),
+                                      ),
+                                      Text(
+                                        // "Rp. ${cController.tot}",
+                                        ': ${cController.meja}',
+                                        // "as",
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 14),
+                                      ),
+                                      Text(
+                                        // "Rp. ${cController.tot}",
+                                        ': ${CurrencyFormat.convertToIdr(cController.hargaP.toInt(), 2)}',
+                                        // "as",
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 14),
+                                      ),
+                                      Text(
+                                        // "Rp. ${cController.tot}",
+                                        ': ${cController.inkl}',
+                                        // "as",
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 14),
+                                      ),
+                                    ],
+                                  ),
+
+                                  // end isi
+                                ],
+                              ),
+                            )
+                          : Text(""),
+                      // SizedBox(
+                      //   height: 20,
+                      // ),
+                      SizedBox(height: 1),
+
+                      Obx(() {
+                        return Text(
+                          // "Rp. ${cController.tot}",
+                          CurrencyFormat.convertToIdr(
+                              cController.tot.toInt(), 2),
+                          // "as",
+                          style: TextStyle(color: Colors.white, fontSize: 24),
+                        );
+                      })
                     ],
                   ),
-                  // SizedBox(
-                  //   height: 20,
-                  // ),
-                  Obx(() {
-                    return Text(
-                      // "Rp. ${cController.tot}",
-                      CurrencyFormat.convertToIdr(cController.tot.toInt(), 2),
-                      // "as",
-                      style: TextStyle(color: Colors.white, fontSize: 24),
-                    );
-                  })
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                  padding: EdgeInsets.all(12),
-                  // decoration: BoxDecoration(
-                  //     color: Colors.amber,
-                  //     borderRadius: BorderRadius.circular(12)),
-                  // tt
-                  child: GetBuilder<CartController>(
-                    builder: (_) {
-                      return ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: cController.tabI == 1
-                                ? Color.fromARGB(255, 229, 216, 71)
-                                : Color.fromARGB(248, 24, 30, 42),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 12, vertical: 12),
-                          ),
-                          onPressed: () {
-                            var data = cController.tot.toInt();
-                            _showDialog(context, index, data);
-                            // cController.toogleCekout(index); ==> sudah berjalan, then
-                            // update
-                            // final a = cController.selected.contains(index);
-                            // var selectedPesanann =
-                            //     cController.selected.contains(index);
-                            // cController.updatepesananCekot(data);
-                            // cController.obsClear(data);
-                          },
-                          // child: const Text("Show Success Confirm"),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                      padding: EdgeInsets.all(12),
+                      // decoration: BoxDecoration(
+                      //     color: Colors.amber,
+                      //     borderRadius: BorderRadius.circular(12)),
+                      // tt
+                      child: GetBuilder<CartController>(
+                        builder: (_) {
+                          return ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: cController.tabI == 1
+                                    ? Color.fromARGB(255, 229, 216, 71)
+                                    : Color.fromARGB(248, 24, 30, 42),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 12, vertical: 12),
+                              ),
+                              onPressed: () {
+                                var data = cController.tot.toInt();
+                                _showDialog(context, index, data);
+                                // cController.toogleCekout(index); ==> sudah berjalan, then
+                                // update
+                                // final a = cController.selected.contains(index);
+                                // var selectedPesanann =
+                                //     cController.selected.contains(index);
+                                // cController.updatepesananCekot(data);
+                                // cController.obsClear(data);
+                              },
+                              // child: const Text("Show Success Confirm"),
 
-                          child: Text(
-                            "Check Out",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
-                          ));
-                    },
-                  )),
+                              child: Text(
+                                "Check Out",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ));
+                        },
+                      )),
+                ),
+              ],
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
 
@@ -637,6 +718,8 @@ void _showDialog(context, index, data) {
                   var selectedPesanann = cController.selected.contains(index);
                   cController.updatepesananCekot(data);
                   // cController.obsClear(data);
+                  cController.changeUkuran(0);
+
                   Navigator.pop(context);
                 },
                 child: const Text(
@@ -664,36 +747,7 @@ class _cekboxState extends State<cekbox> {
       height: 20,
       child: Row(
         textDirection: TextDirection.rtl,
-        children: [
-          // GestureDetector(
-          //   onTap: () {
-          //     setState(() {
-          //       isChecked = isChecked ? false : true;
-          //       // var cekBox2State = _cekBox2State;
-          //     });
-          //   },
-          //   child: Text(
-          //     "Select All",
-          //     style: TextStyle(
-          //         fontWeight: FontWeight.w900,
-          //         fontSize: 15,
-          //         color: Colors.white),
-          //   ),
-          // ),
-          // Theme(
-          //   data: ThemeData(unselectedWidgetColor: Colors.white),
-          //   child: Checkbox(
-          //     value: isChecked,
-          //     checkColor: Color(0xfff44336),
-          //     activeColor: Colors.white,
-          //     onChanged: (value) {
-          //       setState(() {
-          //         isChecked = value!;
-          //       });
-          //     },
-          //   ),
-          // ),
-        ],
+        children: [],
       ),
     );
   }
