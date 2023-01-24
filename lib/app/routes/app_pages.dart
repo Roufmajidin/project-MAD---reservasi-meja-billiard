@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:rf_majid/app/modules/reservasi/views/reservasi_view.dart';
 
 import '../modules/UserAkun/bindings/user_akun_binding.dart';
 import '../modules/UserAkun/views/user_akun_view.dart';
@@ -22,8 +21,11 @@ import '../modules/preventHome/views/prevent_home_view.dart';
 import '../modules/prevent_home_admin/bindings/prevent_home_admin_binding.dart';
 import '../modules/prevent_home_admin/views/prevent_home_admin_view.dart';
 import '../modules/reservasi/bindings/reservasi_binding.dart';
+import '../modules/reservasi/views/reservasi_view.dart';
 import '../modules/reservation/bindings/reservation_binding.dart';
 import '../modules/reservation/views/reservation_view.dart';
+import '../modules/semuaMenu/bindings/semua_menu_binding.dart';
+import '../modules/semuaMenu/views/semua_menu_view.dart';
 import '../modules/semuaPaket/bindings/semua_paket_binding.dart';
 import '../modules/semuaPaket/views/semua_paket_view.dart';
 
@@ -100,6 +102,11 @@ class AppPages {
       name: _Paths.RESERVASI,
       page: () => ReservasiView(),
       binding: ReservasiBinding(),
+    ),
+    GetPage(
+      name: _Paths.SEMUA_MENU,
+      page: () => SemuaMenuView(),
+      binding: SemuaMenuBinding(),
     ),
   ];
 }

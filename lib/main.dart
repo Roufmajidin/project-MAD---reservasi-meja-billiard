@@ -9,6 +9,7 @@ import 'package:rf_majid/app/modules/reservasi/controllers/reservasi_controller.
 // import 'package:rf_majid/app/modules/reservation/controllers/reservation_controller.dart';
 import 'package:rf_majid/app/modules/semuaPaket/views/semua_paket_view.dart';
 import 'package:rf_majid/firebase_options.dart';
+import 'app/modules/semuaMenu/controllers/semua_menu_controller.dart';
 import 'app/routes/app_pages.dart';
 
 Future<void> main() async {
@@ -19,6 +20,8 @@ Future<void> main() async {
   Get.put(AuthController(), permanent: true);
   Get.put(CartController(), permanent: true);
   Get.put(HomeController(), permanent: true);
+  Get.put(SemuaMenuController(), permanent: true);
+
   // Get.put(ReservationController(), permanent: true);
   Get.put(ReservasiController(), permanent: true);
   Get.put(SemuaPaketView(), permanent: true);

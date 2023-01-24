@@ -58,486 +58,347 @@ class CartView extends StatelessWidget {
         .snapshots();
 
     return Scaffold(
-        backgroundColor: Color.fromARGB(255, 20, 20, 20),
+      backgroundColor: Color.fromARGB(255, 20, 20, 20),
 
-        // backgroundColor: Colors.white,
-        appBar: AppBar(
-          // Overide the default Back button
-          leadingWidth: 100,
-          leading: GestureDetector(
-            // excludeFromSemantics: false,
-            onTap: () {
-              Navigator.pop(context);
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => HomeView()),
-              // );
-              print("object");
-            },
-            child: Icon(
-              Icons.arrow_back_ios,
-              color: Colors.white,
-              size: 18,
-            ),
-          ),
-          backgroundColor: Color.fromARGB(255, 20, 20, 20),
-
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                // height: 20,
-                width: 200,
-                // child: GestureDetector(
-                //   // excludeFromSemantics: false,
-                //   onTap: () {
-                //     // Navigator.of(context).back();
-                //     // Navigator.push(
-                //     //   context,
-                //     //   MaterialPageRoute(builder: (context) => HomeView()),
-                //     // );
-                //     // print("object");
-                //   },
-                //   child: Icon(
-                //     Icons.arrow_back_ios,
-                //     color: Colors.white,
-                //     size: 18,
-                //   ),
-                // ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(12),
-                child: const Text(
-                  'Cart',
-                  style: TextStyle(fontSize: 16),
-                ),
-              ),
-            ],
+      // backgroundColor: Colors.white,
+      appBar: AppBar(
+        // Overide the default Back button
+        leadingWidth: 100,
+        leading: GestureDetector(
+          // excludeFromSemantics: false,
+          onTap: () {
+            Navigator.pop(context);
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => HomeView()),
+            // );
+            print("object");
+          },
+          child: Icon(
+            Icons.arrow_back_ios,
+            color: Colors.white,
+            size: 18,
           ),
         ),
-        body: SizedBox(
-            child: Stack(alignment: Alignment.bottomCenter, children: [
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  height: 3,
-                  width: 50,
-                  decoration: BoxDecoration(
-                      color:
-                          Color.fromARGB(248, 206, 206, 206).withOpacity(0.5),
-                      borderRadius: BorderRadius.circular(4)),
-                ),
-                InkWell(
-                  onTap: () {
-                    var data = cController.tot.toInt();
-                    cController.obsClear(data);
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Iconify(
-                        Ri.refresh_line,
-                        color: Colors.white,
-                        size: 21,
-                      ),
-                      Container(
-                        // alignment: Alignment.centerRight,
-                        padding: EdgeInsets.all(12),
-                        // height: 3,
-                        // width: 600,
-                        child: Text(
-                          "Reset all",
-                          style: TextStyle(color: judul, fontSize: 16),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                // SizedBox(height: 12),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        backgroundColor: Color.fromARGB(255, 20, 20, 20),
+
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              // height: 20,
+              width: 200,
+              // child: GestureDetector(
+              //   // excludeFromSemantics: false,
+              //   onTap: () {
+              //     // Navigator.of(context).back();
+              //     // Navigator.push(
+              //     //   context,
+              //     //   MaterialPageRoute(builder: (context) => HomeView()),
+              //     // );
+              //     // print("object");
+              //   },
+              //   child: Icon(
+              //     Icons.arrow_back_ios,
+              //     color: Colors.white,
+              //     size: 18,
+              //   ),
+              // ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(12),
+              child: const Text(
+                'Cart',
+                style: TextStyle(fontSize: 16),
+              ),
+            ),
+          ],
+        ),
+      ),
+      body: SizedBox(
+          child: Stack(alignment: Alignment.bottomCenter, children: [
+        SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                height: 3,
+                width: 50,
+                decoration: BoxDecoration(
+                    color: Color.fromARGB(248, 206, 206, 206).withOpacity(0.5),
+                    borderRadius: BorderRadius.circular(4)),
+              ),
+              InkWell(
+                onTap: () {
+                  var data = cController.tot.toInt();
+                  cController.obsClear(data);
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Row(
-                      children: [
-                        cekbox(),
-                        const SizedBox(
-                          height: 12,
-                        ),
-                      ],
+                    Iconify(
+                      Ri.refresh_line,
+                      color: Colors.white,
+                      size: 21,
+                    ),
+                    Container(
+                      // alignment: Alignment.centerRight,
+                      padding: EdgeInsets.all(12),
+                      // height: 3,
+                      // width: 600,
+                      child: Text(
+                        "Reset all",
+                        style: TextStyle(color: judul, fontSize: 16),
+                      ),
                     ),
                   ],
                 ),
-                SizedBox(height: 2),
-                //tete1
-                SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  // physics: NeverScrollableScrollPhysics(),
-                  child: Column(
+              ),
+              // SizedBox(height: 12),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
                     children: [
-                      Container(
-                        height: 650,
-                        child: Column(
-                          children: [
-                            StreamBuilder(
-                                stream: FirebaseFirestore.instance
-                                    .collection('pesananUser')
-                                    .where('pemesan',
-                                        isEqualTo: FirebaseAuth
-                                            .instance.currentUser!.uid)
-                                    .where('onHistory', isEqualTo: false)
-                                    .where('isselesai', isEqualTo: false)
-                                    .snapshots(),
-                                builder: (__,
-                                    AsyncSnapshot<
-                                            QuerySnapshot<Map<String, dynamic>>>
-                                        snapshot) {
-                                  if (snapshot.hasError) {
-                                    return Text(
-                                      "eor",
-                                      style: TextStyle(
-                                          fontSize: 100,
-                                          color:
-                                              Color.fromARGB(255, 226, 7, 7)),
-                                    );
-                                  }
-                                  if (snapshot.connectionState ==
-                                      ConnectionState.waiting) {
-                                    return Text(
-                                      "Loading",
-                                      style: TextStyle(color: Colors.white),
-                                    );
-                                  }
-                                  // var dataMinuman =
+                      cekbox(),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              SizedBox(height: 2),
+              //tete1
+              SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                // physics: NeverScrollableScrollPhysics(),
+                child: Column(
+                  children: [
+                    Container(
+                      // height: 650,
+                      child: Column(
+                        children: [
+                          StreamBuilder(
+                              stream: FirebaseFirestore.instance
+                                  .collection('pesananUser')
+                                  .where('pemesan',
+                                      isEqualTo: FirebaseAuth
+                                          .instance.currentUser!.uid)
+                                  .where('onHistory', isEqualTo: false)
+                                  .where('isselesai', isEqualTo: false)
+                                  .snapshots(),
+                              builder: (__,
+                                  AsyncSnapshot<
+                                          QuerySnapshot<Map<String, dynamic>>>
+                                      snapshot) {
+                                if (snapshot.hasError) {
+                                  return Text(
+                                    "eor",
+                                    style: TextStyle(
+                                        fontSize: 100,
+                                        color: Color.fromARGB(255, 226, 7, 7)),
+                                  );
+                                }
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return Text(
+                                    "Loading",
+                                    style: TextStyle(color: Colors.white),
+                                  );
+                                }
+                                // var dataMinuman =
 
-                                  final data = snapshot.requireData;
-                                  return ListView.builder(
-                                      itemCount: data.size,
-                                      scrollDirection: Axis.vertical,
-                                      // physics: NeverScrollableScrollPhysics(),
-                                      shrinkWrap: true,
-                                      itemBuilder: (context, index) {
-                                        var value =
-                                            data.docs[index]['isCekhed'];
-                                        var infoinklud =
-                                            data.docs[index]['inklud'];
-                                        return Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            GestureDetector(
-                                              onTap: () {
-                                                var v = data
-                                                    .docs[index]['inklud']
-                                                    .length;
+                                final data = snapshot.requireData;
+                                return ListView.builder(
+                                    itemCount: data.size,
+                                    scrollDirection: Axis.vertical,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemBuilder: (context, index) {
+                                      var value = data.docs[index]['isCekhed'];
+                                      var infoinklud =
+                                          data.docs[index]['inklud'];
+                                      return Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          GestureDetector(
+                                            onTap: () {
+                                              var v = data
+                                                  .docs[index]['inklud'].length;
 
-                                                // var cprint =
-                                                // print("ok");
-                                                // print(infoinklud['index2']);
-                                                var dataid =
-                                                    data.docs[index].id;
-                                                cController.up(
-                                                    data, index, dataid);
+                                              // var cprint =
+                                              // print("ok");
+                                              // print(infoinklud['index2']);
+                                              var dataid = data.docs[index].id;
+                                              cController.up(
+                                                  data, index, dataid);
 
-                                                cController.kondisiPaket(
-                                                    data, index, dataid);
+                                              cController.kondisiPaket(
+                                                  data, index, dataid);
 
-                                                cController.changeTabI(1);
-                                                print('diklik');
+                                              cController.changeTabI(1);
+                                              print('diklik');
 
-                                                print(data.docs[index].id);
-                                              },
-                                              onLongPress: () {
-                                                print("object");
-                                                var dataid =
-                                                    data.docs[index].id;
+                                              print(data.docs[index].id);
+                                            },
+                                            onLongPress: () {
+                                              print("object");
+                                              var dataid = data.docs[index].id;
 
-                                                cController.minusUp(
-                                                    data, index, dataid);
-                                                cController.kondisiPaket(
-                                                    data, index, dataid);
-                                                // update  collection reserved user di pesanan/doc(firebaseAUth)
-                                                cController.changeTabI(0);
-                                                // cController.minAddHis(data, index, dataid);
-                                              },
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                    color: Color.fromARGB(
-                                                            248, 24, 30, 42)
-                                                        .withOpacity(0.6),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            4)),
-                                                height: 130,
-                                                // width: 500,
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 13,
-                                                    vertical: 12),
-                                                child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Row(
-                                                        children: [
-                                                          GestureDetector(
-                                                            onTap: () {
-                                                              // var cprint =
-                                                              // print("ok");
-                                                              var dataid = data
-                                                                  .docs[index]
-                                                                  .id;
-                                                              cController
-                                                                  .upMinuman(
-                                                                      data,
-                                                                      index,
-                                                                      dataid);
+                                              cController.minusUp(
+                                                  data, index, dataid);
+                                              cController.kondisiPaket(
+                                                  data, index, dataid);
+                                              // update  collection reserved user di pesanan/doc(firebaseAUth)
+                                              cController.changeTabI(0);
+                                              // cController.minAddHis(data, index, dataid);
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  color: Color.fromARGB(
+                                                          248, 24, 30, 42)
+                                                      .withOpacity(0.6),
+                                                  borderRadius:
+                                                      BorderRadius.circular(4)),
+                                              height: 130,
+                                              // width: 500,
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 13, vertical: 12),
+                                              child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Row(
+                                                      children: [
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            // var cprint =
+                                                            // print("ok");
+                                                            var dataid = data
+                                                                .docs[index].id;
+                                                            cController
+                                                                .upMinuman(
+                                                                    data,
+                                                                    index,
+                                                                    dataid);
 
-                                                              cController
-                                                                  .kondisiMinuman(
-                                                                      data,
-                                                                      index,
-                                                                      dataid);
-                                                              print(data
-                                                                  .docs[index]
-                                                                  .id);
-                                                            },
-                                                            onLongPress: () {
-                                                              print("object");
-                                                              var dataid = data
-                                                                  .docs[index]
-                                                                  .id;
+                                                            cController
+                                                                .kondisiMinuman(
+                                                                    data,
+                                                                    index,
+                                                                    dataid);
+                                                            print(data
+                                                                .docs[index]
+                                                                .id);
+                                                          },
+                                                          onLongPress: () {
+                                                            print("object");
+                                                            var dataid = data
+                                                                .docs[index].id;
 
-                                                              cController
-                                                                  .minusUp(
-                                                                      data,
-                                                                      index,
-                                                                      dataid);
-                                                              cController
-                                                                  .kondisiPaket(
-                                                                      data,
-                                                                      index,
-                                                                      dataid);
-                                                            },
-                                                            child: CustomCheckBox(
-                                                                value: value,
-                                                                shouldShowBorder:
-                                                                    true,
-                                                                uncheckedFillColor:
-                                                                    Colors
-                                                                        .transparent,
-                                                                uncheckedIconColor:
-                                                                    Colors
-                                                                        .transparent,
-                                                                borderColor:
-                                                                    Color.fromARGB(
-                                                                        249,
-                                                                        180,
-                                                                        180,
-                                                                        180),
-                                                                checkedFillColor:
-                                                                    const Color
-                                                                            .fromARGB(
-                                                                        250,
-                                                                        18,
-                                                                        30,
-                                                                        54),
-                                                                borderRadius: 4,
-                                                                borderWidth: 1,
-                                                                checkBoxSize:
-                                                                    18,
-                                                                splashColor:
-                                                                    Colors
-                                                                        .amber,
-                                                                onChanged:
-                                                                    (value) {}),
-                                                          ),
-                                                          Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Text(
-                                                                "${data.docs[index]['namapaket']}",
-                                                                style: const TextStyle(
-                                                                    color: Colors
-                                                                        .white,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold,
+                                                            cController.minusUp(
+                                                                data,
+                                                                index,
+                                                                dataid);
+                                                            cController
+                                                                .kondisiPaket(
+                                                                    data,
+                                                                    index,
+                                                                    dataid);
+                                                          },
+                                                          child: CustomCheckBox(
+                                                              value: value,
+                                                              shouldShowBorder:
+                                                                  true,
+                                                              uncheckedFillColor:
+                                                                  Colors
+                                                                      .transparent,
+                                                              uncheckedIconColor:
+                                                                  Colors
+                                                                      .transparent,
+                                                              borderColor:
+                                                                  Color.fromARGB(
+                                                                      249,
+                                                                      180,
+                                                                      180,
+                                                                      180),
+                                                              checkedFillColor:
+                                                                  const Color
+                                                                          .fromARGB(
+                                                                      250,
+                                                                      18,
+                                                                      30,
+                                                                      54),
+                                                              borderRadius: 4,
+                                                              borderWidth: 1,
+                                                              checkBoxSize: 18,
+                                                              splashColor:
+                                                                  Colors.amber,
+                                                              onChanged:
+                                                                  (value) {}),
+                                                        ),
+                                                        Column(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                              "${data.docs[index]['namapaket']}",
+                                                              style: const TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  fontSize: 16),
+                                                            ),
+                                                            SizedBox(
+                                                                height:
+                                                                    Get.height *
+                                                                        0.01),
+                                                            Container(
+                                                              // padding: EdgeInsets.only(left: 10),
+                                                              child: Text(
+                                                                "Table : ${data.docs[index]['meja']}",
+                                                                style: TextStyle(
+                                                                    color: Color
+                                                                        .fromARGB(
+                                                                            255,
+                                                                            201,
+                                                                            201,
+                                                                            201),
                                                                     fontSize:
-                                                                        16),
+                                                                        15),
                                                               ),
-                                                              SizedBox(
-                                                                  height:
-                                                                      Get.height *
-                                                                          0.01),
-                                                              Container(
-                                                                // padding: EdgeInsets.only(left: 10),
-                                                                child: Text(
-                                                                  "Table : ${data.docs[index]['meja']}",
-                                                                  style: TextStyle(
-                                                                      color: Color.fromARGB(
-                                                                          255,
-                                                                          201,
-                                                                          201,
-                                                                          201),
-                                                                      fontSize:
-                                                                          15),
-                                                                ),
+                                                            ),
+                                                            Container(
+                                                              // padding: EdgeInsets.only(left: 10),
+                                                              child: Text(
+                                                                "Rp ${data.docs[index]['harga']}",
+                                                                style: TextStyle(
+                                                                    color: Color
+                                                                        .fromARGB(
+                                                                            255,
+                                                                            201,
+                                                                            201,
+                                                                            201),
+                                                                    fontSize:
+                                                                        15),
                                                               ),
-                                                              Container(
-                                                                // padding: EdgeInsets.only(left: 10),
-                                                                child: Text(
-                                                                  "Rp ${data.docs[index]['harga']}",
-                                                                  style: TextStyle(
-                                                                      color: Color.fromARGB(
-                                                                          255,
-                                                                          201,
-                                                                          201,
-                                                                          201),
-                                                                      fontSize:
-                                                                          15),
-                                                                ),
-                                                              ),
-                                                              Container(
-                                                                // var a = data.docs[index]['harga'];
+                                                            ),
+                                                            Container(
+                                                              // var a = data.docs[index]['harga'];
 
-                                                                // padding: EdgeInsets.only(left: 10),
-                                                                child: Row(
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: [
-                                                                    const Text(
-                                                                      "Inklud : ",
-                                                                      style: TextStyle(
-                                                                          color: Color.fromARGB(
-                                                                              255,
-                                                                              201,
-                                                                              201,
-                                                                              201),
-                                                                          fontSize:
-                                                                              15),
-                                                                    ),
-                                                                    Column(
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                      children: List
-                                                                          .generate(
-                                                                              // growable: true,
-                                                                              infoinklud.length,
-                                                                              (index2) {
-                                                                        // List
-                                                                        //     cek =
-                                                                        //     infoinklud;
-                                                                        // int harga =
-                                                                        //     0;
-                                                                        // var nama =
-                                                                        //     '';
-                                                                        // for (var info
-                                                                        //     in cek) {
-                                                                        //   harga =
-                                                                        //       info['harga'][index2];
-                                                                        //   nama =
-                                                                        //       info['namamenu'][index2];
-                                                                        // }
-
-                                                                        return InkWell(
-                                                                          onTap:
-                                                                              () {
-                                                                            print(
-                                                                              'di ${infoinklud[index2]['harga']}',
-                                                                            );
-                                                                            // print("ok");
-                                                                          },
-                                                                          child:
-                                                                              Column(
-                                                                            children: [
-                                                                              Text(
-                                                                                infoinklud[index2]['namamenu'].toString(),
-                                                                                style: TextStyle(color: Colors.white),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                        );
-                                                                      }),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ),
-                                                      Column(
-                                                        children: [
-                                                          // Container(
-                                                          //   padding:
-                                                          //       EdgeInsets.all(
-                                                          //           12),
-                                                          //   decoration: BoxDecoration(
-                                                          //       color: Color
-                                                          //           .fromARGB(
-                                                          //               255,
-                                                          //               192,
-                                                          //               187,
-                                                          //               95),
-                                                          //       borderRadius:
-                                                          //           BorderRadius
-                                                          //               .circular(
-                                                          //                   6)),
-                                                          //   child: InkWell(
-                                                          //     onTap: () {
-                                                          //       showTimePicker(
-                                                          //               context:
-                                                          //                   context,
-                                                          //               initialTime:
-                                                          //                   TimeOfDay
-                                                          //                       .now())
-                                                          //           .then(
-                                                          //               (value) {
-                                                          //         // print(value);
-                                                          //         var dataid = data
-                                                          //             .docs[
-                                                          //                 index]
-                                                          //             .id;
-                                                          //         cController
-                                                          //             .editWaktu(
-                                                          //                 dataid,
-                                                          //                 index,
-                                                          //                 value);
-                                                          //       });
-                                                          //     },
-                                                          //     child:
-                                                          //     Text(
-                                                          //       "Waktu : ${data.docs[index]['waktu']}",
-                                                          //       style: TextStyle(
-                                                          //           color: Color
-                                                          //               .fromARGB(
-                                                          //                   255,
-                                                          //                   255,
-                                                          //                   255,
-                                                          //                   255),
-                                                          //           fontSize:
-                                                          //               15),
-                                                          //     ),
-                                                          //   ),
-                                                          // ),
-                                                          SizedBox(
-                                                            height: 6,
-                                                          ),
-                                                          Container(
-                                                            padding:
-                                                                EdgeInsets.only(
-                                                                    top: 12),
-                                                            child: Row(
-                                                              children: [
-                                                                InkWell(
-                                                                  onTap: () {},
-                                                                  child: Text(
-                                                                    'Qty: ${data.docs[index]['quantity']}',
+                                                              // padding: EdgeInsets.only(left: 10),
+                                                              child: Row(
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  const Text(
+                                                                    "Inklud : ",
                                                                     style: TextStyle(
                                                                         color: Color.fromARGB(
                                                                             255,
@@ -547,128 +408,197 @@ class CartView extends StatelessWidget {
                                                                         fontSize:
                                                                             15),
                                                                   ),
-                                                                ),
-                                                              ],
+                                                                  Column(
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .start,
+                                                                    children: List
+                                                                        .generate(
+                                                                            // growable: true,
+                                                                            infoinklud.length,
+                                                                            (index2) {
+                                                                      // List
+                                                                      //     cek =
+                                                                      //     infoinklud;
+                                                                      // int harga =
+                                                                      //     0;
+                                                                      // var nama =
+                                                                      //     '';
+                                                                      // for (var info
+                                                                      //     in cek) {
+                                                                      //   harga =
+                                                                      //       info['harga'][index2];
+                                                                      //   nama =
+                                                                      //       info['namamenu'][index2];
+                                                                      // }
+
+                                                                      return InkWell(
+                                                                        onTap:
+                                                                            () {
+                                                                          print(
+                                                                            'di ${infoinklud[index2]['harga']}',
+                                                                          );
+                                                                          // print("ok");
+                                                                        },
+                                                                        child:
+                                                                            Column(
+                                                                          children: [
+                                                                            Text(
+                                                                              infoinklud[index2]['namamenu'].toString(),
+                                                                              style: TextStyle(color: Colors.white),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      );
+                                                                    }),
+                                                                  ),
+                                                                ],
+                                                              ),
                                                             ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Column(
+                                                      children: [
+                                                        Container(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  top: 12),
+                                                          child: Row(
+                                                            children: [
+                                                              InkWell(
+                                                                onTap: () {},
+                                                                child: Text(
+                                                                  'Qty: ${data.docs[index]['quantity']}',
+                                                                  style: TextStyle(
+                                                                      color: Color.fromARGB(
+                                                                          255,
+                                                                          201,
+                                                                          201,
+                                                                          201),
+                                                                      fontSize:
+                                                                          15),
+                                                                ),
+                                                              ),
+                                                            ],
                                                           ),
-                                                        ],
-                                                      ),
-                                                    ]),
-                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ]),
                                             ),
-                                            SizedBox(height: 6),
-                                          ],
-                                        );
-                                      });
-                                }),
-                          ],
-                        ),
+                                          ),
+                                          SizedBox(height: 6),
+                                        ],
+                                      );
+                                    });
+                              }),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                // //bawah menu
-                SizedBox(height: 12),
-                //bawah menu
+              ),
+              // //bawah menu
+              SizedBox(height: 12),
+              //bawah menu
+            ],
+          ),
+        )
+      ])),
 
-                Container(
-                  alignment: Alignment.bottomCenter,
-                  // color: Colors.green,
-                  decoration: BoxDecoration(
-                      color: Color.fromARGB(248, 24, 30, 42),
-                      borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(14),
-                          topLeft: Radius.circular(14))),
-                  height: 100,
-                  // width: double.infinity,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      bottomNavigationBar: Container(
+        alignment: Alignment.bottomCenter,
+        // color: Colors.green,
+        decoration: BoxDecoration(
+            color: Color.fromARGB(248, 24, 30, 42),
+            borderRadius: BorderRadius.only(
+                topRight: Radius.circular(14), topLeft: Radius.circular(14))),
+        height: 100,
+        // width: double.infinity,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Container(
+              padding: EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
                     children: [
-                      Container(
-                        padding: EdgeInsets.all(12),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    cController.tot;
-                                  },
-                                  child: Text(
-                                    "Total Harga",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            // SizedBox(
-                            //   height: 20,
-                            // ),
-                            Obx(() {
-                              return Text(
-                                // "Rp. ${cController.tot}",
-                                CurrencyFormat.convertToIdr(
-                                    cController.tot.toInt(), 2),
-                                // "as",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 24),
-                              );
-                            })
-                          ],
+                      InkWell(
+                        onTap: () {
+                          cController.tot;
+                        },
+                        child: Text(
+                          "Total Harga",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                            padding: EdgeInsets.all(12),
-                            // decoration: BoxDecoration(
-                            //     color: Colors.amber,
-                            //     borderRadius: BorderRadius.circular(12)),
-                            // tt
-                            child: GetBuilder<CartController>(
-                              builder: (_) {
-                                return ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: cController.tabI == 1
-                                          ? Color.fromARGB(255, 229, 216, 71)
-                                          : Color.fromARGB(248, 24, 30, 42),
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 12, vertical: 12),
-                                    ),
-                                    onPressed: () {
-                                      var data = cController.tot.toInt();
-                                      _showDialog(context, index, data);
-                                      // cController.toogleCekout(index); ==> sudah berjalan, then
-                                      // update
-                                      // final a = cController.selected.contains(index);
-                                      // var selectedPesanann =
-                                      //     cController.selected.contains(index);
-                                      // cController.updatepesananCekot(data);
-                                      // cController.obsClear(data);
-                                    },
-                                    // child: const Text("Show Success Confirm"),
-
-                                    child: Text(
-                                      "Check Out",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white),
-                                    ));
-                              },
-                            )),
                       ),
                     ],
                   ),
-                ),
-              ],
+                  // SizedBox(
+                  //   height: 20,
+                  // ),
+                  Obx(() {
+                    return Text(
+                      // "Rp. ${cController.tot}",
+                      CurrencyFormat.convertToIdr(cController.tot.toInt(), 2),
+                      // "as",
+                      style: TextStyle(color: Colors.white, fontSize: 24),
+                    );
+                  })
+                ],
+              ),
             ),
-          )
-        ])));
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                  padding: EdgeInsets.all(12),
+                  // decoration: BoxDecoration(
+                  //     color: Colors.amber,
+                  //     borderRadius: BorderRadius.circular(12)),
+                  // tt
+                  child: GetBuilder<CartController>(
+                    builder: (_) {
+                      return ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: cController.tabI == 1
+                                ? Color.fromARGB(255, 229, 216, 71)
+                                : Color.fromARGB(248, 24, 30, 42),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 12),
+                          ),
+                          onPressed: () {
+                            var data = cController.tot.toInt();
+                            _showDialog(context, index, data);
+                            // cController.toogleCekout(index); ==> sudah berjalan, then
+                            // update
+                            // final a = cController.selected.contains(index);
+                            // var selectedPesanann =
+                            //     cController.selected.contains(index);
+                            // cController.updatepesananCekot(data);
+                            // cController.obsClear(data);
+                          },
+                          // child: const Text("Show Success Confirm"),
 
-    // bottomNavigationBar: bottomNavigation(),
+                          child: Text(
+                            "Check Out",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          ));
+                    },
+                  )),
+            ),
+          ],
+        ),
+      ),
+    );
+
     // bottomNavigationBar: bottomNavigation(),
   }
 }

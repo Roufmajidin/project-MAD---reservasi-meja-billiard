@@ -18,6 +18,7 @@ abstract class Routes {
   static const PEMESANAN_HISTORY = _Paths.PEMESANAN_HISTORY;
   static const HOME_ADMIN = _Paths.HOME_ADMIN;
   static const RESERVASI = _Paths.RESERVASI;
+  static const SEMUA_MENU = _Paths.SEMUA_MENU;
 }
 
 abstract class _Paths {
@@ -37,4 +38,5 @@ abstract class _Paths {
   static const PEMESANAN_HISTORY = '/pemesanan-history';
   static const HOME_ADMIN = '/home-admin';
   static const RESERVASI = '/reservasi';
+  static const SEMUA_MENU = '/semua-menu';
 }
