@@ -121,20 +121,19 @@ class profileUser extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Container(
-          //   padding: EdgeInsets.only(top: 12),
-          //   child:
-          //   ClipRRect(
-          //       borderRadius: BorderRadius.circular(50),
-          //       child: Image.network(
-          //         authCon.auth!.currentUser.photoURL,
-          //         height: 50,
-          //       )),
-          //   // width: 100.0,
-          // ),
-          // SizedBox(
-          //   width: 20,
-          // ),
+          Container(
+            padding: EdgeInsets.only(top: 12),
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(50),
+                child: Image.network(
+                  authCon.auth.currentUser!.photoURL!,
+                  height: 50,
+                )),
+            // width: 100.0,
+          ),
+          SizedBox(
+            width: 20,
+          ),
           Container(
             padding: EdgeInsets.only(
               top: 12,
