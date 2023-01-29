@@ -8,6 +8,7 @@ import 'package:rf_majid/app/data/controller/auth_controller.dart';
 import 'package:rf_majid/app/modules/cart/controllers/cart_controller.dart';
 import 'package:rf_majid/app/modules/reservasi/views/reservasi_view.dart';
 import 'package:rf_majid/app/modules/reservation/controllers/reservation_controller.dart';
+import 'package:rf_majid/app/modules/reservationEdit/views/reservation_edit_view.dart';
 
 import '../../../data/lokalData/appColor.dart';
 import '../controllers/pemesanan_controller.dart';
@@ -63,7 +64,7 @@ class PemesananView extends GetView<PemesananController> {
           // image
           Container(
             child: Image.network(
-                'https://www.popular-world.com/wp-content/uploads/2017/08/bn-2.jpg'),
+                'https://i0.wp.com/abouttng.com/wp-content/uploads/2022/07/gambar-01-11.jpg?fit=500%2C278&ssl=1'),
           ),
           Padding(
             padding: const EdgeInsets.all(12.0),
@@ -104,6 +105,7 @@ class PemesananView extends GetView<PemesananController> {
                   children: [
                     InkWell(
                       onTap: () {
+                        // controller.addDummy();
                         print("masuk ke halaman buat reservasi User");
                         Get.to(ReservasiView());
                       },
@@ -122,7 +124,7 @@ class PemesananView extends GetView<PemesananController> {
                                 color: Colors.amber,
                               ),
                               Text(
-                                "Buat Reservasi",
+                                "Buat Reserv User",
                                 style: TextStyle(
                                   fontFamily: 'Sofia Sans Condensed',
                                   color: Colors.amber,
@@ -139,7 +141,8 @@ class PemesananView extends GetView<PemesananController> {
                     ),
                     InkWell(
                       onTap: () {
-                        print("object");
+                        print("Link to page halaman data master");
+                        Get.to(ReservationEditView());
                       },
                       child: Stack(
                         clipBehavior: Clip.antiAlias,
@@ -156,7 +159,7 @@ class PemesananView extends GetView<PemesananController> {
                               child: Row(
                                 children: [
                                   Iconify(
-                                    Ri.settings_2_fill,
+                                    Ri.menu_2_fill,
                                     color: Colors.amber,
                                   ),
                                 ],
@@ -171,7 +174,7 @@ class PemesananView extends GetView<PemesananController> {
                                 width: 140,
                                 height: 200,
                                 decoration: BoxDecoration(
-                                    color: Color.fromARGB(248, 80, 80, 80),
+                                    color: Colors.amber,
                                     borderRadius: BorderRadius.only(
                                       topLeft: Radius.circular(12),
                                       bottomLeft: Radius.circular(12),
@@ -179,10 +182,10 @@ class PemesananView extends GetView<PemesananController> {
                                     )),
                               ),
                               Text(
-                                "Setting",
+                                "Data Master",
                                 style: TextStyle(
                                   fontFamily: 'Sofia Sans Condensed',
-                                  color: Colors.amber,
+                                  color: Color.fromARGB(255, 252, 252, 252),
                                   fontSize: 18,
                                 ),
                               ),

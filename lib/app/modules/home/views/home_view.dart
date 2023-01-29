@@ -79,7 +79,7 @@ class HomeView extends StatelessWidget {
             ),
             Container(
               child: Text(
-                "Projek UAS",
+                "Billiard Reservation",
                 style: TextStyle(color: judul, fontSize: 14),
               ),
             ),
@@ -428,8 +428,15 @@ class HomeView extends StatelessWidget {
                                             ),
                                             Column(
                                               children: [
-                                                Image.asset(
-                                                    'assets/gambar/minuman.png'),
+                                                ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12),
+                                                    child: Image.network(
+                                                      dataM.docs[index]
+                                                          ['gambar'],
+                                                      height: 80,
+                                                    )),
                                                 SizedBox(
                                                   height: 6,
                                                 ),

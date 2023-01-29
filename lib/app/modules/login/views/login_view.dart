@@ -261,7 +261,6 @@ class LoginView extends GetView<LoginController> {
                   ),
                   Icon(
                     Icons.login,
-                    color: Colors.amberAccent,
                   ),
                   SizedBox(
                     width: 80,

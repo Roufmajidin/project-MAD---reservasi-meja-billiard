@@ -24,6 +24,8 @@ import '../modules/reservasi/bindings/reservasi_binding.dart';
 import '../modules/reservasi/views/reservasi_view.dart';
 import '../modules/reservation/bindings/reservation_binding.dart';
 import '../modules/reservation/views/reservation_view.dart';
+import '../modules/reservationEdit/bindings/reservation_edit_binding.dart';
+import '../modules/reservationEdit/views/reservation_edit_view.dart';
 import '../modules/semuaMenu/bindings/semua_menu_binding.dart';
 import '../modules/semuaMenu/views/semua_menu_view.dart';
 import '../modules/semuaPaket/bindings/semua_paket_binding.dart';
@@ -107,6 +109,11 @@ class AppPages {
       name: _Paths.SEMUA_MENU,
       page: () => SemuaMenuView(),
       binding: SemuaMenuBinding(),
+    ),
+    GetPage(
+      name: _Paths.RESERVATION_EDIT,
+      page: () => ReservationEditView(),
+      binding: ReservationEditBinding(),
     ),
   ];
 }

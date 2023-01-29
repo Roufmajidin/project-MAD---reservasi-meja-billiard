@@ -3,10 +3,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:rf_majid/app/data/format_harga.dart';
 import 'package:rf_majid/app/data/lokalData/appColor.dart';
 import 'package:rf_majid/app/modules/cart/controllers/cart_controller.dart';
 
+import '../../../data/controller/auth_controller.dart';
 import '../controllers/reservasi_controller.dart';
 
 class ReservasiView extends StatelessWidget {
@@ -19,7 +22,8 @@ class ReservasiView extends StatelessWidget {
   final _auth = FirebaseAuth.instance;
   late String nama_pemesan;
   late String jam_pesanan;
-
+  final authC = Get.find<AuthController>();
+  final CartController controller = Get.find();
   final _formKey = GlobalKey<FormState>();
   Widget build(BuildContext context) {
     // String nama_peme;
@@ -141,7 +145,7 @@ class ReservasiView extends StatelessWidget {
                               Color.fromARGB(250, 18, 30, 54).withOpacity(0.5),
                           child: Container(
                             // height: 80,
-                            padding: EdgeInsets.all(18),
+                            padding: EdgeInsets.only(top: 18),
                             // width: 20,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(4)),
@@ -187,34 +191,30 @@ class ReservasiView extends StatelessWidget {
                                     modalBawah(context, index, data);
                                   },
                                   child: Container(
-                                      padding: EdgeInsets.only(bottom: 18),
+                                      alignment: Alignment.bottomCenter,
+                                      padding: EdgeInsets.all(18),
                                       decoration: BoxDecoration(
                                           color:
                                               Color.fromARGB(21, 255, 255, 255),
                                           borderRadius:
                                               BorderRadius.circular(4)),
-                                      child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(top: 1.0),
-                                        child: Center(
-                                          child: Column(
-                                            children: [
-                                              Text(
-                                                CurrencyFormat.convertToIdr(
-                                                    data.docs[index]["harga"],
-                                                    2),
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 15),
-                                              ),
-                                              Text(
-                                                "Add to Cart",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 15),
-                                              ),
-                                            ],
-                                          ),
+                                      child: Center(
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              CurrencyFormat.convertToIdr(
+                                                  data.docs[index]["harga"], 2),
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 15),
+                                            ),
+                                            Text(
+                                              "Add to Cart",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 15),
+                                            ),
+                                          ],
                                         ),
                                       )),
                                 ),
@@ -392,11 +392,11 @@ class ReservasiView extends StatelessWidget {
                                       // height: 30,
                                       child: GestureDetector(
                                         onTap: () {
-                                          controllerCC.toogleMR(dataM, index);
+                                          controller.toogle(dataM, index);
                                           // controller.g();
                                         },
                                         child: Card(
-                                          color: controllerCC.selected2
+                                          color: controller.selected
                                                   .contains(index)
                                               ? Color.fromARGB(
                                                   255,
@@ -474,7 +474,36 @@ class ReservasiView extends StatelessWidget {
                           // var minuman = ;
                           // controllerCC.addPesanan(dataPaket, hargaPaket, index);
                           // controller.minuman();
+                          var m = controller.menuA;
+
+                          // query
+                          int quant = controller.count();
+                          FirebaseFirestore.instance.collection('pesananUser')
+
+                              // )
+
+                              .add({
+                            'namapaket': data.docs[index]['namapaket'],
+                            'harga': data.docs[index]['harga'],
+                            'quantity': quant,
+                            'hargaminuman': controller.hargaMinuman,
+                            'pemesan': nama_pemesan.toString(),
+                            'waktu': data.docs[index]['waktu'],
+                            'meja': data.docs[index]['meja'],
+                            'isCekhed': true,
+                            'onHistory': true,
+                            'isselesai': true,
+                            'inklud': FieldValue.arrayUnion(m)
+
+                            // 'inklud':
+                          });
+                          // end
                           Navigator.pop(context);
+                          QuickAlert.show(
+                            context: context,
+                            type: QuickAlertType.info,
+                            text: ' Completed Reservation Successfully!',
+                          );
                         },
                         child: Center(
                           child: Text(

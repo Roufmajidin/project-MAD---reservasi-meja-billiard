@@ -7,6 +7,7 @@ import 'package:iconify_flutter/icons/ri.dart';
 import 'package:rf_majid/app/modules/homeAdmin/views/home_admin_view.dart';
 import 'package:rf_majid/app/modules/pemesanan/views/pemesanan_view.dart';
 import 'package:rf_majid/app/modules/pemesananHistory/views/pemesanan_history_view.dart';
+import 'package:rf_majid/app/modules/reservationEdit/views/reservation_edit_view.dart';
 
 import '../../../data/controller/auth_controller.dart';
 import '../controllers/prevent_home_admin_controller.dart';
@@ -25,7 +26,7 @@ class PreventHomeAdminView extends GetView<PreventHomeAdminController> {
               index: controller.tabIndex,
               children: [
                 PemesananView(),
-                PemesananHistoryView(),
+                ReservationEditView(),
                 HomeAdminView()
               ],
             ),
@@ -52,10 +53,10 @@ class PreventHomeAdminView extends GetView<PreventHomeAdminController> {
                       Ri.shopping_bag_fill,
                       color: Colors.white,
                     ),
-                    label: 'Reservasi U'),
+                    label: 'Reservasi Data'),
                 BottomNavigationBarItem(
                     icon: Iconify(
-                      Ri.refresh_line,
+                      Ri.menu_2_fill,
                       color: Colors.white,
                     ),
                     label: 'History'),

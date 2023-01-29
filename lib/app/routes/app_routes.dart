@@ -19,6 +19,7 @@ abstract class Routes {
   static const HOME_ADMIN = _Paths.HOME_ADMIN;
   static const RESERVASI = _Paths.RESERVASI;
   static const SEMUA_MENU = _Paths.SEMUA_MENU;
+  static const RESERVATION_EDIT = _Paths.RESERVATION_EDIT;
 }
 
 abstract class _Paths {
@@ -39,4 +40,5 @@ abstract class _Paths {
   static const HOME_ADMIN = '/home-admin';
   static const RESERVASI = '/reservasi';
   static const SEMUA_MENU = '/semua-menu';
+  static const RESERVATION_EDIT = '/reservation-edit';
 }
