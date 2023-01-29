@@ -1,14 +1,41 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:rf_majid/app/routes/app_pages.dart';
 
 class AuthController extends GetxController {
   final googleSignIn = GoogleSignIn();
-  FirebaseAuth auth = FirebaseAuth.instance;
   UserCredential? _userCredential;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+  //
+  FirebaseAuth auth = FirebaseAuth.instance;
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  //
+  late TextEditingController searchFriendsController,
+      namaPaketcontroller,
+      mejacontroller;
+  //
+  void onInit() {
+    super.onInit();
+    namaPaketcontroller = TextEditingController();
+    mejacontroller = TextEditingController();
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    namaPaketcontroller.dispose();
+    mejacontroller.dispose();
+  }
+
   Future signInWithGoogle() async {
     // Trigger the authentication flow
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
