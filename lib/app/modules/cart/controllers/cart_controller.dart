@@ -13,7 +13,7 @@ class CartController extends GetxController {
   RxDouble tot = 0.0.obs;
   // var isi = ''.obs;
   var tabI = 0;
-  var cKo = false;
+  bool cKo = true;
   var tabUkuran = 0;
   var ubah = false;
   var tabIndex = 0.obs;
@@ -22,7 +22,12 @@ class CartController extends GetxController {
   var htMenu = [].obs;
   var warna = 0.obs;
   // render paket selected di cart
-
+  // add inklud di admin page
+  var counti = 0.obs;
+  var countil = 2.obs;
+  var valuess = [].obs;
+  var ink = [].obs;
+//
   var paket = '';
   var meja = '';
   RxList inklud = [].obs;
@@ -49,14 +54,84 @@ class CartController extends GetxController {
     update();
   }
 
+  void cb() {
+    if (counti <= 3) {
+      counti += 1;
+    } else {
+      // counti++;
+    }
+    update();
+
+    print(counti);
+  }
+
+  void ca() {
+    if (counti >= 0) {
+      counti = 1.obs;
+    } else {
+      // counti++;
+    }
+    update();
+    print('auto ${counti}');
+  }
+
+  void cmin() {
+    counti = 1.obs;
+    update();
+
+    print('auto ${counti}');
+  }
+
+  void ci() {
+    counti -= 1;
+    update();
+    // print(counti);
+  }
+
+  void clearListInput() {
+    valuess = [].obs;
+  }
+
+  void updateA(index, val) {
+    // List<Map<String, dynamic>> values;
+    // List values = valuess;
+    int foundKey = -1;
+    for (var map in valuess) {
+      if (map.containsKey("id")) {
+        if (map["id"] == index) {
+          foundKey = index;
+          break;
+        }
+      }
+    }
+    if (-1 != foundKey) {
+      valuess.removeWhere((map) {
+        return map["id"] == foundKey;
+      });
+    }
+    Map<String, dynamic> json = {
+      "id": index,
+      "value": val,
+    };
+    valuess.add(json);
+    print(valuess);
+  }
+
   void changeTabI(index) {
     tabI = index;
     update();
   }
 
-  void ckB(index) {
-    bool ckO = true;
+  void ckB(isChecked, value, index) {
+    // bool ckO = value;
+    // print(index);
+    // cKo.update();
+    // isChecked = value!;
+    cKo = value!;
     update();
+    // print("index");
+    print(value);
+    // print(ckO);
   }
 
   void changeUkuran(index) {
@@ -72,6 +147,25 @@ class CartController extends GetxController {
         .update({'waktu': value});
     // .where('isCekhed', isEqualTo: true)
     // .get()
+  }
+
+  addInklud(inklud) {
+    var array = inklud;
+    List d = [];
+
+    d.add(inklud);
+    ink += d;
+    update();
+    // print(ink);
+  }
+
+  clearListInklud() {
+    // var array = value;
+    List d = [];
+    // d.add(value);
+    ink = [].obs;
+    update();
+    print(ink);
   }
 
   menuAdd(dataa, dataMBM) {
@@ -335,7 +429,10 @@ class CartController extends GetxController {
       'isselesai': true,
       'tanggalCekout': now,
       'total_t': data,
-    }).whenComplete(() => obsClear(data));
+    }).whenComplete(() {
+      obsClear(data);
+      obsClearInkl(data);
+    });
     int poin = 10;
     print('sukses cekot pesanan');
     FirebaseFirestore.instance
@@ -368,7 +465,27 @@ class CartController extends GetxController {
   //     return m;
   //   }
   // }
+// void addDummy(){
 
+//    FirebaseFirestore.instance.collection('pesananUser')
+
+//         // )
+//         .add({
+//       'namapaket': allpaket[index]['namapaket'],
+//       'harga': allpaket[index]['harga'],
+//       'quantity': quant,
+//       'hargaminuman': totalminuman,
+//       'pemesan': FirebaseAuth.instance.currentUser!.uid,
+//       'waktu': allpaket[index]['waktu'],
+//       'meja': allpaket[index]['meja'],
+//       'isCekhed': false,
+//       'onHistory': false,
+//       'isselesai': false,
+//       'inklud': FieldValue.arrayUnion(data)
+
+//       // 'inklud':
+//     });
+// }
   void addPesanan(data1, int index, context) {
     var controller = CartController();
     int quant = count();
@@ -727,8 +844,10 @@ class CartController extends GetxController {
 // mek
   //rx count hitung ceklist belanjaan
   void kondisiPaket(data, int index, dataid) {
-    int harga = data.docs[index]['quantity'] * data.docs[index]['harga'] +
-        data.docs[index]['harga'];
+    var hargaminuman = data.docs[index]['hargaminuman'];
+    var harga =
+        data.docs[index]['quantity'] * data.docs[index]['harga'] + hargaminuman;
+
     bool iss = true;
     if (data.docs[index]['isCekhed'] == false) {
       tot + harga;
@@ -746,7 +865,8 @@ class CartController extends GetxController {
       //     print('asas m:${infoinklud}');
       //   }
       // });
-
+      inkl += infoinklud;
+      print('inklud is ${infoinklud}');
       // inkl = data.docs[index]['inklud'][0]['harga'];
       // List hargaM = data.docs[index]['inklud'];
       // List a = [];
@@ -761,8 +881,13 @@ class CartController extends GetxController {
       print('total minuman ${data.docs[index]['hargaminuman']}');
     } else if (data.docs[index]['isCekhed'] == true) {
       // up(data, index, dataid);
-      tot - harga;
-      tot = tot;
+      // var c = tot - harga - hargaminuman;
+      // tot - c;
+      tot = 0.0.obs;
+      update();
+      var infoinklud = data.docs[index]['inklud'];
+      inkl = [].obs;
+      update();
     }
     // print(hargaM);
     print(' data Paket :${data.docs[index]['namapaket']}');
@@ -779,6 +904,13 @@ class CartController extends GetxController {
     // up(data, index, datai);
     tot - data;
     print("reseted sebanyak ${tot}");
+  }
+
+  void obsClearInkl(data) {
+    // up(data, index, datai);
+    // tot - data;
+    inkl = [].obs;
+    // print("reseted sebanyak ${tot}");
   }
 
   void kondisiMinuman(data, int index, dataid) {

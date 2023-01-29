@@ -216,7 +216,8 @@ class CartView extends StatelessWidget {
                                     physics: NeverScrollableScrollPhysics(),
                                     shrinkWrap: true,
                                     itemBuilder: (context, index) {
-                                      var value = data.docs[index]['isCekhed'];
+                                      // var value = false;
+                                      bool isChecked = cController.cKo;
                                       var infoinklud =
                                           data.docs[index]['inklud'];
                                       return Column(
@@ -261,9 +262,14 @@ class CartView extends StatelessWidget {
                                             },
                                             child: Container(
                                               decoration: BoxDecoration(
-                                                  color: Color.fromARGB(
-                                                          248, 24, 30, 42)
-                                                      .withOpacity(0.6),
+                                                  color: data.docs[index]
+                                                              ['isCekhed'] ==
+                                                          true
+                                                      ? Color.fromRGBO(92, 115,
+                                                              159, 0.973)
+                                                          .withOpacity(0.6)
+                                                      : Color.fromARGB(
+                                                          248, 24, 30, 42),
                                                   borderRadius:
                                                       BorderRadius.circular(4)),
                                               height: 130,
@@ -277,6 +283,59 @@ class CartView extends StatelessWidget {
                                                   children: [
                                                     Row(
                                                       children: [
+                                                        GetBuilder<
+                                                            CartController>(
+                                                          init:
+                                                              CartController(),
+                                                          initState: (_) {},
+                                                          builder: (_) {
+                                                            return CustomCheckBox(
+                                                                value:
+                                                                    cController
+                                                                        .cKo,
+                                                                shouldShowBorder:
+                                                                    true,
+                                                                uncheckedFillColor:
+                                                                    Colors
+                                                                        .transparent,
+                                                                uncheckedIconColor:
+                                                                    Colors
+                                                                        .transparent,
+                                                                borderColor:
+                                                                    Color.fromARGB(
+                                                                        249,
+                                                                        180,
+                                                                        180,
+                                                                        180),
+                                                                checkedFillColor:
+                                                                    const Color
+                                                                            .fromARGB(
+                                                                        250,
+                                                                        18,
+                                                                        30,
+                                                                        54),
+                                                                borderRadius: 4,
+                                                                borderWidth: 1,
+                                                                checkBoxSize:
+                                                                    18,
+                                                                splashColor:
+                                                                    Colors
+                                                                        .amber,
+                                                                onChanged: (
+                                                                  bool? value,
+                                                                ) {
+                                                                  // setState(() {
+                                                                  // var isChecked = value!;
+                                                                  // });
+                                                                  cController.ckB(
+                                                                      isChecked,
+                                                                      value,
+                                                                      index);
+
+                                                                  // print(index);
+                                                                });
+                                                          },
+                                                        ),
                                                         GestureDetector(
                                                           onTap: () {
                                                             // var cprint =
@@ -315,36 +374,9 @@ class CartView extends StatelessWidget {
                                                                     index,
                                                                     dataid);
                                                           },
-                                                          child: CustomCheckBox(
-                                                              value: value,
-                                                              shouldShowBorder:
-                                                                  true,
-                                                              uncheckedFillColor:
-                                                                  Colors
-                                                                      .transparent,
-                                                              uncheckedIconColor:
-                                                                  Colors
-                                                                      .transparent,
-                                                              borderColor:
-                                                                  Color.fromARGB(
-                                                                      249,
-                                                                      180,
-                                                                      180,
-                                                                      180),
-                                                              checkedFillColor:
-                                                                  const Color
-                                                                          .fromARGB(
-                                                                      250,
-                                                                      18,
-                                                                      30,
-                                                                      54),
-                                                              borderRadius: 4,
-                                                              borderWidth: 1,
-                                                              checkBoxSize: 18,
-                                                              splashColor:
-                                                                  Colors.amber,
-                                                              onChanged:
-                                                                  (value) {}),
+                                                          child: Container(
+                                                            child: Text("a"),
+                                                          ),
                                                         ),
                                                         Column(
                                                           crossAxisAlignment:
@@ -601,13 +633,29 @@ class CartView extends StatelessWidget {
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 14),
                                       ),
-                                      Text(
-                                        // "Rp. ${cController.tot}",
-                                        ': ${cController.inkl}',
-                                        // "as",
-                                        style: TextStyle(
-                                            color: Colors.white, fontSize: 14),
-                                      ),
+                                      Column(
+                                        children: List.generate(
+                                            // growable: true,
+                                            cController.inkl.length, (index2) {
+                                          return InkWell(
+                                            onTap: () {
+                                              // print(
+                                              //   'di ${infoinklud[index2]['harga']}',
+                                              // );
+                                              // print("ok");
+                                            },
+                                            child: Column(
+                                              children: [
+                                                Text(
+                                                  ' ${cController.inkl[index2]['namamenu'].toString()}    ${CurrencyFormat.convertToIdr(cController.inkl[index2]['harga'].toInt(), 2)}',
+                                                  style: TextStyle(
+                                                      color: Colors.white),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        }),
+                                      )
                                     ],
                                   ),
 
@@ -721,6 +769,21 @@ void _showDialog(context, index, data) {
                   cController.changeUkuran(0);
 
                   Navigator.pop(context);
+                  // dialogBox();
+                  AlertDialog alert = AlertDialog(
+                    title: Text("Sukses Checkout pesanan !"),
+                    content: Container(
+                      child: Text("Terimakasih, Checkout Anda Berhasil"),
+                    ),
+                    actions: [
+                      TextButton(
+                          child: Text(''), onPressed: () => Navigator.pop),
+                    ],
+                  );
+
+                  showDialog(context: context, builder: (context2) => alert);
+
+                  // return;
                 },
                 child: const Text(
                   'Confirm',
