@@ -522,7 +522,7 @@ void modalBawahB(BuildContext context) {
               crossAxisAlignment: CrossAxisAlignment.start,
               // mainAxisSize: MainAxisSize.min,
               children: [
-                _formFieldsCreate(context),
+                _formFieldsCreateMinuman(context),
                 SizedBox(
                   height: 20,
                 ),
@@ -531,6 +531,236 @@ void modalBawahB(BuildContext context) {
           ),
         );
       });
+}
+
+Widget _formFieldsCreateMinuman(context) {
+  final CartController controller = Get.find();
+  late String namapaket;
+  late String meja;
+  late String inklud;
+  TextEditingController controllerMinuman = TextEditingController();
+  TextEditingController controllerhargaMinuman = TextEditingController();
+  TextEditingController controllerGambar = TextEditingController();
+  // TextEditingController controllerWaktu = TextEditingController();
+  // List<Map<String, dynamic>> _values;
+
+//
+  // var infoinklud = data.docs[index]['inklud'];
+  final authCon = Get.find<AuthController>();
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      SizedBox(height: 22),
+      Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              alignment: Alignment.centerLeft,
+              child: InkWell(
+                onTap: () {},
+                child: Text(
+                  'Meja',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 182, 182, 182),
+                  ),
+                ),
+              ),
+            ),
+            TextFormField(
+              // controller: ,
+              controller: controllerMinuman,
+
+              onChanged: (value) {
+                print(value);
+              },
+              showCursor: true,
+              obscureText: false,
+              textCapitalization: TextCapitalization.sentences,
+              decoration: InputDecoration(
+                hintText: "Masukkan Nama Minuman",
+                hintStyle: TextStyle(color: Colors.grey.shade600),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(
+                    style: BorderStyle.solid,
+                    color: Color.fromARGB(255, 255, 255, 255),
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.amberAccent, width: 2.0),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                fillColor: Color.fromARGB(255, 24, 30, 42),
+                filled: true,
+                contentPadding: const EdgeInsets.all(12),
+              ),
+              style: TextStyle(color: Colors.grey[50], fontSize: 17),
+            ),
+          ],
+        ),
+      ),
+      const SizedBox(height: 22),
+      Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              alignment: Alignment.centerLeft,
+              child: InkWell(
+                onTap: () {},
+                child: Text(
+                  'Harga',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 182, 182, 182),
+                  ),
+                ),
+              ),
+            ),
+            TextFormField(
+              // controller: ,
+              controller: controllerhargaMinuman,
+
+              onChanged: (value) {
+                print(value);
+              },
+              showCursor: true,
+              obscureText: false,
+              textCapitalization: TextCapitalization.sentences,
+              decoration: InputDecoration(
+                hintText: "Masukkan Harga Minuman",
+                hintStyle: TextStyle(color: Colors.grey.shade600),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(
+                    style: BorderStyle.solid,
+                    color: Color.fromARGB(255, 255, 255, 255),
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.amberAccent, width: 2.0),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                fillColor: Color.fromARGB(255, 24, 30, 42),
+                filled: true,
+                contentPadding: const EdgeInsets.all(12),
+              ),
+              style: TextStyle(color: Colors.grey[50], fontSize: 17),
+            ),
+          ],
+        ),
+      ),
+      const SizedBox(height: 22),
+
+      // harga
+      Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              alignment: Alignment.centerLeft,
+              child: InkWell(
+                onTap: () {},
+                child: Text(
+                  'Gambar Minuman',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 182, 182, 182),
+                  ),
+                ),
+              ),
+            ),
+            TextFormField(
+              // controller: ,
+              controller: controllerGambar,
+              onChanged: (value) {
+                print(value);
+              },
+              showCursor: true,
+              obscureText: false,
+              textCapitalization: TextCapitalization.sentences,
+              decoration: InputDecoration(
+                hintText: "Gambar Minuman",
+                hintStyle: TextStyle(color: Colors.grey.shade600),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: BorderSide(
+                    style: BorderStyle.solid,
+                    color: Color.fromARGB(255, 255, 255, 255),
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.amberAccent, width: 2.0),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                fillColor: Color.fromARGB(255, 24, 30, 42),
+                filled: true,
+                contentPadding: const EdgeInsets.all(12),
+              ),
+              style: TextStyle(color: Colors.grey[50], fontSize: 17),
+            ),
+          ],
+        ),
+      ),
+      const SizedBox(height: 22),
+
+      // end harga
+
+      Center(
+        child: Container(
+          height: 40,
+          width: 300,
+          decoration: BoxDecoration(
+              color: Color.fromARGB(
+                255,
+                238,
+                233,
+                126,
+              ),
+              borderRadius: BorderRadius.circular(8)),
+          child: InkWell(
+            onTap: () {
+              // controller.addPesanan(allpaket, index, context);
+              // controller.minuman();
+              // controller.update(data, index);
+              // var dataid = data.docs[index].id;
+              List array = controller.valuess();
+              List fix = [];
+              final String name = controllerMinuman.text;
+
+              int hrgM = int.parse(controllerhargaMinuman.text);
+              FirebaseFirestore.instance.collection('allminuman').add(
+                {
+                  'namamenu': controllerMinuman.text.trim(),
+                  'harga': hrgM,
+                  'gambar': controllerGambar.text.trim()
+                },
+              );
+              // .where('isCekhed', isEqualTo: true)
+              // .get()
+
+              controller.clearListInput();
+              Navigator.pop(context);
+            },
+            child: Center(
+              child: Text(
+                "Tambah Minuman",
+                style: TextStyle(
+                    color: Color.fromARGB(255, 33, 33, 33),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20),
+              ),
+            ),
+          ),
+        ),
+      )
+    ],
+  );
 }
 
 Widget _formFieldsCreate(context) {
