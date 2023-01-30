@@ -136,8 +136,13 @@ class SemuaMenuView extends GetView<SemuaMenuController> {
                                           ),
                                           Column(
                                             children: [
-                                              Image.asset(
-                                                  'assets/gambar/minuman.png'),
+                                              ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                  child: Image.network(
+                                                    dataM.docs[index]['gambar'],
+                                                    height: 80,
+                                                  )),
                                               SizedBox(
                                                 height: 6,
                                               ),

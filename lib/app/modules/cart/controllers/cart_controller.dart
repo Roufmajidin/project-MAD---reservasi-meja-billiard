@@ -394,7 +394,7 @@ class CartController extends GetxController {
 
         // )
         .add({
-      'namapaket': menuB[index]['namapaket'],
+      'namapaket': menuB[index]['namapaket'].toString(),
       'harga': totalHargaPaket,
       'quantity': quant,
       'hargaminuman': dataM.docs[index]['harga'],
