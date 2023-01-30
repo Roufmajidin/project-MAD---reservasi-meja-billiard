@@ -169,6 +169,9 @@ class SemuaMenuView extends GetView<SemuaMenuController> {
     showModalBottomSheet(
         backgroundColor: Color.fromARGB(248, 24, 30, 42),
         context: context,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
+        ),
         builder: (context) {
           return Container(
             decoration: BoxDecoration(

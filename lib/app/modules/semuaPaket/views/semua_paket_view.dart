@@ -190,6 +190,9 @@ class SemuaPaketView extends StatelessWidget {
     showModalBottomSheet(
         backgroundColor: Color.fromARGB(255, 24, 30, 42),
         context: context,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
+        ),
         builder: (context) {
           return Container(
             // width: 700,
