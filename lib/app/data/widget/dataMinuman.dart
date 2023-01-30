@@ -41,13 +41,12 @@ class dataMinuman extends StatelessWidget {
               return InkWell(
                   onTap: () {
                     modalBawahMinumanEdit(context, index, dataM);
+                    print("asas");
                   },
                   //  modalBawahmenu(context, index, dataM),
                   child: Container(
                       padding: const EdgeInsets.only(top: 2, left: 1),
                       margin: EdgeInsets.only(bottom: 8),
-                      // height: Get.height * 0.20,
-                      // width: Get.width * 0.7,
                       decoration: BoxDecoration(
                           color: const Color.fromARGB(248, 24, 30, 42)
                               .withOpacity(0.5),
