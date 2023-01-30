@@ -266,12 +266,7 @@ class dataMinuman extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: FirebaseFirestore.instance
-            .collection('pesananUser')
-            .where('pemesan', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-            .where('onHistory', isEqualTo: false)
-            .where('isselesai', isEqualTo: true)
-            .snapshots(),
+        stream: FirebaseFirestore.instance.collection('allminuman').snapshots(),
         builder:
             (__, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
           if (snapshot.hasError) {
@@ -282,147 +277,101 @@ class dataMinuman extends StatelessWidget {
             );
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Column(
-              children: [
-                Center(child: CircularProgressIndicator()),
-                Center(
-                  child: Text(
-                    "Loading",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ],
+            return Text(
+              "Loading",
+              style: TextStyle(color: Colors.white),
             );
           }
-          final data = snapshot.requireData;
+          // var dataMinuman =
 
-          // print(DateFormat('dd-MMM-yyy').format(date));
+          final dataM = snapshot.requireData;
           return ListView.builder(
-              itemCount: data.size,
-              scrollDirection: Axis.vertical,
-              // physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                var value = data.docs[index]['isCekhed'];
-                var datea = DateTime.parse(
-                    data.docs[index]['tanggalCekout'].toDate().toString());
-                return Column(
-                  children: [
-                    Container(
-                        margin: EdgeInsets.only(bottom: 18),
-                        height: 180,
-                        decoration: BoxDecoration(
-                            color: Color.fromARGB(248, 24, 30, 42),
-                            borderRadius: BorderRadius.circular(4)),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.all(12),
-                              child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          data.docs[index]['namapaket'],
+            itemCount: dataM.size,
+            scrollDirection: Axis.vertical,
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              return InkWell(
+                  onTap: () {},
+                  // modalBawahmenu(context, index, dataM)
+
+                  child: Container(
+                      padding: const EdgeInsets.only(top: 2, left: 1),
+                      margin: EdgeInsets.only(bottom: 8),
+                      // height: Get.height * 0.20,
+                      // width: Get.width * 0.7,
+                      decoration: BoxDecoration(
+                          color: const Color.fromARGB(248, 24, 30, 42)
+                              .withOpacity(0.5),
+                          borderRadius: BorderRadius.circular(4)),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(Get.width * 0.027),
+                            child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        // menu[index]["namamenu"].toString(),
+                                        dataM.docs[index]["namamenu"]
+                                            .toString(),
+                                        style: TextStyle(
+                                            color: judul,
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 18),
+                                      ),
+                                      SizedBox(height: Get.height * 0.01),
+                                      Container(
+                                        // padding: EdgeInsets.only(left: 10),
+                                        child: Text(
+                                          "Rp." +
+                                              // menu[index]["harga"]
+                                              //     .toString(),
+                                              dataM.docs[index]["harga"]
+                                                  .toString(),
                                           style: TextStyle(
                                               color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18),
+                                              fontSize: 15),
                                         ),
-                                        SizedBox(height: Get.height * 0.01),
-                                        Container(
-                                          // padding: EdgeInsets.only(left: 10),
-                                          child: Text(
-                                            "Meja : " +
-                                                data.docs[index]['meja'],
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 16),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    Container(
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            '${datea}',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 14),
-                                          ),
-                                          SizedBox(
-                                            height: 6,
-                                          ),
-                                        ],
+                                      )
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          child: Image.network(
+                                            dataM.docs[index]['gambar'],
+                                            height: 80,
+                                          )),
+                                      SizedBox(
+                                        height: 6,
                                       ),
-                                    )
-                                  ]),
-                            ),
-                            Container(
-                              padding: EdgeInsets.only(left: 12),
-                              child: Text(
-                                "ADD ONS : ",
-                                style: TextStyle(
-                                    color: Color.fromARGB(110, 255, 255, 255),
-                                    fontSize: 8),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 3,
-                            ),
-                            Container(
-                              width: 180,
-                              padding: EdgeInsets.only(left: 12),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: List.generate(
-                                    data.docs[index]['inklud'].length,
-                                    (index2) => InkWell(
-                                          onTap: () {
-                                            print(
-                                              data.docs[0]['inklud'][index]
-                                                  ['namamenu'],
-                                            );
-                                          },
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                width: 130,
-                                                child: Text(
-                                                  data.docs[index]['inklud']
-                                                      [index2]['namamenu'],
-                                                  style: TextStyle(
-                                                      color: Colors.white),
-                                                ),
-                                              ),
-                                              Text(
-                                                "x 1",
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              ),
-                                            ],
-                                          ),
-                                        )),
-                              ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                          ],
-                        )),
-                  ],
-                );
-              });
+                                      Container(
+                                        padding: EdgeInsets.only(top: 12),
+                                        child: GestureDetector(
+                                            onTap: () {
+                                              // controller.addDocument();
+                                            },
+                                            child: Container()),
+                                      )
+                                    ],
+                                  )
+                                ]),
+                          ),
+                        ],
+                      )));
+            },
+            // SizedBox(height: Get.height * 0.01),
+          );
         });
-
     //
   }
 }
@@ -438,12 +387,17 @@ void modalBawah(BuildContext context, index, data) {
   showModalBottomSheet(
       backgroundColor: Color.fromARGB(255, 24, 30, 42),
       context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
+      ),
       builder: (context) {
         return Container(
           width: 900,
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: new BorderRadius.only(
+                topLeft: const Radius.circular(10.0),
+                topRight: const Radius.circular(10.0)),
           ),
           child: SingleChildScrollView(
             // height: 800,
@@ -474,12 +428,17 @@ void modalBawahCreate(BuildContext context) {
   showModalBottomSheet(
       backgroundColor: Color.fromARGB(255, 24, 30, 42),
       context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
+      ),
       builder: (context) {
         return Container(
           width: 900,
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: new BorderRadius.only(
+                topLeft: const Radius.circular(10.0),
+                topRight: const Radius.circular(10.0)),
           ),
           child: SingleChildScrollView(
             // height: 800,
@@ -508,13 +467,13 @@ void modalBawahB(BuildContext context) {
   showModalBottomSheet(
       backgroundColor: Color.fromARGB(255, 24, 30, 42),
       context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
+      ),
       builder: (context) {
         return Container(
           width: 900,
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-          ),
           child: SingleChildScrollView(
             // height: 800,
             // width: 600,
@@ -561,7 +520,7 @@ Widget _formFieldsCreateMinuman(context) {
               child: InkWell(
                 onTap: () {},
                 child: Text(
-                  'Meja',
+                  'Nama Minuman',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Color.fromARGB(255, 182, 182, 182),

@@ -16,6 +16,7 @@ dependencies:
   fancy_bottom_navigation: ^0.3.3
   firebase_auth: ^4.2.0
   firebase_core: ^2.3.0
+  firebase_storage: ^11.0.10
   firestore_cache: ^2.3.0
   flutter:
     sdk: flutter
