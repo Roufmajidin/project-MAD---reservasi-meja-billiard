@@ -17,40 +17,42 @@ class ReservationView extends GetView<ReservationController> {
     //
     var controller = Get.put(ReservationController());
     return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color.fromARGB(255, 20, 20, 20),
+          leadingWidth: 500,
+          title: Text("Histroy"),
+          leading: GestureDetector(
+            // excludeFromSemantics: false,
+            onTap: () {
+              Navigator.pop(context);
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(builder: (context) => HomeView()),
+              // );
+              print("object");
+            },
+          ),
+        ),
         backgroundColor: Color.fromARGB(255, 20, 20, 20),
         body: GetBuilder<ReservationController>(builder: (controller) {
           return SafeArea(
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+              child: Stack(
+                  // crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                SizedBox(
+                  height: 40,
+                ),
+                SingleChildScrollView(
+                  physics: ScrollPhysics(),
+                  // scrollDirection: Axis.vertical,
+                  child: [onProgress(), onHistory()][controller.tabIndex],
+                ),
+                // onHistory()
                 Column(
-                  children: [
-                    Padding(
-                      padding:
-                          const EdgeInsets.only(top: 24.0, left: 14, right: 14),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(
-                            width: 30,
-                          ),
-                          Text('History',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20.0)),
-                          // trollyTap(),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: 10),
-                      height: 2,
-                      decoration: BoxDecoration(color: Colors.white),
-                    )
-                  ],
+                  children: [],
                 ),
                 Container(
+                  height: 60,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -66,7 +68,7 @@ class ReservationView extends GetView<ReservationController> {
                             decoration: BoxDecoration(
                               color: controller.tabIndex == 0
                                   ? Color.fromARGB(248, 24, 30, 42)
-                                  : Color.fromARGB(255, 17, 17, 17),
+                                  : Color.fromARGB(255, 20, 20, 20),
                             ),
                             child: Text(
                               "on Progress",
@@ -92,7 +94,7 @@ class ReservationView extends GetView<ReservationController> {
                             decoration: BoxDecoration(
                               color: controller.tabIndex == 1
                                   ? Color.fromARGB(248, 24, 30, 42)
-                                  : Color.fromARGB(255, 39, 39, 39),
+                                  : Color.fromARGB(255, 20, 20, 20),
                             ),
                             child: Text(
                               "History",
@@ -108,18 +110,6 @@ class ReservationView extends GetView<ReservationController> {
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 18,
-                ),
-                SingleChildScrollView(
-                  physics: ScrollPhysics(),
-                  scrollDirection: Axis.vertical,
-                  child: Container(
-                    height: Get.height - 213,
-                    child: [onProgress(), onHistory()][controller.tabIndex],
-                  ),
-                ),
-                // onHistory()
 
                 // Obx(
                 //   () => Visibility(
@@ -163,185 +153,190 @@ class onProgress extends StatelessWidget {
           }
           final data = snapshot.requireData;
 
-          return ListView.builder(
-              itemCount: data.size,
-              scrollDirection: Axis.vertical,
-              // physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                var value = data.docs[index]['isCekhed'];
-                return Column(
-                  children: [
-                    Container(
-                        margin: EdgeInsets.only(bottom: 18),
-                        height: 180,
-                        decoration: BoxDecoration(
-                            color: Color.fromARGB(248, 24, 30, 42),
-                            borderRadius: BorderRadius.circular(4)),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.all(12),
-                              child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          data.docs[index]['namapaket'],
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18),
-                                        ),
-                                        SizedBox(height: Get.height * 0.01),
-                                        Container(
-                                          // padding: EdgeInsets.only(left: 10),
-                                          child: Text(
-                                            "Meja : " +
-                                                data.docs[index]['meja'],
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 16),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    Container(
-                                      child: Column(
+          return Container(
+            padding: EdgeInsets.only(top: 80),
+            constraints: BoxConstraints(maxWidth: 950),
+            child: ListView.builder(
+                itemCount: data.size,
+                scrollDirection: Axis.vertical,
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  var value = data.docs[index]['isCekhed'];
+                  return Column(
+                    children: [
+                      Container(
+                          margin: EdgeInsets.only(bottom: 18),
+                          height: 180,
+                          decoration: BoxDecoration(
+                              color: Color.fromARGB(248, 24, 30, 42),
+                              borderRadius: BorderRadius.circular(4)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(12),
+                                child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            "11 Januari 2022 16:00-17:00",
+                                            data.docs[index]['namapaket'],
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 14),
+                                                fontSize: 18),
                                           ),
-                                          SizedBox(
-                                            height: 6,
-                                          ),
+                                          SizedBox(height: Get.height * 0.01),
+                                          Container(
+                                            // padding: EdgeInsets.only(left: 10),
+                                            child: Text(
+                                              "Meja : " +
+                                                  data.docs[index]['meja'],
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 16),
+                                            ),
+                                          )
                                         ],
                                       ),
-                                    )
-                                  ]),
-                            ),
-                            Container(
-                              padding: EdgeInsets.only(left: 12),
-                              child: Text(
-                                "ADD ONS : ",
-                                style: TextStyle(
-                                    color: Color.fromARGB(110, 255, 255, 255),
-                                    fontSize: 8),
+                                      Container(
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              "11 Januari 2022 16:00-17:00",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 14),
+                                            ),
+                                            SizedBox(
+                                              height: 6,
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ]),
                               ),
-                            ),
-                            SizedBox(
-                              height: 3,
-                            ),
-                            Container(
-                              width: 180,
-                              padding: EdgeInsets.only(left: 12),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: List.generate(
-                                    data.docs[index]['inklud'].length,
-                                    (index) => InkWell(
-                                          onTap: () {
-                                            print(
-                                              data.docs[0]['inklud'][index]
-                                                  ['namamenu'],
-                                            );
-                                          },
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                width: 130,
-                                                child: Text(
-                                                  data.docs[0]['inklud'][0]
-                                                      ['namamenu'],
+                              Container(
+                                padding: EdgeInsets.only(left: 12),
+                                child: Text(
+                                  "ADD ONS : ",
+                                  style: TextStyle(
+                                      color: Color.fromARGB(110, 255, 255, 255),
+                                      fontSize: 8),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 3,
+                              ),
+                              Container(
+                                width: 180,
+                                padding: EdgeInsets.only(left: 12),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: List.generate(
+                                      data.docs[index]['inklud'].length,
+                                      (index) => InkWell(
+                                            onTap: () {
+                                              print(
+                                                data.docs[0]['inklud'][index]
+                                                    ['namamenu'],
+                                              );
+                                            },
+                                            child: Row(
+                                              children: [
+                                                Container(
+                                                  width: 130,
+                                                  child: Text(
+                                                    data.docs[0]['inklud'][0]
+                                                        ['namamenu'],
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                ),
+                                                Text(
+                                                  "x 1",
                                                   style: TextStyle(
                                                       color: Colors.white),
                                                 ),
-                                              ),
-                                              Text(
-                                                "x 1",
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              ),
-                                            ],
-                                          ),
-                                        )),
+                                              ],
+                                            ),
+                                          )),
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              padding: EdgeInsets.symmetric(horizontal: 12),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                      // width: ,
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Container(
+                                padding: EdgeInsets.symmetric(horizontal: 12),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                        // width: ,
 
-                                      child: Row(
-                                    children: [
-                                      Text(
-                                        "See Details",
-                                        style: TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 255, 255, 255),
-                                            fontSize: 16),
-                                      ),
-                                      Container(
-                                        padding: EdgeInsets.only(left: 4),
-                                        child: Iconify(
-                                          Bi.arrow_down_circle,
-                                          color: Colors.white,
-                                          size: 14,
+                                        child: Row(
+                                      children: [
+                                        Text(
+                                          "See Details",
+                                          style: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 255, 255, 255),
+                                              fontSize: 16),
                                         ),
-                                      ),
-                                    ],
-                                  )),
-                                  Container(
-                                      // width: 120,
-                                      padding: EdgeInsets.only(
-                                        left: 12,
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            "Total :",
-                                            style: TextStyle(
-                                                color: Color.fromARGB(
-                                                    255, 255, 255, 255),
-                                                fontSize: 16),
+                                        Container(
+                                          padding: EdgeInsets.only(left: 4),
+                                          child: Iconify(
+                                            Bi.arrow_down_circle,
+                                            color: Colors.white,
+                                            size: 14,
                                           ),
-                                          Container(
-                                            padding: EdgeInsets.only(left: 4),
-                                            child: Text(
-                                              "Rp. 120.0000, -",
+                                        ),
+                                      ],
+                                    )),
+                                    Container(
+                                        // width: 120,
+                                        padding: EdgeInsets.only(
+                                          left: 12,
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              "Total :",
                                               style: TextStyle(
                                                   color: Color.fromARGB(
                                                       255, 255, 255, 255),
                                                   fontSize: 16),
                                             ),
-                                          ),
-                                        ],
-                                      )),
-                                ],
+                                            Container(
+                                              padding: EdgeInsets.only(left: 4),
+                                              child: Text(
+                                                "Rp. 120.0000, -",
+                                                style: TextStyle(
+                                                    color: Color.fromARGB(
+                                                        255, 255, 255, 255),
+                                                    fontSize: 16),
+                                              ),
+                                            ),
+                                          ],
+                                        )),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
-                        )),
-                  ],
-                );
-              });
+                            ],
+                          )),
+                    ],
+                  );
+                }),
+          );
         });
   }
 }
@@ -385,189 +380,194 @@ class onHistory extends StatelessWidget {
           final data = snapshot.requireData;
 
           // print(DateFormat('dd-MMM-yyy').format(date));
-          return ListView.builder(
-              itemCount: data.size,
-              scrollDirection: Axis.vertical,
-              // physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemBuilder: (context, index) {
-                var value = data.docs[index]['isCekhed'];
-                var datea = DateTime.parse(
-                    data.docs[index]['tanggalCekout'].toDate().toString());
-                return Column(
-                  children: [
-                    Container(
-                        margin: EdgeInsets.only(bottom: 18),
-                        height: 180,
-                        decoration: BoxDecoration(
-                            color: Color.fromARGB(248, 24, 30, 42),
-                            borderRadius: BorderRadius.circular(4)),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.all(12),
-                              child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          data.docs[index]['namapaket'],
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18),
-                                        ),
-                                        SizedBox(height: Get.height * 0.01),
-                                        Container(
-                                          // padding: EdgeInsets.only(left: 10),
-                                          child: Text(
-                                            "Meja : " +
-                                                data.docs[index]['meja'],
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 16),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    Container(
-                                      child: Column(
+          return Container(
+            constraints: BoxConstraints(maxHeight: 800),
+            padding: EdgeInsets.only(top: 80),
+            child: ListView.builder(
+                itemCount: data.size,
+                scrollDirection: Axis.vertical,
+                physics: ScrollPhysics(),
+                // shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  var value = data.docs[index]['isCekhed'];
+                  var datea = DateTime.parse(
+                      data.docs[index]['tanggalCekout'].toDate().toString());
+                  return Column(
+                    children: [
+                      Container(
+                          margin: EdgeInsets.only(bottom: 18),
+                          height: 180,
+                          decoration: BoxDecoration(
+                              color: Color.fromARGB(248, 24, 30, 42),
+                              borderRadius: BorderRadius.circular(4)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(12),
+                                child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            '${datea}',
+                                            data.docs[index]['namapaket'],
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 14),
+                                                fontSize: 18),
                                           ),
-                                          SizedBox(
-                                            height: 6,
-                                          ),
+                                          SizedBox(height: 12),
+                                          Container(
+                                            // padding: EdgeInsets.only(left: 10),
+                                            child: Text(
+                                              "Meja : " +
+                                                  data.docs[index]['meja'],
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 16),
+                                            ),
+                                          )
                                         ],
                                       ),
-                                    )
-                                  ]),
-                            ),
-                            Container(
-                              padding: EdgeInsets.only(left: 12),
-                              child: Text(
-                                "ADD ONS : ",
-                                style: TextStyle(
-                                    color: Color.fromARGB(110, 255, 255, 255),
-                                    fontSize: 8),
+                                      Container(
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              '${datea}',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 14),
+                                            ),
+                                            SizedBox(
+                                              height: 6,
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ]),
                               ),
-                            ),
-                            SizedBox(
-                              height: 3,
-                            ),
-                            Container(
-                              width: 180,
-                              padding: EdgeInsets.only(left: 12),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: List.generate(
-                                    data.docs[index]['inklud'].length,
-                                    (index2) => InkWell(
-                                          onTap: () {
-                                            print(
-                                              data.docs[0]['inklud'][index]
-                                                  ['namamenu'],
-                                            );
-                                          },
-                                          child: Row(
-                                            children: [
-                                              Container(
-                                                width: 130,
-                                                child: Text(
-                                                  data.docs[index]['inklud']
-                                                      [index2]['namamenu'],
+                              Container(
+                                padding: EdgeInsets.only(left: 12),
+                                child: Text(
+                                  "ADD ONS : ",
+                                  style: TextStyle(
+                                      color: Color.fromARGB(110, 255, 255, 255),
+                                      fontSize: 8),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 3,
+                              ),
+                              Container(
+                                width: 180,
+                                padding: EdgeInsets.only(left: 12),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: List.generate(
+                                      data.docs[index]['inklud'].length,
+                                      (index2) => InkWell(
+                                            onTap: () {
+                                              print(
+                                                data.docs[0]['inklud'][index]
+                                                    ['namamenu'],
+                                              );
+                                            },
+                                            child: Row(
+                                              children: [
+                                                Container(
+                                                  width: 130,
+                                                  child: Text(
+                                                    data.docs[index]['inklud']
+                                                        [index2]['namamenu'],
+                                                    style: TextStyle(
+                                                        color: Colors.white),
+                                                  ),
+                                                ),
+                                                Text(
+                                                  "x 1",
                                                   style: TextStyle(
                                                       color: Colors.white),
                                                 ),
-                                              ),
-                                              Text(
-                                                "x 1",
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              ),
-                                            ],
-                                          ),
-                                        )),
+                                              ],
+                                            ),
+                                          )),
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Container(
-                              padding: EdgeInsets.symmetric(horizontal: 12),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                      // width: ,
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Container(
+                                padding: EdgeInsets.symmetric(horizontal: 12),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                        // width: ,
 
-                                      child: Row(
-                                    children: [
-                                      Text(
-                                        "See Details",
-                                        style: TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 255, 255, 255),
-                                            fontSize: 16),
-                                      ),
-                                      Container(
-                                        padding: EdgeInsets.only(left: 4),
-                                        child: Iconify(
-                                          Bi.arrow_down_circle,
-                                          color: Colors.white,
-                                          size: 14,
+                                        child: Row(
+                                      children: [
+                                        Text(
+                                          "See Details",
+                                          style: TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 255, 255, 255),
+                                              fontSize: 16),
                                         ),
-                                      ),
-                                    ],
-                                  )),
-                                  Container(
-                                      // width: 120,
-                                      padding: EdgeInsets.only(
-                                        left: 12,
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            "Total :",
-                                            style: TextStyle(
-                                                color: Color.fromARGB(
-                                                    255, 255, 255, 255),
-                                                fontSize: 16),
+                                        Container(
+                                          padding: EdgeInsets.only(left: 4),
+                                          child: Iconify(
+                                            Bi.arrow_down_circle,
+                                            color: Colors.white,
+                                            size: 14,
                                           ),
-                                          Container(
-                                            padding: EdgeInsets.only(left: 4),
-                                            child: Text(
-                                              CurrencyFormat.convertToIdr(
-                                                  data.docs[index]['total_t'],
-                                                  2),
+                                        ),
+                                      ],
+                                    )),
+                                    Container(
+                                        // width: 120,
+                                        padding: EdgeInsets.only(
+                                          left: 12,
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              "Total :",
                                               style: TextStyle(
                                                   color: Color.fromARGB(
                                                       255, 255, 255, 255),
                                                   fontSize: 16),
                                             ),
-                                          ),
-                                        ],
-                                      )),
-                                ],
+                                            Container(
+                                              padding: EdgeInsets.only(left: 4),
+                                              child: Text(
+                                                CurrencyFormat.convertToIdr(
+                                                    data.docs[index]['total_t'],
+                                                    2),
+                                                style: TextStyle(
+                                                    color: Color.fromARGB(
+                                                        255, 255, 255, 255),
+                                                    fontSize: 16),
+                                              ),
+                                            ),
+                                          ],
+                                        )),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
-                        )),
-                  ],
-                );
-              });
+                            ],
+                          )),
+                    ],
+                  );
+                }),
+          );
         });
 
     //
