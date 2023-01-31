@@ -33,8 +33,7 @@ class ReservationEditView extends GetView<ReservationEditController> {
                 Column(
                   children: [
                     Padding(
-                      padding:
-                          const EdgeInsets.only(top: 24.0, left: 14, right: 14),
+                      padding: const EdgeInsets.all(24),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -105,9 +104,10 @@ class ReservationEditView extends GetView<ReservationEditController> {
                             controller.changeTabIndex(1);
                           },
                           child: Container(
+                            width: 80,
                             alignment: Alignment.center,
                             padding: EdgeInsets.symmetric(
-                                horizontal: 60, vertical: 20),
+                                horizontal: 30, vertical: 20),
                             decoration: BoxDecoration(
                               color: controller.tabIndex == 1
                                   ? Color.fromARGB(248, 24, 30, 42)
@@ -134,11 +134,8 @@ class ReservationEditView extends GetView<ReservationEditController> {
                   physics: ScrollPhysics(),
                   scrollDirection: Axis.vertical,
                   child: Container(
-                    height: Get.height - 213,
-                    child: [
-                      dataPaket(),
-                      const dataMinuman()
-                    ][controller.tabIndex],
+                    height: 600,
+                    child: [dataPaket(), dataMinuman()][controller.tabIndex],
                   ),
                 ),
               ]));

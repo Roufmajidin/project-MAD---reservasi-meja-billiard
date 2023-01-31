@@ -1,10 +1,14 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:rf_majid/app/data/lokalData/menu.dart';
 import 'package:rf_majid/app/modules/cart/data/allPaket.dart';
 
@@ -23,10 +27,14 @@ class CartController extends GetxController {
   var warna = 0.obs;
   // render paket selected di cart
   // add inklud di admin page
+
   var counti = 0.obs;
   var countil = 2.obs;
   var valuess = [].obs;
   var ink = [].obs;
+  // gambar
+
+  var gm = [].obs;
 //
   var paket = '';
   var meja = '';
@@ -47,11 +55,20 @@ class CartController extends GetxController {
   // final List items = ['Item1', 'Item2', 1];
   String? selectedValue;
   String? _selectedTime;
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   var db = FirebaseFirestore.instance;
   void changeWarna(index) {
     warna = index;
     // print()
     update();
+  }
+
+  void testG(files) {
+    gm += files;
+    // gm = [].obs;
+    update();
+    print('is gm ${gm}');
   }
 
   void cb() {

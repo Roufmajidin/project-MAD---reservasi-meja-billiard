@@ -79,7 +79,7 @@ class dataPaket extends StatelessWidget {
                             ],
                           )),
                       SizedBox(
-                        height: Get.height * 0.064,
+                        height: 24,
                       ),
 
                       //btn

@@ -56,7 +56,7 @@ class SemuaPaketView extends StatelessWidget {
           SizedBox(
             height: Get.height * 0.012,
           ),
-          Expanded(
+          Flexible(
             child: StreamBuilder(
                 stream: FirebaseFirestore.instance
                     .collection('allpaket')
