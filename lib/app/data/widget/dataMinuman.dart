@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:async';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:path/path.dart' as path;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -26,73 +27,23 @@ class dataMinuman extends StatefulWidget {
 class _dataMinumanState extends State<dataMinuman> {
   final CartController controller = Get.find();
   FirebaseStorage storage = FirebaseStorage.instance;
-  Future<void> _upload(String inputSource) async {
-    final picker = ImagePicker();
-    XFile? pickedImage;
-    try {
-      pickedImage = await picker.pickImage(
-          source: inputSource == 'camera'
-              ? ImageSource.camera
-              : ImageSource.gallery,
-          maxWidth: 1920);
-
-      final String fileName = path.basename(pickedImage!.path);
-      File imageFile = File(pickedImage.path);
-
-      try {
-        // Uploading the selected image with some custom meta data
-        await storage.ref(fileName).putFile(
-            imageFile,
-            SettableMetadata(customMetadata: {
-              'uploaded_by': 'A bad guy',
-              'description': 'Some description...'
-            }));
-
-        // Refresh the UI
-        setState(() {});
-      } on FirebaseException catch (error) {
-        if (kDebugMode) {
-          print(error);
-        }
-      }
-    } catch (err) {
-      if (kDebugMode) {
-        print(err);
-      }
-    }
-  }
-
-  // Retriew the uploaded images
-  // This function is called when the app launches for the first time or when an image is uploaded or deleted
-  Future<List<Map<String, dynamic>>> _loadImages() async {
-    List<Map<String, dynamic>> files = [];
-
-    final ListResult result = await storage.ref().list();
-    final List<Reference> allFiles = result.items;
-
-    await Future.forEach<Reference>(allFiles, (file) async {
-      final String fileUrl = await file.getDownloadURL();
-      final FullMetadata fileMeta = await file.getMetadata();
-      files.add({
-        "url": fileUrl,
-        "path": file.fullPath,
-        "uploaded_by": fileMeta.customMetadata?['uploaded_by'] ?? 'Nobody',
-        "description":
-            fileMeta.customMetadata?['description'] ?? 'No description'
+  String im = '';
+  void pickUpImage() async {
+    final image = await ImagePicker().pickImage(
+        source: ImageSource.gallery,
+        maxHeight: 512,
+        maxWidth: 512,
+        imageQuality: 75);
+    Reference ref = FirebaseStorage.instance.ref().child("profilePic.jpg");
+    await ref.putFile(File(image!.path));
+    ref.getDownloadURL().then((value) {
+      // print(value);
+      controller.gambar(value);
+      setState(() {
+        im = value;
+        // controller.gambar(value)
       });
-      controller.obs();
-      print(file.fullPath);
     });
-
-    return files;
-  }
-
-  // Delete the selected image
-  // This function is called when a trash icon is pressed
-  Future<void> _delete(String ref) async {
-    await storage.ref(ref).delete();
-    // Rebuild the UI
-    setState(() {});
   }
 
   @override
@@ -257,11 +208,11 @@ class _dataMinumanState extends State<dataMinuman> {
   Widget _formFieldsMinuman(context, dataM, index) {
     final CartController controller = Get.find();
     dataM;
-
+    // String img = controller.gm.toString();
     TextEditingController controllerMinuman = TextEditingController();
     TextEditingController controllerhargaMinuman = TextEditingController();
     TextEditingController controllerGambar = TextEditingController();
-    // TextEditingController controllerWaktu = TextEditingController();
+    // late TextEditingController gmbr = im.ttext();
     // List<Map<String, dynamic>> _values;
 
 //
@@ -398,59 +349,45 @@ class _dataMinumanState extends State<dataMinuman> {
                   ),
                 ),
               ),
-              Row(
-                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    //
-                    Container(
-                        // width: 20,
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 53, 52, 29),
-                            borderRadius: BorderRadius.circular(8)),
-                        child: Icon(
-                          Icons.image,
-                          color: Colors.white,
-                          size: 26,
-                        )),
-                    SizedBox(
-                      width: 12,
-                    ),
-                    Expanded(
-                      // width: 30,
-                      child: TextFormField(
-                        // controller: ,
-                        controller: controllerGambar
-                          ..text = dataM.docs[index]['gambar'],
-                        onChanged: (value) {
-                          print(value);
-                        },
-                        showCursor: true,
-                        obscureText: false,
-                        textCapitalization: TextCapitalization.sentences,
-                        decoration: InputDecoration(
-                          hintText: "Gambar Minuman",
-                          hintStyle: TextStyle(color: Colors.grey.shade600),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide(
-                              style: BorderStyle.solid,
-                              color: Color.fromARGB(255, 255, 255, 255),
-                            ),
+              GetBuilder<CartController>(
+                init: CartController(),
+                initState: (_) {},
+                builder: (_) {
+                  return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        im == " "
+                            ? Icon(Icons.nat)
+                            : Image.network(
+                                im,
+                                height: 50,
+                              ),
+
+                        //
+                        InkWell(
+                          onTap: () {
+                            pickUpImage();
+                          },
+                          child: Expanded(
+                            child: Container(
+                                width: 200,
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    color: Color.fromARGB(255, 53, 52, 29),
+                                    borderRadius: BorderRadius.circular(8)),
+                                child: Icon(
+                                  Icons.image,
+                                  color: Colors.white,
+                                  size: 26,
+                                )),
                           ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colors.amberAccent, width: 2.0),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          fillColor: Color.fromARGB(255, 24, 30, 42),
-                          filled: true,
-                          contentPadding: const EdgeInsets.all(12),
                         ),
-                        style: TextStyle(color: Colors.grey[50], fontSize: 17),
-                      ),
-                    ),
-                  ])
+                        SizedBox(
+                          width: 12,
+                        ),
+                      ]);
+                },
+              )
             ])),
         const SizedBox(height: 22),
         // end harga
@@ -478,6 +415,7 @@ class _dataMinumanState extends State<dataMinuman> {
 
                 int hrgM = int.parse(controllerhargaMinuman.text);
                 var dataId = dataM.docs[index].id;
+
                 FirebaseFirestore.instance
                     .collection('allminuman')
                     .doc(dataId)
@@ -485,7 +423,7 @@ class _dataMinumanState extends State<dataMinuman> {
                   {
                     'namamenu': controllerMinuman.text.trim(),
                     'harga': hrgM,
-                    'gambar': controllerGambar.text.trim()
+                    'gambar': im != '' ? im : controllerGambar.text.trim()
                   },
                 );
                 // .where('isCekhed', isEqualTo: true)
