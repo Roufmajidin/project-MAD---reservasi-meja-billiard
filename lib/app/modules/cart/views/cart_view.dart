@@ -371,10 +371,7 @@ class CartView extends StatelessWidget {
                                                                           .bold,
                                                                   fontSize: 16),
                                                             ),
-                                                            SizedBox(
-                                                                height:
-                                                                    Get.height *
-                                                                        0.01),
+                                                            SizedBox(height: 2),
                                                             Container(
                                                               // padding: EdgeInsets.only(left: 10),
                                                               child: Text(
@@ -408,7 +405,10 @@ class CartView extends StatelessWidget {
                                                             Container(
                                                               // var a = data.docs[index]['harga'];
 
-                                                              // padding: EdgeInsets.only(left: 10),
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                      bottom:
+                                                                          10),
                                                               child: Row(
                                                                 crossAxisAlignment:
                                                                     CrossAxisAlignment
