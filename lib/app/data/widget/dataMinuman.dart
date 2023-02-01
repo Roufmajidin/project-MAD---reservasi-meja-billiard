@@ -34,15 +34,15 @@ class _dataMinumanState extends State<dataMinuman> {
         maxHeight: 512,
         maxWidth: 512,
         imageQuality: 75);
-    Reference ref = FirebaseStorage.instance.ref().child("profilePic.jpg");
+    Reference ref = FirebaseStorage.instance.ref().child("asas");
     await ref.putFile(File(image!.path));
     ref.getDownloadURL().then((value) {
       // print(value);
       controller.gambar(value);
-      setState(() {
-        im = value;
-        // controller.gambar(value)
-      });
+      // setState(() {
+      //   im = value;
+      //   // controller.gambar(value)
+      // });
     });
   }
 
@@ -354,36 +354,67 @@ class _dataMinumanState extends State<dataMinuman> {
                 initState: (_) {},
                 builder: (_) {
                   return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        im == " "
-                            ? Icon(Icons.nat)
-                            : Image.network(
-                                im,
-                                height: 50,
-                              ),
-
                         //
                         InkWell(
                           onTap: () {
                             pickUpImage();
                           },
-                          child: Expanded(
-                            child: Container(
-                                width: 200,
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    color: Color.fromARGB(255, 53, 52, 29),
-                                    borderRadius: BorderRadius.circular(8)),
-                                child: Icon(
-                                  Icons.image,
-                                  color: Colors.white,
-                                  size: 26,
-                                )),
+                          child: Container(
+                            // width: 20,
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                                // color: Color.fromARGB(255, 53, 52, 29),
+                                borderRadius: BorderRadius.circular(8)),
+                            child: controller.gm == ""
+                                ? Icon(
+                                    Icons.image,
+                                    color: Colors.white,
+                                    size: 26,
+                                  )
+                                : Image.network(
+                                    controller.gm,
+                                    height: 50,
+                                  ),
                           ),
                         ),
                         SizedBox(
                           width: 12,
+                        ),
+                        Expanded(
+                          // width: 300,
+                          child: TextFormField(
+                            // controller: ,
+                            controller: controllerGambar,
+                            onChanged: (value) {
+                              print(value);
+                            },
+                            showCursor: true,
+                            obscureText: false,
+                            textCapitalization: TextCapitalization.sentences,
+                            decoration: InputDecoration(
+                              hintText: "Gambar Minuman",
+                              hintStyle: TextStyle(color: Colors.grey.shade600),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: BorderSide(
+                                  style: BorderStyle.solid,
+                                  color: Color.fromARGB(255, 255, 255, 255),
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Colors.amberAccent, width: 2.0),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              fillColor: Color.fromARGB(255, 24, 30, 42),
+                              filled: true,
+                              contentPadding: const EdgeInsets.all(12),
+                            ),
+                            style:
+                                TextStyle(color: Colors.grey[50], fontSize: 17),
+                          ),
                         ),
                       ]);
                 },
@@ -423,13 +454,14 @@ class _dataMinumanState extends State<dataMinuman> {
                   {
                     'namamenu': controllerMinuman.text.trim(),
                     'harga': hrgM,
-                    'gambar': im != '' ? im : controllerGambar.text.trim()
+                    'gambar': controller.gm
                   },
                 );
                 // .where('isCekhed', isEqualTo: true)
                 // .get()
                 // controller.uploadImages();
                 controller.clearListInput();
+                controller.cleargmbr();
                 Navigator.pop(context);
               },
               child: Center(

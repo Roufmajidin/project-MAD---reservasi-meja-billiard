@@ -288,6 +288,12 @@ class CartController extends GetxController {
     update();
   }
 
+  void cleargmbr() {
+    gm = '';
+    // print(gm);
+    update();
+  }
+
   void base() {
     menuB = [].obs;
     selectedPaket.clear();
