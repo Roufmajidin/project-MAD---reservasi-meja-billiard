@@ -3,8 +3,12 @@ hati hati , data angka perlu dikonversi
 semisal 150000 ==> akan membentuk radiks 15000.0.  ->>
 jadi :
 
+<<<<<<< HEAD
  data.docs[index]['namamenu']
  
 ==> (data.docs[index]['namamenu']).toDouble()
+=======
+=> (data.docs[index]['namamenu']).toDouble()
+>>>>>>> bf4e69ff7d7645156805d1de055c1b372e2c2230
 
 Februari, 2 . Rouf Majidin
