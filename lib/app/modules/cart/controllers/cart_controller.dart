@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:io';
+// import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -34,7 +34,7 @@ class CartController extends GetxController {
   var ink = [].obs;
   // gambar
 
-  var gm = [].obs;
+  String gm = '';
 //
   var paket = '';
   var meja = '';
@@ -64,12 +64,12 @@ class CartController extends GetxController {
     update();
   }
 
-  void testG(files) {
-    gm += files;
-    // gm = [].obs;
-    update();
-    print('is gm ${gm}');
-  }
+  // void testG(files) {
+  // gm += files;
+  // gm = [].obs;
+  // update();
+  // print('is gm ${gm}');
+  // }
 
   void cb() {
     if (counti <= 3) {
@@ -258,6 +258,7 @@ class CartController extends GetxController {
         'harga': dataPMB.docs[index]['harga']
       });
       menuB = [].obs;
+
       update();
     } else {
       selectedPaket.add(index);
@@ -281,9 +282,21 @@ class CartController extends GetxController {
     return selectedPaket;
   }
 
+  void gambar(value) {
+    gm = value;
+    print(gm);
+    update();
+  }
+
   void base() {
     menuB = [].obs;
+    selectedPaket.clear();
+    update();
+
+    selected.clear();
+    // update();
     print('list paket : ${menuB}');
+
     update();
   }
 
