@@ -101,77 +101,57 @@ class PemesananView extends GetView<PemesananController> {
                 SizedBox(
                   height: 20,
                 ),
-                Row(
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        // controller.addDummy();
-                        print("masuk ke halaman buat reservasi User");
-                        Get.to(ReservasiView());
-                      },
-                      child: Container(
-                        width: 180,
-                        height: 200,
-                        decoration: BoxDecoration(
-                            color: Color.fromARGB(248, 24, 30, 42),
-                            borderRadius: BorderRadius.circular(12)),
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Row(
+                Container(
+                  height: 200,
+
+                  // padding: const EdgeInsets.all(8.0),
+                  child: ListView(
+                      shrinkWrap: false,
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            Get.to(ReservasiView());
+                          },
+                          child: Stack(
+                            alignment: Alignment.center,
                             children: [
-                              Iconify(
-                                Ri.shopping_bag_fill,
-                                color: Colors.amber,
+                              Container(
+                                padding: EdgeInsets.all(20),
+                                width: 160,
+                                height: 200,
+                                decoration: BoxDecoration(
+                                    color: Colors.amber,
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(12),
+                                      bottomLeft: Radius.circular(12),
+                                      bottomRight: Radius.circular(18),
+                                    )),
                               ),
                               Text(
-                                "Buat Reserv User",
+                                "Reservasi User",
                                 style: TextStyle(
                                   fontFamily: 'Sofia Sans Condensed',
-                                  color: Colors.amber,
+                                  color: Color.fromARGB(255, 252, 252, 252),
                                   fontSize: 18,
                                 ),
                               ),
                             ],
                           ),
                         ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        print("Link to page halaman data master");
-                        Get.to(ReservationEditView());
-                      },
-                      child: Stack(
-                        clipBehavior: Clip.antiAlias,
-                        alignment: Alignment.centerRight,
-                        children: [
-                          Container(
-                            width: 180,
-                            height: 200,
-                            decoration: BoxDecoration(
-                                color: Color.fromARGB(248, 24, 30, 42),
-                                borderRadius: BorderRadius.circular(12)),
-                            child: Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: Row(
-                                children: [
-                                  Iconify(
-                                    Ri.menu_2_fill,
-                                    color: Colors.amber,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Stack(
+                        SizedBox(
+                          width: 12,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Get.to(ReservationEditView());
+                          },
+                          child: Stack(
                             alignment: Alignment.center,
                             children: [
                               Container(
                                 padding: EdgeInsets.all(20),
-                                width: 140,
+                                width: 160,
                                 height: 200,
                                 decoration: BoxDecoration(
                                     color: Colors.amber,
@@ -191,10 +171,8 @@ class PemesananView extends GetView<PemesananController> {
                               ),
                             ],
                           ),
-                        ],
-                      ),
-                    )
-                  ],
+                        ),
+                      ]),
                 )
               ],
             ),

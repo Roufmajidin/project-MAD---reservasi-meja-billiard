@@ -152,7 +152,7 @@ class ReservasiView extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                SizedBox(height: Get.height * 0.007),
+                                // SizedBox(height: Get.height * 0.007),
                                 Center(
                                   child: Text(
                                     data.docs[index]["namapaket"],
@@ -162,7 +162,7 @@ class ReservasiView extends StatelessWidget {
                                         fontSize: 20),
                                   ),
                                 ),
-                                SizedBox(height: Get.height * 0.007),
+                                SizedBox(height: 12),
                                 Container(
                                     padding: const EdgeInsets.only(left: 20),
                                     child: Column(
@@ -184,7 +184,7 @@ class ReservasiView extends StatelessWidget {
                                       ],
                                     )),
                                 SizedBox(
-                                  height: Get.height * 0.064,
+                                  height: 12,
                                 ),
                                 InkWell(
                                   onTap: () {
@@ -192,7 +192,7 @@ class ReservasiView extends StatelessWidget {
                                   },
                                   child: Container(
                                       alignment: Alignment.bottomCenter,
-                                      padding: EdgeInsets.all(18),
+                                      padding: EdgeInsets.all(12),
                                       decoration: BoxDecoration(
                                           color:
                                               Color.fromARGB(21, 255, 255, 255),

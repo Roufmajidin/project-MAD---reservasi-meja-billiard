@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/bi.dart';
+import 'package:iconify_flutter/icons/ri.dart';
 import 'package:rf_majid/app/data/controller/auth_controller.dart';
 import 'package:rf_majid/app/data/lokalData/appColor.dart';
 import 'package:rf_majid/app/data/widget/dataMinuman.dart';
@@ -20,125 +21,121 @@ import '../controllers/reservation_edit_controller.dart';
 class ReservationEditView extends GetView<ReservationEditController> {
   ReservationEditView({Key? key}) : super(key: key);
 
+  final CartController cController = Get.find();
   @override
   Widget build(BuildContext context) {
-    final CartController controller = Get.find();
+    // final CartController controller = Get.find();
     return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color.fromARGB(255, 20, 20, 20),
+          leadingWidth: 50,
+          actions: [
+            GestureDetector(
+              child: Icon(Icons.add),
+              onTap: () {
+                controller.tabIndex == 0
+                    ? modalBawahCreatePaket(context)
+                    : modalBawahCreateMinuman(context);
+              },
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+            ),
+          ],
+          title: Center(child: Text("DataPaket")),
+          leading: Container(
+            child: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
+            ),
+          ),
+        ),
+
+        // backgroundColor: Color.fromARGB(255, 20, 20, 20),
         backgroundColor: Color.fromARGB(255, 20, 20, 20),
         body: GetBuilder<ReservationEditController>(builder: (controller) {
           return SafeArea(
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(24),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(
-                            width: 30,
-                          ),
-                          Text('Data Paket',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20.0)),
-                          GestureDetector(
-                            onTap: () {
-                              // int index = ;
-                              controller.tabIndex == 0
-                                  ? modalBawahCreatePaket(context)
-                                  : modalBawahCreateMinuman(context);
-                            },
-                            child: Icon(
-                              Icons.add,
-                              color: Colors.white,
-                              size: 18,
-                            ),
-                          ),
-                        ],
+              child: Stack(children: [
+            SingleChildScrollView(
+              physics: ScrollPhysics(),
+              // scrollDirection: Axis.vertical,
+              child: [dataPaket(), dataMinuman()][controller.tabIndex],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(24),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    width: 30,
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              height: 60,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () {
+                        controller.changeTabIndex(0);
+                      },
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                        decoration: BoxDecoration(
+                          color: controller.tabIndex == 0
+                              ? Color.fromARGB(248, 24, 30, 42)
+                              : Color.fromARGB(255, 20, 20, 20),
+                        ),
+                        child: Text(
+                          "Data Paket",
+                          style: TextStyle(
+                              color: controller.tabIndex == 0
+                                  ? Color.fromARGB(255, 255, 255, 255)
+                                  : Colors.white,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
-                    Container(
-                      margin: EdgeInsets.only(top: 10),
-                      height: 2,
-                      decoration: BoxDecoration(color: Colors.white),
-                    )
-                  ],
-                ),
-                Container(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            controller.changeTabIndex(0);
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 60, vertical: 20),
-                            decoration: BoxDecoration(
-                              color: controller.tabIndex == 0
-                                  ? Color.fromARGB(248, 24, 30, 42)
-                                  : Color.fromARGB(255, 17, 17, 17),
-                            ),
-                            child: Text(
-                              "Data Paket",
-                              style: TextStyle(
-                                  color: controller.tabIndex == 0
-                                      ? Color.fromARGB(255, 255, 255, 255)
-                                      : Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
+                  ),
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () {
+                        print("object");
+                        controller.changeTabIndex(1);
+                      },
+                      child: Container(
+                        width: 80,
+                        alignment: Alignment.center,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                        decoration: BoxDecoration(
+                          color: controller.tabIndex == 1
+                              ? Color.fromARGB(248, 24, 30, 42)
+                              : Color.fromARGB(255, 39, 39, 39),
+                        ),
+                        child: Text(
+                          "Data Minuman",
+                          style: TextStyle(
+                              color: controller.tabIndex == 1
+                                  ? Color.fromARGB(255, 255, 255, 255)
+                                  : Colors.white,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () {
-                            print("object");
-                            controller.changeTabIndex(1);
-                          },
-                          child: Container(
-                            width: 80,
-                            alignment: Alignment.center,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 30, vertical: 20),
-                            decoration: BoxDecoration(
-                              color: controller.tabIndex == 1
-                                  ? Color.fromARGB(248, 24, 30, 42)
-                                  : Color.fromARGB(255, 39, 39, 39),
-                            ),
-                            child: Text(
-                              "Data Minuman",
-                              style: TextStyle(
-                                  color: controller.tabIndex == 1
-                                      ? Color.fromARGB(255, 255, 255, 255)
-                                      : Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 18,
-                ),
-                SingleChildScrollView(
-                  physics: ScrollPhysics(),
-                  scrollDirection: Axis.vertical,
-                  child: Container(
-                    height: 600,
-                    child: [dataPaket(), dataMinuman()][controller.tabIndex],
-                  ),
-                ),
-              ]));
+                    ),
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 18,
+            ),
+          ]));
         }));
   }
 }
@@ -159,6 +156,7 @@ void modalBawahCreatePaket(BuildContext context) {
       ),
       builder: (context) {
         return Container(
+          // height: 900,
           width: 900,
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           decoration: BoxDecoration(
@@ -167,6 +165,7 @@ void modalBawahCreatePaket(BuildContext context) {
                 topRight: const Radius.circular(10.0)),
           ),
           child: SingleChildScrollView(
+            padding: EdgeInsets.only(bottom: 200),
             // height: 800,
             // width: 600,
             child: Column(
@@ -747,13 +746,13 @@ Widget _formFieldsCreate(context) {
                 // print(element['value']);
                 fix.add(element['value']);
               }
-              int hrg = int.parse(controllerHarga.text);
+              // int hrg = double.parse(controllerHarga.text).toInt();
               FirebaseFirestore.instance.collection('allpaket').add(
                 {
                   'namapaket': controllerNamapaket.text.trim(),
                   'meja': controllerMeja.text.trim(),
                   'waktu': controllerWaktu.text.trim(),
-                  'harga': hrg,
+                  'harga': double.parse(controllerHarga.text),
                   'inklud': FieldValue.arrayUnion(fix)
                 },
               );

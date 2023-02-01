@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:iconify_flutter/iconify_flutter.dart';
+import 'package:iconify_flutter/icons/bi.dart';
+import 'package:rf_majid/app/data/format_harga.dart';
 import 'package:rf_majid/app/data/lokalData/appColor.dart';
 import 'package:rf_majid/app/modules/cart/controllers/cart_controller.dart';
 
@@ -26,98 +29,159 @@ class dataPaket extends StatelessWidget {
             );
           }
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Text(
-              "Loading",
-              style: TextStyle(color: Colors.white),
+            return Center(
+              child: Text(
+                "Loading",
+                style: TextStyle(color: Colors.white),
+              ),
             );
           }
           final data = snapshot.requireData;
-          return GridView.builder(
-            scrollDirection: Axis.vertical,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-            ),
-            itemCount: data.size,
-            itemBuilder: (context, index) {
-              return Card(
-                color: Color.fromARGB(248, 24, 30, 42).withOpacity(0.5),
-                child: Container(
-                  // height: 80,
-                  padding: EdgeInsets.all(18),
-                  // width: 20,
-                  decoration:
-                      BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: Get.height * 0.007),
-                      Center(
-                        child: Text(
-                          data.docs[index]["namapaket"],
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20),
-                        ),
-                      ),
-                      SizedBox(height: Get.height * 0.007),
-                      Container(
-                          padding: const EdgeInsets.only(left: 20),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                data.docs[index]["inklud"][0],
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 12),
-                              ),
-                              Text(
-                                data.docs[index]["inklud"][1],
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 12),
-                              ),
-                            ],
-                          )),
-                      SizedBox(
-                        height: 24,
-                      ),
 
-                      //btn
+          return Container(
+            padding: EdgeInsets.only(top: 80),
+            constraints: BoxConstraints(maxWidth: 950),
+            child: ListView.builder(
+                itemCount: data.size,
+                scrollDirection: Axis.vertical,
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  // var value = data.docs[index]['isCekhed'];
+                  return Column(
+                    children: [
                       InkWell(
-                        onTap: () {
+                        onTap: (() {
+                          print("as");
                           modalBawah(context, index, data);
-                          controller.counti == 0
-                              ? controller.ca()
-                              : controller.cmin();
-                        },
+                        }),
                         child: Container(
-                            padding: EdgeInsets.only(bottom: 15),
+                            margin: EdgeInsets.only(bottom: 5),
+                            height: 180,
                             decoration: BoxDecoration(
-                                color: Color.fromARGB(19, 140, 140, 140),
+                                color: Color.fromARGB(248, 24, 30, 42),
                                 borderRadius: BorderRadius.circular(4)),
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 8.0),
-                              child: Center(
-                                child: Text(
-                                  "Edit",
-                                  style: TextStyle(
-                                    color: judul,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.all(12),
+                                  child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              data.docs[index]['namapaket'],
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18),
+                                            ),
+                                            SizedBox(height: Get.height * 0.01),
+                                            Container(
+                                              // padding: EdgeInsets.only(left: 10),
+                                              child: Text(
+                                                "Meja : " +
+                                                    data.docs[index]['meja'],
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        Container(
+                                          child: Column(
+                                            children: [
+                                              Text(
+                                                "Hapus",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 14),
+                                              ),
+                                              SizedBox(
+                                                height: 6,
+                                              ),
+                                              Container(
+                                                height: 40,
+                                                alignment:
+                                                    Alignment.bottomCenter,
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 12),
+                                                child: Container(
+                                                    // width: ,
+
+                                                    child: Text(
+                                                  CurrencyFormat.convertToIdr(
+                                                      data.docs[index]['harga'],
+                                                      2),
+                                                  style: TextStyle(
+                                                      color: Color.fromARGB(
+                                                          255, 255, 255, 255),
+                                                      fontSize: 16),
+                                                )),
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      ]),
+                                ),
+                                Container(
+                                  padding: EdgeInsets.only(left: 12),
+                                  child: Text(
+                                    "ADD ONS : ",
+                                    style: TextStyle(
+                                        color:
+                                            Color.fromARGB(110, 255, 255, 255),
+                                        fontSize: 8),
                                   ),
                                 ),
-                              ),
+                                SizedBox(
+                                  height: 3,
+                                ),
+                                Container(
+                                    width: 180,
+                                    padding: EdgeInsets.only(left: 12),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          data.docs[index]["inklud"][0]
+                                              .toString(),
+                                          style: TextStyle(
+                                              color: judul,
+                                              fontSize: 14,
+                                              fontFamily: 'Poppins',
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                        Text(
+                                          data.docs[index]["inklud"][1]
+                                              .toString(),
+                                          style: TextStyle(
+                                              color: judul,
+                                              fontSize: 14,
+                                              fontFamily: 'Poppins',
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                      ],
+                                    )),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                              ],
                             )),
                       ),
-
-                      // end
                     ],
-                  ),
-                ),
-              );
-            },
-            // children: [
-            //   ],
+                  );
+                }),
           );
         });
   }
@@ -147,8 +211,7 @@ class dataPaket extends StatelessWidget {
                   topRight: const Radius.circular(10.0)),
             ),
             child: SingleChildScrollView(
-              // height: 800,
-              // width: 600,
+              padding: EdgeInsets.only(bottom: 200),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 // mainAxisSize: MainAxisSize.min,
@@ -436,9 +499,9 @@ class dataPaket extends StatelessWidget {
           ],
         ),
         Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Container(
-                height: 100,
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+            child: Flexible(
+                // height: 200,
                 child: Obx(() => ListView.builder(
                       shrinkWrap: true,
                       itemCount: controller.counti(),

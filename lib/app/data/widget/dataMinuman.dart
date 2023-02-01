@@ -117,91 +117,95 @@ class _dataMinumanState extends State<dataMinuman> {
           // var dataMinuman =
 
           final dataM = snapshot.requireData;
-          return ListView.builder(
-            itemCount: dataM.size,
-            scrollDirection: Axis.vertical,
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              return InkWell(
-                  onTap: () {
-                    modalBawahMinumanEdit(context, index, dataM);
-                    print("asas");
-                  },
-                  //  modalBawahmenu(context, index, dataM),
-                  child: Container(
-                      padding: const EdgeInsets.only(top: 2, left: 1),
-                      margin: EdgeInsets.only(bottom: 8),
-                      decoration: BoxDecoration(
-                          color: const Color.fromARGB(248, 24, 30, 42)
-                              .withOpacity(0.5),
-                          borderRadius: BorderRadius.circular(4)),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(Get.width * 0.027),
-                            child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        // menu[index]["namamenu"].toString(),
-                                        dataM.docs[index]["namamenu"]
-                                            .toString(),
-                                        style: TextStyle(
-                                            color: judul,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: 18),
-                                      ),
-                                      SizedBox(height: Get.height * 0.01),
-                                      Container(
-                                        // padding: EdgeInsets.only(left: 10),
-                                        child: Text(
-                                          "Rp." +
-                                              // menu[index]["harga"]
-                                              //     .toString(),
-                                              dataM.docs[index]["harga"]
-                                                  .toString(),
+          return Container(
+            padding: EdgeInsets.only(top: 80),
+            constraints: BoxConstraints(maxWidth: 950),
+            child: ListView.builder(
+              itemCount: dataM.size,
+              scrollDirection: Axis.vertical,
+              physics: ScrollPhysics(),
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                return InkWell(
+                    onTap: () {
+                      modalBawahMinumanEdit(context, index, dataM);
+                      print("asas");
+                    },
+                    //  modalBawahmenu(context, index, dataM),
+                    child: Container(
+                        padding: const EdgeInsets.only(top: 2, left: 1),
+                        margin: EdgeInsets.only(bottom: 8),
+                        decoration: BoxDecoration(
+                            color: const Color.fromARGB(248, 24, 30, 42)
+                                .withOpacity(0.5),
+                            borderRadius: BorderRadius.circular(4)),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(Get.width * 0.027),
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          // menu[index]["namamenu"].toString(),
+                                          dataM.docs[index]["namamenu"]
+                                              .toString(),
                                           style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 15),
+                                              color: judul,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 18),
                                         ),
-                                      )
-                                    ],
-                                  ),
-                                  Column(
-                                    children: [
-                                      ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                          child: Image.network(
-                                            dataM.docs[index]['gambar'],
-                                            height: 80,
-                                          )),
-                                      SizedBox(
-                                        height: 6,
-                                      ),
-                                      Container(
-                                        padding: EdgeInsets.only(top: 12),
-                                        child: GestureDetector(
-                                            onTap: () {
-                                              // controller.addDocument();
-                                            },
-                                            child: Container()),
-                                      )
-                                    ],
-                                  )
-                                ]),
-                          ),
-                        ],
-                      )));
-            },
-            // SizedBox(height: Get.height * 0.01),
+                                        SizedBox(height: Get.height * 0.01),
+                                        Container(
+                                          // padding: EdgeInsets.only(left: 10),
+                                          child: Text(
+                                            "Rp." +
+                                                // menu[index]["harga"]
+                                                //     .toString(),
+                                                dataM.docs[index]["harga"]
+                                                    .toString(),
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 15),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    Column(
+                                      children: [
+                                        ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(12),
+                                            child: Image.network(
+                                              dataM.docs[index]['gambar'],
+                                              height: 80,
+                                            )),
+                                        SizedBox(
+                                          height: 6,
+                                        ),
+                                        Container(
+                                          padding: EdgeInsets.only(top: 12),
+                                          child: GestureDetector(
+                                              onTap: () {
+                                                // controller.addDocument();
+                                              },
+                                              child: Container()),
+                                        )
+                                      ],
+                                    )
+                                  ]),
+                            ),
+                          ],
+                        )));
+              },
+              // SizedBox(height: Get.height * 0.01),
+            ),
           );
         });
     //
@@ -394,74 +398,61 @@ class _dataMinumanState extends State<dataMinuman> {
                   ),
                 ),
               ),
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                //
-                Container(
-                    // width: 20,
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 53, 52, 29),
-                        borderRadius: BorderRadius.circular(8)),
-                    child: Icon(
-                      Icons.image,
-                      color: Colors.white,
-                      size: 26,
-                    )),
-
-                Container(
-                  height: 40,
-                  width: 300,
-                  decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 255, 255, 255),
-                      borderRadius: BorderRadius.circular(8)),
-                  child: InkWell(
-                    onTap: () {
-                      // _upload('inputSource');
-                      // controller.getImages();
-                      print("object");
-                    },
-                    child: Center(
-                      child: Text(
-                        "Browse Gambar",
-                        style: TextStyle(
-                            color: Color.fromARGB(255, 33, 33, 33),
-                            fontSize: 20),
+              Row(
+                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    //
+                    Container(
+                        // width: 20,
+                        padding: EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 53, 52, 29),
+                            borderRadius: BorderRadius.circular(8)),
+                        child: Icon(
+                          Icons.image,
+                          color: Colors.white,
+                          size: 26,
+                        )),
+                    SizedBox(
+                      width: 12,
+                    ),
+                    Expanded(
+                      // width: 30,
+                      child: TextFormField(
+                        // controller: ,
+                        controller: controllerGambar
+                          ..text = dataM.docs[index]['gambar'],
+                        onChanged: (value) {
+                          print(value);
+                        },
+                        showCursor: true,
+                        obscureText: false,
+                        textCapitalization: TextCapitalization.sentences,
+                        decoration: InputDecoration(
+                          hintText: "Gambar Minuman",
+                          hintStyle: TextStyle(color: Colors.grey.shade600),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            borderSide: BorderSide(
+                              style: BorderStyle.solid,
+                              color: Color.fromARGB(255, 255, 255, 255),
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Colors.amberAccent, width: 2.0),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          fillColor: Color.fromARGB(255, 24, 30, 42),
+                          filled: true,
+                          contentPadding: const EdgeInsets.all(12),
+                        ),
+                        style: TextStyle(color: Colors.grey[50], fontSize: 17),
                       ),
                     ),
-                  ),
-                ),
-              ])
+                  ])
             ])),
         const SizedBox(height: 22),
-        TextFormField(
-          // controller: ,
-          controller: controllerGambar..text = dataM.docs[index]['gambar'],
-          onChanged: (value) {
-            print(value);
-          },
-          showCursor: true,
-          obscureText: false,
-          textCapitalization: TextCapitalization.sentences,
-          decoration: InputDecoration(
-            hintText: "Gambar Minuman",
-            hintStyle: TextStyle(color: Colors.grey.shade600),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(
-                style: BorderStyle.solid,
-                color: Color.fromARGB(255, 255, 255, 255),
-              ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.amberAccent, width: 2.0),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            fillColor: Color.fromARGB(255, 24, 30, 42),
-            filled: true,
-            contentPadding: const EdgeInsets.all(12),
-          ),
-          style: TextStyle(color: Colors.grey[50], fontSize: 17),
-        ),
         // end harga
 
         Center(
