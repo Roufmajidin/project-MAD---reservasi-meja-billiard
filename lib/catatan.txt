@@ -1,0 +1,10 @@
+hati hati , data angka perlu dikonversi 
+<<-- walalupun di database udah beerbentuk number
+semisal 150000 ==> akan membentuk radiks 15000.0.  ->>
+jadi :
+
+ data.docs[index]['namamenu']
+ 
+==> (data.docs[index]['namamenu']).toDouble()
+
+Februari, 2 . Rouf Majidin
