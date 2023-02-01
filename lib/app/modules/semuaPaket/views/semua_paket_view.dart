@@ -88,8 +88,8 @@ class SemuaPaketView extends StatelessWidget {
                       return Card(
                         color: Color.fromARGB(248, 24, 30, 42).withOpacity(0.5),
                         child: Container(
-                          // height: 80,
-                          padding: EdgeInsets.all(18),
+                          // height: 300,
+                          // padding: EdgeInsets.all(12),
                           // width: 20,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4)),
@@ -106,9 +106,10 @@ class SemuaPaketView extends StatelessWidget {
                                       fontSize: 20),
                                 ),
                               ),
-                              SizedBox(height: Get.height * 0.007),
+                              SizedBox(height: 12),
                               Container(
-                                  padding: const EdgeInsets.only(left: 20),
+                                  padding: const EdgeInsets.only(
+                                      left: 20, bottom: 40),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -125,9 +126,9 @@ class SemuaPaketView extends StatelessWidget {
                                       ),
                                     ],
                                   )),
-                              SizedBox(
-                                height: Get.height * 0.064,
-                              ),
+                              // SizedBox(
+                              //   height: 60,
+                              // ),
 
                               //btn
                               InkWell(
@@ -135,13 +136,14 @@ class SemuaPaketView extends StatelessWidget {
                                   modalBawah(context, index, data);
                                 },
                                 child: Container(
-                                    padding: EdgeInsets.only(bottom: 15),
+                                    alignment: Alignment.bottomCenter,
                                     decoration: BoxDecoration(
                                         color:
                                             Color.fromARGB(19, 140, 140, 140),
                                         borderRadius: BorderRadius.circular(4)),
                                     child: Padding(
-                                      padding: const EdgeInsets.only(top: 8.0),
+                                      padding: const EdgeInsets.only(
+                                          top: 8.0, bottom: 8),
                                       child: Center(
                                         child: Column(
                                           children: [

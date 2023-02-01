@@ -373,8 +373,10 @@ class HomeView extends StatelessWidget {
                       shrinkWrap: true,
                       itemBuilder: (context, index) {
                         return InkWell(
-                            onTap: (() =>
-                                modalBawahmenu(context, index, dataM)),
+                            onTap: (() {
+                              modalBawahmenu(context, index, dataM);
+                              controller.base();
+                            }),
                             child: Container(
                                 padding: const EdgeInsets.only(top: 2, left: 1),
                                 margin: EdgeInsets.only(bottom: 8),
@@ -1020,8 +1022,19 @@ class HomeView extends StatelessWidget {
                         onTap: () {
                           controller.addMenu(dataM, index, context);
                           Navigator.pop(context);
+                          List aa = [];
+                          // for (var element in menuu) {
+                          // print(menuu);
+                          // aa += menu;
+                          // }
+                          // print('aaaaa :${menuu[index]['harga']}');
+                          // print('aaaaa :${menuu[index]['namapaket']}');
+                          // print("asas");
 
                           // controller.create_test(menu, index, context);
+                        },
+                        onDoubleTap: () {
+                          controller.base();
                         },
                         child: Center(
                           child: Text(

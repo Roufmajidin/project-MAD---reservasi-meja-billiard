@@ -25,10 +25,7 @@ class ReservationView extends GetView<ReservationController> {
             // excludeFromSemantics: false,
             onTap: () {
               Navigator.pop(context);
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => HomeView()),
-              // );
+
               print("object");
             },
           ),
@@ -62,16 +59,16 @@ class ReservationView extends GetView<ReservationController> {
                             controller.changeTabIndex(0);
                           },
                           child: Container(
+                            width: 80,
                             alignment: Alignment.center,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 60, vertical: 20),
+                            padding: EdgeInsets.symmetric(vertical: 20),
                             decoration: BoxDecoration(
                               color: controller.tabIndex == 0
                                   ? Color.fromARGB(248, 24, 30, 42)
                                   : Color.fromARGB(255, 20, 20, 20),
                             ),
                             child: Text(
-                              "on Progress",
+                              "On Progres",
                               style: TextStyle(
                                   color: controller.tabIndex == 0
                                       ? Color.fromARGB(255, 255, 255, 255)
@@ -89,8 +86,7 @@ class ReservationView extends GetView<ReservationController> {
                           },
                           child: Container(
                             alignment: Alignment.center,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 60, vertical: 20),
+                            padding: EdgeInsets.symmetric(vertical: 20),
                             decoration: BoxDecoration(
                               color: controller.tabIndex == 1
                                   ? Color.fromARGB(248, 24, 30, 42)
@@ -166,7 +162,7 @@ class onProgress extends StatelessWidget {
                   return Column(
                     children: [
                       Container(
-                          margin: EdgeInsets.only(bottom: 18),
+                          margin: EdgeInsets.only(bottom: 5),
                           height: 180,
                           decoration: BoxDecoration(
                               color: Color.fromARGB(248, 24, 30, 42),
@@ -187,7 +183,8 @@ class onProgress extends StatelessWidget {
                                             CrossAxisAlignment.start,
                                         children: [
                                           Text(
-                                            data.docs[index]['namapaket'],
+                                            data.docs[index]['namapaket']
+                                                .toString(),
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold,
@@ -395,7 +392,7 @@ class onHistory extends StatelessWidget {
                   return Column(
                     children: [
                       Container(
-                          margin: EdgeInsets.only(bottom: 18),
+                          margin: EdgeInsets.only(bottom: 5),
                           height: 180,
                           decoration: BoxDecoration(
                               color: Color.fromARGB(248, 24, 30, 42),

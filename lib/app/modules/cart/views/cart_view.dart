@@ -82,37 +82,15 @@ class CartView extends StatelessWidget {
         ),
         backgroundColor: Color.fromARGB(255, 20, 20, 20),
 
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              // height: 20,
-              width: 200,
-              // child: GestureDetector(
-              //   // excludeFromSemantics: false,
-              //   onTap: () {
-              //     // Navigator.of(context).back();
-              //     // Navigator.push(
-              //     //   context,
-              //     //   MaterialPageRoute(builder: (context) => HomeView()),
-              //     // );
-              //     // print("object");
-              //   },
-              //   child: Icon(
-              //     Icons.arrow_back_ios,
-              //     color: Colors.white,
-              //     size: 18,
-              //   ),
-              // ),
+        title: Container(
+          alignment: Alignment.topRight,
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: const Text(
+              'Cart',
+              style: TextStyle(fontSize: 16),
             ),
-            Padding(
-              padding: const EdgeInsets.all(12),
-              child: const Text(
-                'Cart',
-                style: TextStyle(fontSize: 16),
-              ),
-            ),
-          ],
+          ),
         ),
       ),
       body: SizedBox(
@@ -415,7 +393,7 @@ class CartView extends StatelessWidget {
                                                             Container(
                                                               // padding: EdgeInsets.only(left: 10),
                                                               child: Text(
-                                                                "Rp ${data.docs[index]['harga']}",
+                                                                "Rp ${data.docs[index]['harga'].toString()}",
                                                                 style: TextStyle(
                                                                     color: Color
                                                                         .fromARGB(
@@ -543,13 +521,13 @@ class CartView extends StatelessWidget {
                 borderRadius: BorderRadius.only(
                     topRight: Radius.circular(14),
                     topLeft: Radius.circular(14))),
-            height: cController.tabUkuran == 1 ? 200 : 100,
+            height: cController.tabUkuran == 1 ? 200 : 120,
             // width: double.infinity,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  padding: EdgeInsets.all(12),
+                  padding: EdgeInsets.all(10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -667,59 +645,66 @@ class CartView extends StatelessWidget {
                       // SizedBox(
                       //   height: 20,
                       // ),
-                      SizedBox(height: 1),
+                      SizedBox(height: 10),
 
-                      Obx(() {
-                        return Text(
-                          // "Rp. ${cController.tot}",
-                          CurrencyFormat.convertToIdr(
-                              cController.tot.toInt(), 2),
-                          // "as",
-                          style: TextStyle(color: Colors.white, fontSize: 24),
-                        );
-                      })
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Obx(() {
+                            return Text(
+                              // "Rp. ${cController.tot}",
+                              CurrencyFormat.convertToIdr(
+                                  cController.tot.toInt(), 2),
+                              // "as",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 24),
+                            );
+                          }),
+                          SizedBox(
+                            width: 50,
+                          ),
+                          Container(
+                              alignment: Alignment.centerRight,
+                              // padding: EdgeInsets.all(12),
+                              // decoration: BoxDecoration(
+                              //     color: Colors.amber,
+                              //     borderRadius: BorderRadius.circular(12)),
+                              // tt
+                              child: GetBuilder<CartController>(
+                                builder: (_) {
+                                  return ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: cController.tabI == 1
+                                            ? Color.fromARGB(255, 229, 216, 71)
+                                            : Color.fromARGB(248, 24, 30, 42),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 12, vertical: 12),
+                                      ),
+                                      onPressed: () {
+                                        var data = cController.tot.toInt();
+                                        _showDialog(context, index, data);
+                                        // cController.toogleCekout(index); ==> sudah berjalan, then
+                                        // update
+                                        // final a = cController.selected.contains(index);
+                                        // var selectedPesanann =
+                                        //     cController.selected.contains(index);
+                                        // cController.updatepesananCekot(data);
+                                        // cController.obsClear(data);
+                                      },
+                                      // child: const Text("Show Success Confirm"),
+
+                                      child: Text(
+                                        "Check Out",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white),
+                                      ));
+                                },
+                              )),
+                        ],
+                      ),
                     ],
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                      padding: EdgeInsets.all(12),
-                      // decoration: BoxDecoration(
-                      //     color: Colors.amber,
-                      //     borderRadius: BorderRadius.circular(12)),
-                      // tt
-                      child: GetBuilder<CartController>(
-                        builder: (_) {
-                          return ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: cController.tabI == 1
-                                    ? Color.fromARGB(255, 229, 216, 71)
-                                    : Color.fromARGB(248, 24, 30, 42),
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 12, vertical: 12),
-                              ),
-                              onPressed: () {
-                                var data = cController.tot.toInt();
-                                _showDialog(context, index, data);
-                                // cController.toogleCekout(index); ==> sudah berjalan, then
-                                // update
-                                // final a = cController.selected.contains(index);
-                                // var selectedPesanann =
-                                //     cController.selected.contains(index);
-                                // cController.updatepesananCekot(data);
-                                // cController.obsClear(data);
-                              },
-                              // child: const Text("Show Success Confirm"),
-
-                              child: Text(
-                                "Check Out",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ));
-                        },
-                      )),
                 ),
               ],
             ),
@@ -777,13 +762,14 @@ void _showDialog(context, index, data) {
                     ),
                     actions: [
                       TextButton(
-                          child: Text(''), onPressed: () => Navigator.pop),
+                          child: Text('asasas'),
+                          onPressed: () => Navigator.pop),
                     ],
                   );
 
-                  showDialog(context: context, builder: (context2) => alert);
+                  // showDialog(context: context, builder: (context) => alert);
 
-                  // return;
+                  return;
                 },
                 child: const Text(
                   'Confirm',
