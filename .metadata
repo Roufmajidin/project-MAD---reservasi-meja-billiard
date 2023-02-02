@@ -7,14 +7,20 @@
 # This file should be version controlled.
 
 version:
+<<<<<<< HEAD
 revision: b8f7f1f9869bb2d116aa6a70dbeac61000b52849
 channel: stable
+=======
+  revision: 135454af32477f815a7525073027a3ff9eff1bfd
+  channel: stable
+>>>>>>> 54bdb27 (fix reservation view (User))
 
 project_type: app
 
 # Tracks metadata for the flutter migrate command
 
 migration:
+<<<<<<< HEAD
 platforms: - platform: root
 create_revision: b8f7f1f9869bb2d116aa6a70dbeac61000b52849
 base_revision: b8f7f1f9869bb2d116aa6a70dbeac61000b52849 - platform: android
@@ -30,6 +36,30 @@ create_revision: b8f7f1f9869bb2d116aa6a70dbeac61000b52849
 base_revision: b8f7f1f9869bb2d116aa6a70dbeac61000b52849 - platform: windows
 create_revision: b8f7f1f9869bb2d116aa6a70dbeac61000b52849
 base_revision: b8f7f1f9869bb2d116aa6a70dbeac61000b52849
+=======
+  platforms:
+    - platform: root
+      create_revision: 135454af32477f815a7525073027a3ff9eff1bfd
+      base_revision: 135454af32477f815a7525073027a3ff9eff1bfd
+    - platform: android
+      create_revision: 135454af32477f815a7525073027a3ff9eff1bfd
+      base_revision: 135454af32477f815a7525073027a3ff9eff1bfd
+    - platform: ios
+      create_revision: 135454af32477f815a7525073027a3ff9eff1bfd
+      base_revision: 135454af32477f815a7525073027a3ff9eff1bfd
+    - platform: linux
+      create_revision: 135454af32477f815a7525073027a3ff9eff1bfd
+      base_revision: 135454af32477f815a7525073027a3ff9eff1bfd
+    - platform: macos
+      create_revision: 135454af32477f815a7525073027a3ff9eff1bfd
+      base_revision: 135454af32477f815a7525073027a3ff9eff1bfd
+    - platform: web
+      create_revision: 135454af32477f815a7525073027a3ff9eff1bfd
+      base_revision: 135454af32477f815a7525073027a3ff9eff1bfd
+    - platform: windows
+      create_revision: 135454af32477f815a7525073027a3ff9eff1bfd
+      base_revision: 135454af32477f815a7525073027a3ff9eff1bfd
+>>>>>>> 54bdb27 (fix reservation view (User))
 
 # User provided section
 
