@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
 import 'package:path/path.dart' as path;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -34,7 +35,10 @@ class _dataMinumanState extends State<dataMinuman> {
         maxHeight: 512,
         maxWidth: 512,
         imageQuality: 75);
-    Reference ref = FirebaseStorage.instance.ref().child("asas");
+
+    Reference ref = FirebaseStorage.instance
+        .ref()
+        .child('FotoMinu/${controller.gm.toString()}_${DateTime.now()}.jpg');
     await ref.putFile(File(image!.path));
     ref.getDownloadURL().then((value) {
       // print(value);
@@ -296,8 +300,13 @@ class _dataMinumanState extends State<dataMinuman> {
               ),
               TextFormField(
                 // controller: ,
+                keyboardType: TextInputType.number,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.digitsOnly
+                ],
                 controller: controllerhargaMinuman
                   ..text = '${dataM.docs[index]['harga']}',
+                // beuh ..
 
                 onChanged: (value) {
                   print(value);
@@ -450,11 +459,11 @@ class _dataMinumanState extends State<dataMinuman> {
                 FirebaseFirestore.instance
                     .collection('allminuman')
                     .doc(dataId)
-                    .update(
+                    .set(
                   {
                     'namamenu': controllerMinuman.text.trim(),
                     'harga': hrgM,
-                    'gambar': controller.gm
+                    'gambar': controller.gm,
                   },
                 );
                 // .where('isCekhed', isEqualTo: true)

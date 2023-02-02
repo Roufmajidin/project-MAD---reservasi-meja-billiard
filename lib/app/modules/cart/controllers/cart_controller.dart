@@ -20,6 +20,7 @@ class CartController extends GetxController {
   bool cKo = true;
   var tabUkuran = 0;
   var ubah = false;
+  var ubahDetail = ''.obs;
   var tabIndex = 0.obs;
   var menuA = [].obs;
   var menuB = [].obs;
@@ -290,7 +291,7 @@ class CartController extends GetxController {
 
   void cleargmbr() {
     gm = '';
-    // print(gm);
+    print('terclear ${gm}');
     update();
   }
 
@@ -335,6 +336,46 @@ class CartController extends GetxController {
   void ubahBoxMenu() {
     ubah = true;
     update();
+  }
+
+  void detail(data, index) {
+    var a = 'ok';
+    var isC = data.docs[index]['isCekhed'];
+    var isId = data.docs[index].id;
+    DateTime now = DateTime.now();
+
+    FirebaseFirestore.instance.collection('pesananUser').doc(isId).update({
+      'isCekhed': true,
+
+      // 'total_t': data,
+    }).whenComplete(() {
+      print(isC);
+      print(isId);
+    });
+    // ubahDetail = a.obs;
+
+    update();
+    print(a);
+  }
+
+  void detailMin(data, index) {
+    var a = 'ok';
+    var isC = data.docs[index]['isCekhed'];
+    var isId = data.docs[index].id;
+    DateTime now = DateTime.now();
+
+    FirebaseFirestore.instance.collection('pesananUser').doc(isId).update({
+      'isCekhed': false,
+
+      // 'total_t': data,
+    }).whenComplete(() {
+      print(isC);
+      print(isId);
+    });
+    // ubahDetail = a.obs;
+
+    update();
+    print(a);
   }
 
   void ini() {
@@ -912,6 +953,7 @@ class CartController extends GetxController {
 // mek
   //rx count hitung ceklist belanjaan
   void kondisiPaket(data, int index, dataid) {
+    print(meja);
     var hargaminuman = data.docs[index]['hargaminuman'];
     var harga =
         data.docs[index]['quantity'] * data.docs[index]['harga'] + hargaminuman;
@@ -921,6 +963,7 @@ class CartController extends GetxController {
       tot + harga;
 
       paket = data.docs[index]['namapaket'];
+      meja = data.docs[index]['meja'];
       hargaP = g;
       var infoinklud = data.docs[index]['inklud'];
       // var aa = List.generate(infoinklud.length, (index2) {

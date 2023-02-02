@@ -11,6 +11,8 @@ import 'package:getwidget/components/button/gf_button.dart';
 import 'package:getwidget/components/list_tile/gf_list_tile.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/ri.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:rf_majid/app/data/format_harga.dart';
 import 'package:rf_majid/app/data/lokalData/appColor.dart';
 
@@ -27,6 +29,10 @@ class CartView extends StatelessWidget {
       FirebaseFirestore.instance.collection('pesananUser').snapshots();
   final CartController cController = Get.find();
   final GFBottomSheetController _controller = GFBottomSheetController();
+
+  final CollectionReference<Map<String, dynamic>> userList =
+      FirebaseFirestore.instance.collection('pesananUser');
+
   //count
   late TextEditingController jumlahC;
 
@@ -42,15 +48,22 @@ class CartView extends StatelessWidget {
     int index = 1;
 
     // count data
-    Future<AggregateQuerySnapshot> count = FirebaseFirestore.instance
+    // Future<AggregateQuerySnapshot> count = FirebaseFirestore.instance
+    //     .collection('pesananUser')
+    //     .where('pemesan', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+    //     .where('isselesai', isEqualTo: false)
+    //     .count()
+    //     .get();
+    // Future<int> countUsers() async {
+    //   AggregateQuerySnapshot query = await count;
+    //   debugPrint('cart ${query.count}');
+    //   return query.count;
+    // }
+
+    final Stream<QuerySnapshot> count = FirebaseFirestore.instance
         .collection('pesananUser')
         .where('pemesan', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-        .count()
-        .get();
-    final Stream<QuerySnapshot> pesanan = FirebaseFirestore.instance
-        .collection('pesananUser')
-        .where('pemesan', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-        // .where('isCekhed', isEqualTo: false)
+        .where('isselesai', isEqualTo: false)
         .snapshots();
     final firestore = FirebaseFirestore.instance
         .collection('lists')
@@ -109,6 +122,7 @@ class CartView extends StatelessWidget {
                 onTap: () {
                   var data = cController.tot.toInt();
                   cController.obsClear(data);
+                  // countUsers();
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -123,10 +137,23 @@ class CartView extends StatelessWidget {
                       padding: EdgeInsets.all(12),
                       // height: 3,
                       // width: 600,
-                      child: Text(
-                        "Reset all",
-                        style: TextStyle(color: judul, fontSize: 16),
-                      ),
+                      child: StreamBuilder<QuerySnapshot>(
+                          stream: count,
+                          builder: (BuildContext context,
+                              AsyncSnapshot<QuerySnapshot> snapshot2) {
+                            if (snapshot2.hasError) {
+                              return Text("error");
+                            }
+                            if (snapshot2.connectionState ==
+                                ConnectionState.waiting) {
+                              return Text("Loading");
+                            }
+                            final int documents = snapshot2.data!.docs.length;
+                            return Text(
+                              'cart: ${documents}',
+                              style: TextStyle(color: Colors.white),
+                            );
+                          }),
                     ),
                   ],
                 ),
@@ -353,7 +380,7 @@ class CartView extends StatelessWidget {
                                                                     dataid);
                                                           },
                                                           child: Container(
-                                                            child: Text("a"),
+                                                            child: Text(""),
                                                           ),
                                                         ),
                                                         Column(
@@ -390,7 +417,12 @@ class CartView extends StatelessWidget {
                                                             Container(
                                                               // padding: EdgeInsets.only(left: 10),
                                                               child: Text(
-                                                                "Rp ${data.docs[index]['harga'].toString()}",
+                                                                CurrencyFormat.convertToIdr(
+                                                                    data.docs[
+                                                                            index]
+                                                                        [
+                                                                        'harga'],
+                                                                    2),
                                                                 style: TextStyle(
                                                                     color: Color
                                                                         .fromARGB(
@@ -755,16 +787,10 @@ void _showDialog(context, index, data) {
 
                   Navigator.pop(context);
                   // dialogBox();
-                  AlertDialog alert = AlertDialog(
-                    title: Text("Sukses Checkout pesanan !"),
-                    content: Container(
-                      child: Text("Terimakasih, Checkout Anda Berhasil"),
-                    ),
-                    actions: [
-                      TextButton(
-                          child: Text('asasas'),
-                          onPressed: () => Navigator.pop),
-                    ],
+                  QuickAlert.show(
+                    context: context,
+                    type: QuickAlertType.info,
+                    text: ' Completed Reservation Successfully!',
                   );
 
                   // showDialog(context: context, builder: (context) => alert);
