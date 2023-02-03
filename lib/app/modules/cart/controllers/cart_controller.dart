@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:rf_majid/app/data/lokalData/menu.dart';
 import 'package:rf_majid/app/modules/cart/data/allPaket.dart';
@@ -26,6 +27,9 @@ class CartController extends GetxController {
   var menuB = [].obs;
   var htMenu = [].obs;
   var warna = 0.obs;
+  DateTime dateTimeNow = DateTime.now();
+  DateTime? dateTime;
+
   // render paket selected di cart
   // add inklud di admin page
 
@@ -57,9 +61,9 @@ class CartController extends GetxController {
   int totminuman = 0;
   String selectedPesanan = '';
   // final List items = ['Item1', 'Item2', 1];
-  String? selectedValue;
+  DateTime? selectedDate;
   String? _selectedTime;
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  // final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   var db = FirebaseFirestore.instance;
   void changeWarna(index) {
@@ -68,6 +72,10 @@ class CartController extends GetxController {
     update();
   }
 
+  void updateDate(picked) {
+    dateTime = picked;
+    update();
+  }
   // void testG(files) {
   // gm += files;
   // gm = [].obs;
@@ -381,6 +389,9 @@ class CartController extends GetxController {
   // void tambahcek() {
   //   point += p;
   // }
+  // date
+
+  //
 
   void detailMin(data, index) {
     var a = 'ok';
