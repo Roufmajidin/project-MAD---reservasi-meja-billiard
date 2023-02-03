@@ -5,7 +5,11 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:rf_majid/app/routes/app_pages.dart';
 
+import '../../modules/cart/controllers/cart_controller.dart';
+
 class AuthController extends GetxController {
+  // final cart = Get.find<CartController>();
+
   final googleSignIn = GoogleSignIn();
   UserCredential? _userCredential;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -49,7 +53,7 @@ class AuthController extends GetxController {
       idToken: googleAuth?.idToken,
     );
 
-    print(googleUser!.email);
+    print('Welcome ${googleUser!.email}');
 
     // Once signed in, return the UserCredential
     await FirebaseAuth.instance
@@ -70,6 +74,38 @@ class AuthController extends GetxController {
     //   }
     // } catch (error) {
     //   print(error);
+    // }
+    if (!cekUser.exists) {
+      users.doc(googleUser.email).set({
+        'uid': _userCredential!.user!.uid,
+        'name': googleUser.displayName,
+        'email': googleUser.email,
+        'photo': googleUser.photoUrl,
+        'poin_belanja': 0,
+        'createdAt': _userCredential!.user!.metadata.creationTime.toString(),
+        'lastLoginAt':
+            _userCredential!.user!.metadata.lastSignInTime.toString(),
+        // 'list_cari' : [R, RE, REZ, REZA]
+      }).then((value) async {
+        String temp = '';
+
+        try {
+          for (var i = 0; 1 < googleUser.displayName!.length; i++) {
+            temp = temp + googleUser.displayName![i];
+            await users.doc(googleUser.email).set({
+              'list_cari': FieldValue.arrayUnion([temp.toUpperCase()])
+            }, SetOptions(merge: true));
+          }
+        } catch (e) {
+          print(e);
+        }
+      });
+    }
+    // else {
+    // users.doc(googleUser.email).update({
+    // 'lastLoginAt':
+    // _userCredential!.user!.metadata.lastSignInTime.toString(),
+    // });
     // }
     Get.offAllNamed(Routes.PREVENT_HOME);
   }
