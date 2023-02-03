@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:rf_majid/app/data/controller/auth_controller.dart';
 import 'package:rf_majid/app/modules/cart/controllers/cart_controller.dart';
@@ -28,7 +29,10 @@ Future<void> main() async {
   Get.put(ReservasiController(), permanent: true);
   Get.put(SemuaPaketView(), permanent: true);
   final cart = Get.find<CartController>();
+
   runApp(StreamBuilder<User?>(
+// findSystemLocale().then(runTheRestOfMyProgram);
+
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         String init = Routes.LOGIN;
@@ -42,6 +46,10 @@ Future<void> main() async {
         }
 
         return GetMaterialApp(
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
           theme: ThemeData(
             // primarySwatch: Colors.blue,
             visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -50,6 +58,7 @@ Future<void> main() async {
           debugShowCheckedModeBanner: false,
           initialRoute: init,
           getPages: AppPages.routes,
+          supportedLocales: const [Locale('id'), Locale('en')],
         );
       }));
 }

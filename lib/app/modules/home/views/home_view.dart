@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter/icons/bi.dart';
 import 'package:iconify_flutter/icons/ri.dart';
@@ -9,8 +10,7 @@ import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:rf_majid/app/data/controller/auth_controller.dart';
 import 'package:rf_majid/app/data/lokalData/appColor.dart';
-import 'package:rf_majid/app/data/lokalData/datapaket.dart';
-import 'package:rf_majid/app/data/lokalData/menu.dart';
+
 // import 'package:rf_majid/app/data/widget/trollyTap.dart';
 import 'package:rf_majid/app/modules/cart/controllers/cart_controller.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
@@ -22,14 +22,20 @@ import 'package:rf_majid/app/modules/semuaPaket/views/semua_paket_view.dart';
 // import '../../cart/data/allPaket.dart';
 import '../../cart/views/cart_view.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   HomeView({Key? key}) : super(key: key);
 
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
   List items = [
     'assets/gambar/gambar1.png',
     'assets/gambar/gambar2.jpg',
     'assets/gambar/gambar3.jpg',
   ];
+
   List<String> countries = [
     "Brazil",
     "Nepal",
@@ -39,7 +45,32 @@ class HomeView extends StatelessWidget {
   ];
 
   final authC = Get.find<AuthController>();
+
   final CartController controller = Get.find();
+  String _date = "Not set";
+  String _time = "Not set";
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  // date
+  // DateTime selectedDate = DateTime.now();
+
+  // _selectDate(BuildContext context) async {
+  //   final DateTime? picked = await showDatePicker(
+  //     context: context,
+  //     initialDate: selectedDate,
+  //     firstDate: DateTime(2000),
+  //     lastDate: DateTime(2025),
+  //   );
+  //   if (picked != null && picked != selectedDate)
+  //     setState(() {
+  //       selectedDate = picked;
+  //     });
+  // }
+  //
+
   @override
   void a(menu, index, context) {
     FirebaseFirestore.instance
@@ -480,8 +511,11 @@ class HomeView extends StatelessWidget {
   modalBawah(BuildContext context, int index, data) {
     // allpaket;
     late PersistentBottomSheetController _controller;
+    final CartController controller = Get.find();
+
     GlobalKey<ScaffoldState> _key = GlobalKey();
     bool _open = false;
+
     data;
     showModalBottomSheet(
         backgroundColor: Color.fromARGB(255, 24, 30, 42),
@@ -497,7 +531,7 @@ class HomeView extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
             ),
             child: SizedBox(
-              height: 300,
+              height: 350,
               // width: 600,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -521,8 +555,6 @@ class HomeView extends StatelessWidget {
                             Text("Table",
                                 style: TextStyle(color: judul, fontSize: 16)),
                             SizedBox(height: 21),
-                            Text("Time",
-                                style: TextStyle(color: judul, fontSize: 16)),
                           ],
                         ),
                       ),
@@ -589,15 +621,136 @@ class HomeView extends StatelessWidget {
                                 style: TextStyle(
                                     color: Color.fromARGB(255, 164, 164, 164),
                                     fontSize: 16)),
-                            SizedBox(height: 21),
+                            SizedBox(height: 12),
                             // Text(allpaket[index]["waktu"],
-                            Text(data.docs[index]["waktu"],
-                                style: TextStyle(
-                                    color: Color.fromARGB(255, 164, 164, 164),
-                                    fontSize: 16)),
+                            // Text(data.docs[index]["waktu"],
+                            // style: TextStyle(
+                            // color: Color.fromARGB(255, 164, 164, 164),
+                            // fontSize: 16)),
 
                             //
                           ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(12),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("Waktu",
+                                style: TextStyle(color: judul, fontSize: 16)),
+                            Container(
+                              // width: 150,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    child: Row(
+                                      children: <Widget>[
+                                        Icon(
+                                          Icons.access_time,
+                                          size: 12.0,
+                                          color: Colors.teal,
+                                        ),
+                                        Text(
+                                          " $_time",
+                                          style: TextStyle(
+                                              color: Colors.teal,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12.0),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Text(
+                                    "  Change",
+                                    style: TextStyle(
+                                        color: Colors.teal,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12.0),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          DateTime selectedDate =
+                              controller.dateTimeNow.toLocal();
+
+                          _selectDate(BuildContext context) async {
+                            final DateTime? picked = await showDatePicker(
+                              context: context,
+                              initialDate: controller.dateTimeNow,
+                              firstDate: DateTime(2000),
+                              lastDate: DateTime(2025),
+                            );
+                            if (picked != null && picked != selectedDate)
+                              // setState(() {
+                              //   selectedDate = picked;
+                              // });
+                              controller.updateDate(picked);
+                          }
+
+                          _selectDate(context);
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(12),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("Tanggal",
+                                  style: TextStyle(color: judul, fontSize: 16)),
+                              Container(
+                                // width: 150,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      child: Row(
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.date_range,
+                                            size: 12.0,
+                                            color: Colors.teal,
+                                          ),
+                                          GetBuilder<CartController>(
+                                            init: CartController(),
+                                            initState: (_) {},
+                                            builder: (_) {
+                                              return Text(
+                                                "${controller.dateTime!.toLocal()}"
+                                                    .split(' ')[0],
+                                                style: TextStyle(
+                                                    color: Colors.teal,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 12.0),
+                                              );
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Text(
+                                      "  Change",
+                                      style: TextStyle(
+                                          color: Colors.teal,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12.0),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -728,7 +881,7 @@ class HomeView extends StatelessWidget {
 
                   // end
                   SizedBox(
-                    height: 60,
+                    height: 12,
                   ),
                   Center(
                     child: Container(
@@ -816,7 +969,7 @@ class HomeView extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
             ),
             child: SizedBox(
-              height: 350,
+              height: 400,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 // mainAxisSize: MainAxisSize.min,
