@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:custom_check_box/custom_check_box.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,6 +17,7 @@ import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:rf_majid/app/data/format_harga.dart';
 import 'package:rf_majid/app/data/lokalData/appColor.dart';
+import 'package:rf_majid/app/modules/cart/data/cart.dart';
 
 import '../../../data/controller/auth_controller.dart';
 import '../controllers/cart_controller.dart';
@@ -70,6 +73,11 @@ class CartView extends StatelessWidget {
         .where('pemesan', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
         .snapshots();
 
+    final Stream<QuerySnapshot> user = FirebaseFirestore.instance
+        .collection('users')
+        .where('email', isEqualTo: FirebaseAuth.instance.currentUser!.email)
+        .where('isselesai', isEqualTo: false)
+        .snapshots();
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 20, 20, 20),
 
@@ -99,9 +107,23 @@ class CartView extends StatelessWidget {
           alignment: Alignment.topRight,
           child: Padding(
             padding: const EdgeInsets.all(12),
-            child: const Text(
-              'Cart',
-              style: TextStyle(fontSize: 16),
+            child: GestureDetector(
+              onTap: () {
+                // _count();
+                // showDisplayName();
+              },
+              child: Row(
+                children: [
+                  const Text(
+                    'Cart',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  // Text(
+                  //   poiny.toString(),
+                  //   style: TextStyle(fontSize: 16),
+                  // ),
+                ],
+              ),
             ),
           ),
         ),
@@ -141,6 +163,8 @@ class CartView extends StatelessWidget {
                           stream: count,
                           builder: (BuildContext context,
                               AsyncSnapshot<QuerySnapshot> snapshot2) {
+                            // final data2 = snapshot2.requireData;
+
                             if (snapshot2.hasError) {
                               return Text("error");
                             }
@@ -149,6 +173,7 @@ class CartView extends StatelessWidget {
                               return Text("Loading");
                             }
                             final int documents = snapshot2.data!.docs.length;
+                            // final int documents = snapshot2.data!.docs.length;
                             return Text(
                               'cart: ${documents}',
                               style: TextStyle(color: Colors.white),
@@ -714,6 +739,7 @@ class CartView extends StatelessWidget {
                                       ),
                                       onPressed: () {
                                         var data = cController.tot.toInt();
+                                        cController.showDisplayName();
                                         _showDialog(context, index, data);
                                         // cController.toogleCekout(index); ==> sudah berjalan, then
                                         // update
@@ -770,6 +796,7 @@ void _showDialog(context, index, data) {
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
                 onPressed: () {
                   Navigator.pop(context);
+                  // cController.point;
                 },
                 child: const Text('No')),
             ElevatedButton(
@@ -790,7 +817,8 @@ void _showDialog(context, index, data) {
                   QuickAlert.show(
                     context: context,
                     type: QuickAlertType.info,
-                    text: ' Completed Reservation Successfully!',
+                    text:
+                        'Yeay, Sukses Check Out \n Poinmu Bertambah menjadi ${cController.point + 2}!',
                   );
 
                   // showDialog(context: context, builder: (context) => alert);
@@ -835,6 +863,7 @@ void _count() {
       .doc(firebaseUser!.email)
       .get()
       .then((_) {
+    print(firebaseUser);
     return firebaseUser;
     // print("success!${firebaseUser.email}");
   });

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/bi.dart';
+import 'package:rf_majid/app/modules/cart/controllers/cart_controller.dart';
 import 'package:rf_majid/app/modules/home/views/home_view.dart';
 
 import '../../../data/controller/auth_controller.dart';
@@ -110,6 +111,7 @@ class profileUser extends StatelessWidget {
     Key? key,
   }) : super(key: key);
   final authCon = Get.find<AuthController>();
+  final cartC = Get.find<CartController>();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -127,7 +129,7 @@ class profileUser extends StatelessWidget {
                 borderRadius: BorderRadius.circular(50),
                 child: Image.network(
                   authCon.auth.currentUser!.photoURL!,
-                  height: 50,
+                  height: 45,
                 )),
             // width: 100.0,
           ),
@@ -171,12 +173,13 @@ class profileUser extends StatelessWidget {
                 const Iconify(
                   Bi.coin,
                   color: Colors.white,
+                  size: 18,
                 ),
                 SizedBox(
                   width: 10,
                 ),
                 Text(
-                  "2 poin",
+                  '${cartC.point.toString()} Poin',
                   style: TextStyle(color: Colors.white, fontSize: 12),
                 )
               ],

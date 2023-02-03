@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:rf_majid/app/data/controller/auth_controller.dart';
 import 'package:rf_majid/app/routes/app_pages.dart';
 
+import '../../cart/controllers/cart_controller.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
@@ -253,7 +254,9 @@ class LoginView extends GetView<LoginController> {
                   Colors.transparent,
                 ),
               ),
-              onPressed: () => authC.signInWithGoogle(),
+              onPressed: () {
+                authC.signInWithGoogle();
+              },
               child: Row(
                 children: [
                   SizedBox(

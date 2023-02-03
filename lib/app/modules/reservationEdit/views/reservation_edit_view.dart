@@ -746,6 +746,7 @@ Widget _formFieldsCreate(context) {
                 // print(element['value']);
                 fix.add(element['value']);
               }
+
               // int hrg = double.parse(controllerHarga.text).toInt();
               FirebaseFirestore.instance.collection('allpaket').add(
                 {
