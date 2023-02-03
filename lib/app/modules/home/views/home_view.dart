@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter/icons/bi.dart';
 import 'package:iconify_flutter/icons/ri.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:rf_majid/app/data/controller/auth_controller.dart';
 import 'package:rf_majid/app/data/lokalData/appColor.dart';
 import 'package:rf_majid/app/data/lokalData/datapaket.dart';
@@ -773,6 +775,12 @@ class HomeView extends StatelessWidget {
                           Navigator.pop(context);
 
                           controller.refreshR();
+                          QuickAlert.show(
+                            context: context,
+                            type: QuickAlertType.success,
+                            text:
+                                'Terimakasih ${FirebaseAuth.instance.currentUser!.displayName}. \n yuk tingga di check Out! ',
+                          );
                         },
                         child: Center(
                           child: Text(
@@ -1032,6 +1040,12 @@ class HomeView extends StatelessWidget {
                           // print("asas");
 
                           // controller.create_test(menu, index, context);
+                          QuickAlert.show(
+                            context: context,
+                            type: QuickAlertType.success,
+                            text:
+                                'Terimakasih ${FirebaseAuth.instance.currentUser!.displayName}. \n yuk tingga di check Out! ',
+                          );
                         },
                         onDoubleTap: () {
                           controller.base();
