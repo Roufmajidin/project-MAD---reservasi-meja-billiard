@@ -22,10 +22,12 @@ Future<void> main() async {
   Get.put(CartController(), permanent: true);
   Get.put(HomeController(), permanent: true);
   Get.put(SemuaMenuController(), permanent: true);
+  Get.put(CartController(), permanent: true);
 
   Get.put(ReservationEditController(), permanent: true);
   Get.put(ReservasiController(), permanent: true);
   Get.put(SemuaPaketView(), permanent: true);
+  final cart = Get.find<CartController>();
   runApp(StreamBuilder<User?>(
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
@@ -35,6 +37,7 @@ Future<void> main() async {
         }
         if (snapshot.hasData) {
           init = Routes.PREVENT_HOME;
+          cart.showDisplayName();
           // debugPrint("Pengguna sedang masuk: ${snapshot.data!.email}");
         }
 

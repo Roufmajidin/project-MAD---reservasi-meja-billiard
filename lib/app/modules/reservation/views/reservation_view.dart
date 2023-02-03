@@ -8,6 +8,7 @@ import 'package:iconify_flutter/icons/bi.dart';
 import 'package:rf_majid/app/data/format_harga.dart';
 import 'package:rf_majid/app/data/lokalData/appColor.dart';
 import 'package:rf_majid/app/modules/cart/controllers/cart_controller.dart';
+import 'package:rf_majid/app/modules/cart/views/cart_view.dart';
 
 import '../controllers/reservation_controller.dart';
 
@@ -39,11 +40,11 @@ class ReservationView extends GetView<ReservationController> {
                   // crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                 SizedBox(
-                  height: 40,
+                  height: 20,
                 ),
                 SingleChildScrollView(
                   physics: ScrollPhysics(),
-                  // scrollDirection: Axis.vertical,
+                  scrollDirection: Axis.vertical,
                   child: [onProgress(), onHistory()][controller.tabIndex],
                 ),
                 // onHistory()
@@ -153,7 +154,7 @@ class onProgress extends StatelessWidget {
 
           return Container(
             padding: EdgeInsets.only(top: 80),
-            constraints: BoxConstraints(maxWidth: 950),
+            constraints: BoxConstraints(maxHeight: 950),
             child: ListView.builder(
                 itemCount: data.size,
                 scrollDirection: Axis.vertical,
@@ -169,7 +170,7 @@ class onProgress extends StatelessWidget {
                     children: [
                       Container(
                           margin: EdgeInsets.only(bottom: 5),
-                          height: 180,
+                          height: 160,
                           decoration: BoxDecoration(
                               color: Color.fromARGB(248, 24, 30, 42),
                               borderRadius: BorderRadius.circular(4)),
@@ -287,13 +288,15 @@ class onProgress extends StatelessWidget {
                                         // width: ,
 
                                         child: ElevatedButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Get.to(CartView());
+                                      },
                                       style: ElevatedButton.styleFrom(
                                         primary: Color.fromARGB(255, 20, 55,
                                             170), // Background color
                                       ),
                                       child: const Text(
-                                        'Chekc Out',
+                                        'Check Out',
                                         style: TextStyle(fontSize: 10),
                                       ),
                                     )),
@@ -382,7 +385,7 @@ class onHistory extends StatelessWidget {
 
           // print(DateFormat('dd-MMM-yyy').format(date));
           return Container(
-            constraints: BoxConstraints(maxHeight: 800),
+            constraints: BoxConstraints(maxHeight: 950),
             padding: EdgeInsets.only(top: 80),
             child: ListView.builder(
                 itemCount: data.size,
@@ -847,7 +850,7 @@ class onHistory extends StatelessWidget {
                         },
                       ),
                       SizedBox(
-                        height: 12,
+                        height: 4,
                       ),
                     ],
                   );
