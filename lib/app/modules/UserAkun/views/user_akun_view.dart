@@ -85,19 +85,18 @@ class buttonLogout extends StatelessWidget {
     var cCart = Get.find<CartController>();
 
     return Center(
-      child: Container(
-        height: 40,
-        width: 200,
-        decoration: BoxDecoration(
-            color: Color.fromARGB(255, 235, 231, 156),
-            borderRadius: BorderRadius.circular(8)),
-        child: Center(
-          child: InkWell(
-            onTap: () {
-              // point = 0.obs;
-              cCart.clearPoin();
-              authC.logout();
-            },
+      child: InkWell(
+        onTap: () {
+          cCart.clearPoin();
+          authC.logout();
+        },
+        child: Container(
+          height: 40,
+          width: 200,
+          decoration: BoxDecoration(
+              color: Color.fromARGB(255, 235, 231, 156),
+              borderRadius: BorderRadius.circular(8)),
+          child: Center(
             child: Text(
               "LOG OUT",
               style: TextStyle(
@@ -127,7 +126,7 @@ class profileUser extends StatelessWidget {
           color: Color.fromARGB(249, 24, 33, 50),
           borderRadius: BorderRadius.circular(5)),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
             padding: EdgeInsets.only(top: 12),
@@ -142,55 +141,64 @@ class profileUser extends StatelessWidget {
           SizedBox(
             width: 20,
           ),
-          Container(
-            padding: EdgeInsets.only(
-              top: 12,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  authCon.auth.currentUser!.displayName!,
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.w600),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                padding: EdgeInsets.only(
+                  top: 12,
                 ),
-                SizedBox(
-                  height: 3,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      authCon.auth.currentUser!.displayName!,
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.w600),
+                    ),
+                    SizedBox(
+                      height: 3,
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(right: 20),
+                      width: 160,
+                      child: Text(
+                        overflow: TextOverflow.ellipsis,
+                        authCon.auth.currentUser!.email!,
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    )
+                  ],
                 ),
-                Text(
-                  authCon.auth.currentUser!.email!,
-                  style: TextStyle(
+              )
+
+              // poin user
+
+              ,
+              Row(
+                children: [
+                  const Iconify(
+                    Bi.coin,
                     color: Colors.white,
+                    size: 18,
                   ),
-                )
-              ],
-            ),
-          )
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    '${cartC.point.toString()} Poin',
+                    style: TextStyle(color: Colors.white, fontSize: 12),
+                  )
+                ],
+              ),
+            ],
+          ),
 
-          // poin user
-
-          ,
           SizedBox(
             width: 20,
           ),
-          Container(
-            child: Row(
-              children: [
-                const Iconify(
-                  Bi.coin,
-                  color: Colors.white,
-                  size: 18,
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  '${cartC.point.toString()} Poin',
-                  style: TextStyle(color: Colors.white, fontSize: 12),
-                )
-              ],
-            ),
-          )
           //
         ],
       ),
