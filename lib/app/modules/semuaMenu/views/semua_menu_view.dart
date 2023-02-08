@@ -3,6 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
+import 'package:rf_majid/app/data/format_harga.dart';
 
 import '../../../data/controller/auth_controller.dart';
 import '../../../data/lokalData/appColor.dart';
@@ -50,11 +53,9 @@ class SemuaMenuView extends GetView<SemuaMenuController> {
             ],
           ),
           SizedBox(
-            height: Get.height * 0.012,
+            height: 12,
           ),
-          Container(
-            padding:
-                const EdgeInsets.only(top: 10, bottom: 5, left: 2, right: 2),
+          Flexible(
             child: StreamBuilder(
                 stream: FirebaseFirestore.instance
                     .collection('allminuman')
@@ -81,7 +82,7 @@ class SemuaMenuView extends GetView<SemuaMenuController> {
                   return ListView.builder(
                     itemCount: dataM.size,
                     scrollDirection: Axis.vertical,
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: ScrollPhysics(),
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return InkWell(
@@ -99,7 +100,7 @@ class SemuaMenuView extends GetView<SemuaMenuController> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Container(
-                                    padding: EdgeInsets.all(Get.width * 0.027),
+                                    padding: EdgeInsets.all(12),
                                     child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -125,8 +126,12 @@ class SemuaMenuView extends GetView<SemuaMenuController> {
                                                   "Rp." +
                                                       // menu[index]["harga"]
                                                       //     .toString(),
-                                                      dataM.docs[index]["harga"]
-                                                          .toString(),
+                                                      CurrencyFormat
+                                                          .convertToIdr(
+                                                              dataM.docs[index]
+                                                                      ['harga']
+                                                                  .toInt(),
+                                                              2),
                                                   style: TextStyle(
                                                       color: Colors.white,
                                                       fontSize: 15),
@@ -171,6 +176,8 @@ class SemuaMenuView extends GetView<SemuaMenuController> {
 
   void modalBawah(BuildContext context, index, dataM) {
     dataM;
+    final CartController cController = Get.find();
+
     showModalBottomSheet(
         backgroundColor: Color.fromARGB(248, 24, 30, 42),
         context: context,
@@ -296,6 +303,7 @@ class SemuaMenuView extends GetView<SemuaMenuController> {
                       child: StreamBuilder(
                           stream: FirebaseFirestore.instance
                               .collection('allpaket')
+                              .where('isDelete', isEqualTo: false)
                               .snapshots(),
                           builder: (__,
                               AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
@@ -398,8 +406,12 @@ class SemuaMenuView extends GetView<SemuaMenuController> {
                         onTap: () {
                           controllerS.addMenu(dataM, index, context);
                           Navigator.pop(context);
-
-                          // controller.create_test(menu, index, context);
+                          QuickAlert.show(
+                            context: context,
+                            type: QuickAlertType.success,
+                            text:
+                                'Terimakasih ${FirebaseAuth.instance.currentUser!.displayName}. \n yuk tingga di check Out! ',
+                          );
                         },
                         child: Center(
                           child: Text(

@@ -112,6 +112,7 @@ class ReservasiView extends StatelessWidget {
               child: StreamBuilder(
                   stream: FirebaseFirestore.instance
                       .collection('allpaket')
+                      .where('isDelete', isEqualTo: false)
                       .snapshots(),
                   builder: (__,
                       AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
@@ -159,7 +160,7 @@ class ReservasiView extends StatelessWidget {
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 20),
+                                        fontSize: 18),
                                   ),
                                 ),
                                 SizedBox(height: 12),
@@ -209,7 +210,7 @@ class ReservasiView extends StatelessWidget {
                                                   fontSize: 15),
                                             ),
                                             Text(
-                                              "Add to Cart",
+                                              "Pilih",
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 15),
@@ -417,7 +418,7 @@ class ReservasiView extends StatelessWidget {
                                                         controllerCC.selected
                                                                 .contains(index)
                                                             ? "Selected"
-                                                            : "Pilih",
+                                                            : "terpilih",
                                                         style: TextStyle(
                                                             color:
                                                                 Color.fromARGB(
@@ -434,6 +435,8 @@ class ReservasiView extends StatelessWidget {
                                                   //     .toString(),
                                                   dataM.docs[index]['namamenu']
                                                       .toString(),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                   style: TextStyle(
                                                       color: Colors.white,
                                                       fontSize: 13),
@@ -502,7 +505,8 @@ class ReservasiView extends StatelessWidget {
                           QuickAlert.show(
                             context: context,
                             type: QuickAlertType.info,
-                            text: ' Completed Reservation Successfully!',
+                            text:
+                                ' Hallo Admin,  Sukses membuat \n reservation untuk User ${nama_pemesan.toString()}!',
                           );
                         },
                         child: Center(

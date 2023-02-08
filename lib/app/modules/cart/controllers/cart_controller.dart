@@ -1,10 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
 // import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -30,6 +32,11 @@ class CartController extends GetxController {
   DateTime dateTimeNow = DateTime.now();
   DateTime? dateTime;
 
+  // waktu
+  TimeOfDay time = TimeOfDay.now();
+  TimeOfDay? timeUp;
+
+//
   // render paket selected di cart
   // add inklud di admin page
 
@@ -37,6 +44,7 @@ class CartController extends GetxController {
   var countil = 2.obs;
   var valuess = [].obs;
   var ink = [].obs;
+  var tanda = 0.obs;
   // gambar
 
   String gm = '';
@@ -48,7 +56,7 @@ class CartController extends GetxController {
   var inkl = [].obs;
 
   // end
-  int point = 0;
+  var point = 1.obs;
   int poinPlus = 2;
 
   var selected = [].obs;
@@ -74,6 +82,24 @@ class CartController extends GetxController {
 
   void updateDate(picked) {
     dateTime = picked;
+    update();
+  }
+
+  void updateTime(pickedTime, context) {
+    // DateTime pars  edTime =
+    // DateFormat.jm().parse(pickedTime.format(context).toString());
+
+    // print(parsedTime);
+    // timeUp
+    String str = timeUp.toString();
+    var arr = str.split('TimeOfDay');
+    // print('asasas ${arr}');
+    timeUp = pickedTime;
+    update();
+  }
+
+  void refreshTanggal() {
+    dateTime = DateTime.now();
     update();
   }
   // void testG(files) {
@@ -119,6 +145,12 @@ class CartController extends GetxController {
 
   void clearListInput() {
     valuess = [].obs;
+  }
+
+  void clearPoin() {
+    point = 0.obs;
+    print(point);
+    update();
   }
 
   void updateA(index, val) {
@@ -294,6 +326,11 @@ class CartController extends GetxController {
     return selectedPaket;
   }
 
+  void refreshToogle() {
+    selectedPaket.clear();
+    update();
+  }
+
   void gambar(value) {
     gm = value;
     print(gm);
@@ -308,7 +345,7 @@ class CartController extends GetxController {
 
   void base() {
     menuB = [].obs;
-    selectedPaket.clear();
+    // selectedPaket.clear();
     update();
 
     selected.clear();
@@ -379,11 +416,35 @@ class CartController extends GetxController {
     int pointt = (data['poin_belanja']).toInt();
     // point += pointt;
     // int a = pointt += poinPlus;
-    point = pointt;
+    point += pointt;
 
     update();
-    print(a);
+    print(point);
     // return p;
+  }
+
+  void pickUpImage() async {
+    final image = await ImagePicker().pickImage(
+        source: ImageSource.gallery,
+        maxHeight: 512,
+        maxWidth: 512,
+        imageQuality: 75);
+
+    Reference ref = FirebaseStorage.instance
+        .ref()
+        .child('FotoMinu/${gm.toString()}_${DateTime.now()}.jpg');
+    await ref.putFile(File(image!.path));
+    ref.getDownloadURL().then((value) {
+      // print(value);
+      // gambar(value);
+      gm = value;
+      update();
+
+      // setState(() {
+      // im = value;
+      // controller.gambar(value)
+      // });
+    });
   }
 
   // void tambahcek() {
@@ -434,6 +495,13 @@ class CartController extends GetxController {
       // return aa;
       print(aa);
     });
+  }
+
+  void deletePaket(dataId, index, data) {
+    FirebaseFirestore.instance
+        .collection('allpaket')
+        .doc(dataId)
+        .set({'isDelete': true});
   }
 
   bool isCheked = false;
@@ -574,7 +642,7 @@ class CartController extends GetxController {
       'tanggalCekout': now,
       'total_t': data,
     }).whenComplete(() {
-      obsClear(data);
+      obsClear();
       obsClearInkl(data);
     });
     // int poin = 10;
@@ -1045,9 +1113,10 @@ class CartController extends GetxController {
     // print(' harga inklud :${data.docs[index]['inklud']['harga']}');
   }
 
-  void obsClear(data) {
+  void obsClear() {
     // up(data, index, datai);
-    tot - data;
+    tot = 0.0.obs;
+    update();
     print("reseted sebanyak ${tot}");
   }
 
@@ -1056,6 +1125,19 @@ class CartController extends GetxController {
     // tot - data;
     inkl = [].obs;
     // print("reseted sebanyak ${tot}");
+  }
+
+  void ubahTanda() {
+    tanda = 1.obs;
+    update();
+    print('tanda is ${tanda}');
+  }
+
+  void ubahTandaNol() {
+    tanda = 0.obs;
+    update();
+
+    print('tanda is ${tanda}');
   }
 
   void kondisiMinuman(data, int index, dataid) {

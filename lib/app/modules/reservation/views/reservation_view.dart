@@ -170,7 +170,7 @@ class onProgress extends StatelessWidget {
                     children: [
                       Container(
                           margin: EdgeInsets.only(bottom: 5),
-                          height: 160,
+                          // height: 160,
                           decoration: BoxDecoration(
                               color: Color.fromARGB(248, 24, 30, 42),
                               borderRadius: BorderRadius.circular(4)),
@@ -178,7 +178,7 @@ class onProgress extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Container(
-                                padding: EdgeInsets.all(12),
+                                padding: EdgeInsets.all(20),
                                 child: Row(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -217,8 +217,8 @@ class onProgress extends StatelessWidget {
                                               "11 Januari 2022 16:00-17:00",
                                               style: TextStyle(
                                                   color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 14),
+                                                  // fontWeight: FontWeight.bold,
+                                                  fontSize: 9),
                                             ),
                                             SizedBox(
                                               height: 6,
@@ -241,7 +241,7 @@ class onProgress extends StatelessWidget {
                                 height: 3,
                               ),
                               Container(
-                                width: 180,
+                                width: 300,
                                 padding: EdgeInsets.only(left: 12),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -255,9 +255,12 @@ class onProgress extends StatelessWidget {
                                               );
                                             },
                                             child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               children: [
                                                 Container(
-                                                  width: 130,
+                                                  width: 200,
                                                   child: Text(
                                                     data.docs[0]['inklud'][0]
                                                         ['namamenu'],
@@ -482,7 +485,7 @@ class onHistory extends StatelessWidget {
                                     height: 3,
                                   ),
                                   Container(
-                                    width: 180,
+                                    // width: 250,
                                     padding: EdgeInsets.only(left: 12),
                                     child: Column(
                                       crossAxisAlignment:
@@ -497,9 +500,12 @@ class onHistory extends StatelessWidget {
                                                   );
                                                 },
                                                 child: Row(
+                                                  // mainAxisAlignment:
+                                                  //     MainAxisAlignment
+                                                  //         .spaceBetween,
                                                   children: [
                                                     Container(
-                                                      width: 130,
+                                                      width: 180,
                                                       child: Text(
                                                         data.docs[index]
                                                                     ['inklud']
@@ -510,6 +516,9 @@ class onHistory extends StatelessWidget {
                                                                 Colors.white),
                                                       ),
                                                     ),
+                                                    // SizedBox(
+                                                    //   width: 20,
+                                                    // ),
                                                     Text(
                                                       "x 1",
                                                       style: TextStyle(
@@ -637,24 +646,14 @@ class onHistory extends StatelessWidget {
                                     ),
                                   ),
                                   data.docs[index]['isCekhed'] != true
-                                      ? Column(
-                                          children: [
-                                            Container(
-                                                alignment: Alignment.topCenter,
-                                                // margin: EdgeInsets.all(23),
-                                                // padding: EdgeInsets.only(
-                                                // height: 12,
-                                                // top: data.docs[index]
-                                                //             ['isCekhed'] !=
-                                                //         true
-                                                //     ? 140
-                                                //     : 0
-                                                // ),
-                                                // height: 180,
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: 12,
-                                                    vertical: 20),
-                                                child: Column(
+                                      ? Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 14.0),
+                                          child: Flexible(
+                                            // flex: 1,
+                                            child: Column(
+                                              children: [
+                                                Column(
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
@@ -680,6 +679,7 @@ class onHistory extends StatelessWidget {
                                                                   FontWeight
                                                                       .w600),
                                                         ),
+                                                        SizedBox(height: 4),
                                                         Column(
                                                           crossAxisAlignment:
                                                               CrossAxisAlignment
@@ -732,7 +732,7 @@ class onHistory extends StatelessWidget {
                                                                         .start,
                                                                 children: [
                                                                   Text(
-                                                                    "Harga Include: ",
+                                                                    "Total Include: ",
                                                                     style:
                                                                         TextStyle(
                                                                       color: Color.fromARGB(
@@ -744,7 +744,9 @@ class onHistory extends StatelessWidget {
                                                                           14,
                                                                     ),
                                                                   ),
-
+                                                                  SizedBox(
+                                                                      height:
+                                                                          12),
                                                                   //inklud detail
                                                                   Container(
                                                                     // width: 320,
@@ -841,8 +843,10 @@ class onHistory extends StatelessWidget {
                                                       ],
                                                     ),
                                                   ],
-                                                )),
-                                          ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
                                         )
                                       : Container()
                                 ],

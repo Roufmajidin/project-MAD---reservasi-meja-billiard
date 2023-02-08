@@ -3,12 +3,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:rf_majid/app/modules/cart/views/_cart_view.dart';
 import 'package:rf_majid/app/routes/app_pages.dart';
 
 import '../../modules/cart/controllers/cart_controller.dart';
+import '../../modules/cart/views/_cart_view.dart';
 
 class AuthController extends GetxController {
   // final cart = Get.find<CartController>();
+  // final cartc = Get.lazyPut(() => CartController());
+  //  Get.put(CartController(), permanent: true);
 
   final googleSignIn = GoogleSignIn();
   UserCredential? _userCredential;
@@ -54,27 +58,18 @@ class AuthController extends GetxController {
     );
 
     print('Welcome ${googleUser!.email}');
+    // cartc.;
 
     // Once signed in, return the UserCredential
-    await FirebaseAuth.instance
-        .signInWithCredential(credential)
-        .then((value) => _userCredential = value);
+    await FirebaseAuth.instance.signInWithCredential(credential).then((value) {
+      _userCredential = value;
+      // showPoint();
+    });
 
     //user store
     CollectionReference users = firestore.collection('users');
     final cekUser = await users.doc(googleUser.email).get();
-    // try {
-    //   await googleSignIn.signIn();
-    //   final user = googleSignIn.currentUser;
-    //   if (user!.email == "admin@mail.com") {
-    //     // User has admin role
-    //   } else {
 
-    //     // User does not have admin role
-    //   }
-    // } catch (error) {
-    //   print(error);
-    // }
     if (!cekUser.exists) {
       users.doc(googleUser.email).set({
         'uid': _userCredential!.user!.uid,
@@ -89,6 +84,8 @@ class AuthController extends GetxController {
       }).then((value) async {
         String temp = '';
 
+        // showPoint();
+
         try {
           for (var i = 0; 1 < googleUser.displayName!.length; i++) {
             temp = temp + googleUser.displayName![i];
@@ -101,18 +98,16 @@ class AuthController extends GetxController {
         }
       });
     }
-    // else {
-    // users.doc(googleUser.email).update({
-    // 'lastLoginAt':
-    // _userCredential!.user!.metadata.lastSignInTime.toString(),
-    // });
-    // }
+
+    //  Get.offAllNamed(Routes.USER_AKUN)
     Get.offAllNamed(Routes.PREVENT_HOME);
   }
 
   Future logout() async {
     await FirebaseAuth.instance.signOut();
     await GoogleSignIn().signOut();
+
+    // update();
     Get.offAllNamed(Routes.LOGIN);
   }
 
@@ -124,7 +119,7 @@ class AuthController extends GetxController {
 
   Stream<DocumentSnapshot<Map<String, dynamic>>> StreamUsers(String email) {
     return FirebaseFirestore.instance
-        .collection('usesrs')
+        .collection('users')
         .doc(email)
         .snapshots();
   }
@@ -134,5 +129,11 @@ class AuthController extends GetxController {
         .collection('users')
         .doc(auth.currentUser!.email)
         .snapshots();
+  }
+
+  var point = 0.obs;
+  void pointa() {
+    point = 0.obs;
+    update();
   }
 }

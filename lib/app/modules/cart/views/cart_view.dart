@@ -143,7 +143,7 @@ class CartView extends StatelessWidget {
               InkWell(
                 onTap: () {
                   var data = cController.tot.toInt();
-                  cController.obsClear(data);
+                  cController.obsClear();
                   // countUsers();
                 },
                 child: Row(
@@ -290,246 +290,154 @@ class CartView extends StatelessWidget {
                                               cController.changeTabI(0);
                                               cController.changeUkuran(0);
                                             },
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                  color: data.docs[index]
-                                                              ['isCekhed'] ==
-                                                          true
-                                                      ? Color.fromRGBO(92, 115,
-                                                              159, 0.973)
-                                                          .withOpacity(0.6)
-                                                      : Color.fromARGB(
-                                                          248, 24, 30, 42),
-                                                  borderRadius:
-                                                      BorderRadius.circular(4)),
-                                              height: 130,
-                                              // width: 500,
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 13, vertical: 12),
-                                              child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Row(
-                                                      children: [
-                                                        GetBuilder<
-                                                            CartController>(
-                                                          init:
-                                                              CartController(),
-                                                          initState: (_) {},
-                                                          builder: (_) {
-                                                            return CustomCheckBox(
-                                                                value:
-                                                                    cController
-                                                                        .cKo,
-                                                                shouldShowBorder:
-                                                                    true,
-                                                                uncheckedFillColor:
-                                                                    Colors
-                                                                        .transparent,
-                                                                uncheckedIconColor:
-                                                                    Colors
-                                                                        .transparent,
-                                                                borderColor:
-                                                                    Color.fromARGB(
-                                                                        249,
-                                                                        180,
-                                                                        180,
-                                                                        180),
-                                                                checkedFillColor:
-                                                                    const Color
-                                                                            .fromARGB(
-                                                                        250,
-                                                                        18,
-                                                                        30,
-                                                                        54),
-                                                                borderRadius: 4,
-                                                                borderWidth: 1,
-                                                                checkBoxSize:
-                                                                    18,
-                                                                splashColor:
-                                                                    Colors
-                                                                        .amber,
-                                                                onChanged: (
-                                                                  bool? value,
-                                                                ) {
-                                                                  // setState(() {
-                                                                  // var isChecked = value!;
-                                                                  // });
-                                                                  cController.ckB(
-                                                                      isChecked,
-                                                                      value,
-                                                                      index);
+                                            child: Flexible(
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                    color: data.docs[index]
+                                                                ['isCekhed'] ==
+                                                            true
+                                                        ? Color.fromRGBO(92,
+                                                                115, 159, 0.973)
+                                                            .withOpacity(0.6)
+                                                        : Color.fromARGB(
+                                                            248, 24, 30, 42),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10)),
+                                                // height: 130,
+                                                // width: 500,
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 20,
+                                                    vertical: 20),
+                                                child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          GetBuilder<
+                                                              CartController>(
+                                                            init:
+                                                                CartController(),
+                                                            initState: (_) {},
+                                                            builder: (_) {
+                                                              return CustomCheckBox(
+                                                                  value:
+                                                                      cController
+                                                                          .cKo,
+                                                                  shouldShowBorder:
+                                                                      true,
+                                                                  uncheckedFillColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  uncheckedIconColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  borderColor:
+                                                                      Color.fromARGB(
+                                                                          249,
+                                                                          180,
+                                                                          180,
+                                                                          180),
+                                                                  checkedFillColor:
+                                                                      const Color
+                                                                              .fromARGB(
+                                                                          250,
+                                                                          18,
+                                                                          30,
+                                                                          54),
+                                                                  borderRadius:
+                                                                      4,
+                                                                  borderWidth:
+                                                                      1,
+                                                                  checkBoxSize:
+                                                                      18,
+                                                                  splashColor:
+                                                                      Colors
+                                                                          .amber,
+                                                                  onChanged: (
+                                                                    bool? value,
+                                                                  ) {
+                                                                    // setState(() {
+                                                                    // var isChecked = value!;
+                                                                    // });
+                                                                    cController.ckB(
+                                                                        isChecked,
+                                                                        value,
+                                                                        index);
 
-                                                                  // print(index);
-                                                                });
-                                                          },
-                                                        ),
-                                                        GestureDetector(
-                                                          onTap: () {
-                                                            // var cprint =
-                                                            print(
-                                                                "cekbox aktif");
-                                                            var dataid = data
-                                                                .docs[index].id;
-                                                            cController
-                                                                .upMinuman(
-                                                                    data,
-                                                                    index,
-                                                                    dataid);
-
-                                                            cController
-                                                                .kondisiMinuman(
-                                                                    data,
-                                                                    index,
-                                                                    dataid);
-                                                            print(data
-                                                                .docs[index]
-                                                                .id);
-                                                          },
-                                                          onLongPress: () {
-                                                            print(
-                                                                "cekbox nonaktif");
-                                                            var dataid = data
-                                                                .docs[index].id;
-
-                                                            cController.minusUp(
-                                                                data,
-                                                                index,
-                                                                dataid);
-                                                            cController
-                                                                .kondisiPaket(
-                                                                    data,
-                                                                    index,
-                                                                    dataid);
-                                                          },
-                                                          child: Container(
-                                                            child: Text(""),
+                                                                    // print(index);
+                                                                  });
+                                                            },
                                                           ),
-                                                        ),
-                                                        Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
-                                                              "${data.docs[index]['namapaket']}",
-                                                              style: const TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  fontSize: 16),
-                                                            ),
-                                                            SizedBox(height: 2),
-                                                            Container(
-                                                              // padding: EdgeInsets.only(left: 10),
-                                                              child: Text(
-                                                                "Table : ${data.docs[index]['meja']}",
-                                                                style: TextStyle(
-                                                                    color: Color
-                                                                        .fromARGB(
-                                                                            255,
-                                                                            201,
-                                                                            201,
-                                                                            201),
-                                                                    fontSize:
-                                                                        15),
-                                                              ),
-                                                            ),
-                                                            Container(
-                                                              // padding: EdgeInsets.only(left: 10),
-                                                              child: Text(
-                                                                CurrencyFormat.convertToIdr(
-                                                                    data.docs[
-                                                                            index]
-                                                                        [
-                                                                        'harga'],
-                                                                    2),
-                                                                style: TextStyle(
-                                                                    color: Color
-                                                                        .fromARGB(
-                                                                            255,
-                                                                            201,
-                                                                            201,
-                                                                            201),
-                                                                    fontSize:
-                                                                        15),
-                                                              ),
-                                                            ),
-                                                            Container(
-                                                              // var a = data.docs[index]['harga'];
+                                                          GestureDetector(
+                                                            onTap: () {
+                                                              // var cprint =
+                                                              print(
+                                                                  "cekbox aktif");
+                                                              var dataid = data
+                                                                  .docs[index]
+                                                                  .id;
+                                                              cController
+                                                                  .upMinuman(
+                                                                      data,
+                                                                      index,
+                                                                      dataid);
 
-                                                              padding: EdgeInsets
-                                                                  .only(
-                                                                      bottom:
-                                                                          10),
-                                                              child: Row(
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  const Text(
-                                                                    "Inklud : ",
-                                                                    style: TextStyle(
-                                                                        color: Color.fromARGB(
-                                                                            255,
-                                                                            201,
-                                                                            201,
-                                                                            201),
-                                                                        fontSize:
-                                                                            15),
-                                                                  ),
-                                                                  Column(
-                                                                    crossAxisAlignment:
-                                                                        CrossAxisAlignment
-                                                                            .start,
-                                                                    children: List
-                                                                        .generate(
-                                                                            // growable: true,
-                                                                            infoinklud.length,
-                                                                            (index2) {
-                                                                      return InkWell(
-                                                                        onTap:
-                                                                            () {
-                                                                          // print(
-                                                                          //   'di ${infoinklud[index2]['harga']}',
-                                                                          // );
-                                                                          // print("ok");
-                                                                        },
-                                                                        child:
-                                                                            Column(
-                                                                          children: [
-                                                                            Text(
-                                                                              infoinklud[index2]['namamenu'].toString(),
-                                                                              style: TextStyle(color: Colors.white),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      );
-                                                                    }),
-                                                                  ),
-                                                                ],
-                                                              ),
+                                                              cController
+                                                                  .kondisiMinuman(
+                                                                      data,
+                                                                      index,
+                                                                      dataid);
+                                                              print(data
+                                                                  .docs[index]
+                                                                  .id);
+                                                            },
+                                                            onLongPress: () {
+                                                              print(
+                                                                  "cekbox nonaktif");
+                                                              var dataid = data
+                                                                  .docs[index]
+                                                                  .id;
+
+                                                              cController
+                                                                  .minusUp(
+                                                                      data,
+                                                                      index,
+                                                                      dataid);
+                                                              cController
+                                                                  .kondisiPaket(
+                                                                      data,
+                                                                      index,
+                                                                      dataid);
+                                                            },
+                                                            child: Container(
+                                                              child: Text(""),
                                                             ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Column(
-                                                      children: [
-                                                        Container(
-                                                          padding:
-                                                              EdgeInsets.only(
-                                                                  top: 12),
-                                                          child: Row(
+                                                          ),
+                                                          Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
                                                             children: [
-                                                              InkWell(
-                                                                onTap: () {},
+                                                              Text(
+                                                                "${data.docs[index]['namapaket']}",
+                                                                style: const TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    fontSize:
+                                                                        16),
+                                                              ),
+                                                              SizedBox(
+                                                                  height: 2),
+                                                              Container(
+                                                                // padding: EdgeInsets.only(left: 10),
                                                                 child: Text(
-                                                                  'Qty: ${data.docs[index]['quantity']}',
+                                                                  "Table : ${data.docs[index]['meja']}",
                                                                   style: TextStyle(
                                                                       color: Color.fromARGB(
                                                                           255,
@@ -540,12 +448,113 @@ class CartView extends StatelessWidget {
                                                                           15),
                                                                 ),
                                                               ),
+                                                              Container(
+                                                                // padding: EdgeInsets.only(left: 10),
+                                                                child: Text(
+                                                                  CurrencyFormat.convertToIdr(
+                                                                      data.docs[
+                                                                              index]
+                                                                          [
+                                                                          'harga'],
+                                                                      2),
+                                                                  style: TextStyle(
+                                                                      color: Color.fromARGB(
+                                                                          255,
+                                                                          201,
+                                                                          201,
+                                                                          201),
+                                                                      fontSize:
+                                                                          15),
+                                                                ),
+                                                              ),
+                                                              Container(
+                                                                // var a = data.docs[index]['harga'];
+
+                                                                padding: EdgeInsets
+                                                                    .only(
+                                                                        bottom:
+                                                                            10),
+                                                                child: Row(
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    const Text(
+                                                                      "Inklud : ",
+                                                                      style: TextStyle(
+                                                                          color: Color.fromARGB(
+                                                                              255,
+                                                                              201,
+                                                                              201,
+                                                                              201),
+                                                                          fontSize:
+                                                                              15),
+                                                                    ),
+                                                                    Column(
+                                                                      crossAxisAlignment:
+                                                                          CrossAxisAlignment
+                                                                              .start,
+                                                                      children: List
+                                                                          .generate(
+                                                                              // growable: true,
+                                                                              infoinklud.length,
+                                                                              (index2) {
+                                                                        return InkWell(
+                                                                          onTap:
+                                                                              () {
+                                                                            // print(
+                                                                            //   'di ${infoinklud[index2]['harga']}',
+                                                                            // );
+                                                                            // print("ok");
+                                                                          },
+                                                                          child:
+                                                                              Column(
+                                                                            children: [
+                                                                              Text(
+                                                                                infoinklud[index2]['namamenu'].toString(),
+                                                                                style: TextStyle(color: Colors.white),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        );
+                                                                      }),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
                                                             ],
                                                           ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ]),
+                                                        ],
+                                                      ),
+                                                      Column(
+                                                        children: [
+                                                          Container(
+                                                            padding:
+                                                                EdgeInsets.only(
+                                                                    top: 12),
+                                                            child: Row(
+                                                              children: [
+                                                                InkWell(
+                                                                  onTap: () {},
+                                                                  child: Text(
+                                                                    'Qty: ${data.docs[index]['quantity']}',
+                                                                    style: TextStyle(
+                                                                        color: Color.fromARGB(
+                                                                            255,
+                                                                            201,
+                                                                            201,
+                                                                            201),
+                                                                        fontSize:
+                                                                            15),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ]),
+                                              ),
                                             ),
                                           ),
                                           SizedBox(height: 6),
@@ -578,7 +587,7 @@ class CartView extends StatelessWidget {
                 borderRadius: BorderRadius.only(
                     topRight: Radius.circular(14),
                     topLeft: Radius.circular(14))),
-            height: cController.tabUkuran == 1 ? 200 : 120,
+            height: cController.tabUkuran == 1 ? 300 : 120,
             // width: double.infinity,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -669,6 +678,8 @@ class CartView extends StatelessWidget {
                                             color: Colors.white, fontSize: 14),
                                       ),
                                       Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: List.generate(
                                             // growable: true,
                                             cController.inkl.length, (index2) {
@@ -681,10 +692,31 @@ class CartView extends StatelessWidget {
                                             },
                                             child: Column(
                                               children: [
-                                                Text(
-                                                  ' ${cController.inkl[index2]['namamenu'].toString()}    ${CurrencyFormat.convertToIdr(cController.inkl[index2]['harga'].toInt(), 2)}',
-                                                  style: TextStyle(
-                                                      color: Colors.white),
+                                                Row(
+                                                  children: [
+                                                    Container(
+                                                      width: 120,
+                                                      child: Text(
+                                                        '${cController.inkl[index2]['namamenu'].toString()}',
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      // width: 120,
+                                                      child: Text(
+                                                        '${CurrencyFormat.convertToIdr(cController.inkl[index2]['harga'].toInt(), 2)}',
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 12),
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ],
                                             ),
@@ -809,7 +841,7 @@ void _showDialog(context, index, data) {
                   // var data = cController.tot.toInt();
                   var selectedPesanann = cController.selected.contains(index);
                   cController.updatepesananCekot(data);
-                  // cController.obsClear(data);
+                  cController.obsClear();
                   cController.changeUkuran(0);
 
                   Navigator.pop(context);
@@ -818,7 +850,7 @@ void _showDialog(context, index, data) {
                     context: context,
                     type: QuickAlertType.info,
                     text:
-                        'Yeay, Sukses Check Out \n Poinmu Bertambah menjadi ${cController.point + 2}!',
+                        'Yeay, Sukses Check Out \n Poinmu Bertambah menjadi ${cController.point + cController.poinPlus}!',
                   );
 
                   // showDialog(context: context, builder: (context) => alert);

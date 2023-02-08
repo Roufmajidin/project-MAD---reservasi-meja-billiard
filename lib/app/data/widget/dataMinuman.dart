@@ -1,11 +1,8 @@
 import 'dart:io';
-import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
-import 'package:path/path.dart' as path;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -13,6 +10,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:rf_majid/app/data/controller/auth_controller.dart';
 import 'package:rf_majid/app/data/lokalData/appColor.dart';
 import 'package:rf_majid/app/modules/cart/controllers/cart_controller.dart';
+import 'package:rf_majid/app/data/format_harga.dart';
 
 // import 'package:image_picker/image_picker.dart'; // For Image Picker
 // import 'package:path/path.dart' as Path;
@@ -120,11 +118,8 @@ class _dataMinumanState extends State<dataMinuman> {
                                         Container(
                                           // padding: EdgeInsets.only(left: 10),
                                           child: Text(
-                                            "Rp." +
-                                                // menu[index]["harga"]
-                                                //     .toString(),
-                                                dataM.docs[index]["harga"]
-                                                    .toString(),
+                                            CurrencyFormat.convertToIdr(
+                                                dataM.docs[index]['harga'], 2),
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 15),
@@ -182,26 +177,31 @@ class _dataMinumanState extends State<dataMinuman> {
           borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
         ),
         builder: (context) {
-          return Container(
-            width: 900,
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-            decoration: BoxDecoration(
-              borderRadius: new BorderRadius.only(
-                  topLeft: const Radius.circular(10.0),
-                  topRight: const Radius.circular(10.0)),
-            ),
-            child: SingleChildScrollView(
-              // height: 800,
-              // width: 600,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                // mainAxisSize: MainAxisSize.min,
-                children: [
-                  _formFieldsMinuman(context, dataM, index),
-                  SizedBox(
-                    height: 20,
-                  ),
-                ],
+          return SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            physics: ScrollPhysics(),
+            child: Container(
+              width: 900,
+              height: 700,
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              decoration: BoxDecoration(
+                borderRadius: new BorderRadius.only(
+                    topLeft: const Radius.circular(10.0),
+                    topRight: const Radius.circular(10.0)),
+              ),
+              child: SingleChildScrollView(
+                // height: 800,
+                // width: 600,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  // mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _formFieldsMinuman(context, dataM, index),
+                    SizedBox(
+                      height: 20,
+                    ),
+                  ],
+                ),
               ),
             ),
           );
@@ -213,9 +213,10 @@ class _dataMinumanState extends State<dataMinuman> {
     final CartController controller = Get.find();
     dataM;
     // String img = controller.gm.toString();
-    TextEditingController controllerMinuman = TextEditingController();
-    TextEditingController controllerhargaMinuman = TextEditingController();
-    TextEditingController controllerGambar = TextEditingController();
+    final TextEditingController controllerMinuman = TextEditingController();
+    final TextEditingController controllerhargaMinuman =
+        TextEditingController();
+    final TextEditingController controllerGambar = TextEditingController();
     // late TextEditingController gmbr = im.ttext();
     // List<Map<String, dynamic>> _values;
 
@@ -251,6 +252,12 @@ class _dataMinumanState extends State<dataMinuman> {
 
                 onChanged: (value) {
                   print(value);
+                  controllerMinuman.text = value;
+                  // controllerMinuman.value
+                },
+                onSaved: (value) {
+                  print(value);
+                  controllerMinuman.value;
                 },
                 showCursor: true,
                 obscureText: false,
