@@ -43,6 +43,7 @@ dependencies:
   rflutter_alert: ^2.0.4
   standard_dialogs: ^2.0.0
   stylish_dialog: ^1.0.1
+  flutter_svg:
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -62,6 +63,10 @@ flutter:
     - assets/gambar/gambar2.jpg
     - assets/gambar/gambar3.jpg
     - assets/gambar/profile.png
+    - assets/gambar/8401.jpg
+    - assets/splash.png
+    - assets/splash_2.png
+    - assets/on_boarding/
   uses-material-design: true
   fonts:
     - family: Sofia Sans Condensed
