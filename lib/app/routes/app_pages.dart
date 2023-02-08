@@ -12,6 +12,9 @@ import '../modules/homeAdmin/bindings/home_admin_binding.dart';
 import '../modules/homeAdmin/views/home_admin_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
+import '../modules/onBoarding/bindings/on_boarding_binding.dart';
+import '../modules/onBoarding/views/on_boarding_view.dart';
+
 import '../modules/pemesanan/bindings/pemesanan_binding.dart';
 import '../modules/pemesanan/views/pemesanan_view.dart';
 import '../modules/pemesananHistory/bindings/pemesanan_history_binding.dart';
@@ -30,6 +33,10 @@ import '../modules/semuaMenu/bindings/semua_menu_binding.dart';
 import '../modules/semuaMenu/views/semua_menu_view.dart';
 import '../modules/semuaPaket/bindings/semua_paket_binding.dart';
 import '../modules/semuaPaket/views/semua_paket_view.dart';
+import '../modules/splash/bindings/splash_binding.dart';
+import '../modules/splash/views/splash_view.dart';
+import '../modules/splashLogin/bindings/splash_login_binding.dart';
+import '../modules/splashLogin/views/splash_login_view.dart';
 
 part 'app_routes.dart';
 
@@ -61,10 +68,10 @@ class AppPages {
         binding: AboutBinding(),
         transition: Transition.noTransition),
     GetPage(
-      name: _Paths.PREVENT_HOME,
-      page: () => PreventHomeView(),
-      binding: PreventHomeBinding(),
-    ),
+        name: _Paths.PREVENT_HOME,
+        page: () => PreventHomeView(),
+        binding: PreventHomeBinding(),
+        transition: Transition.native),
     GetPage(
       name: _Paths.RESERVATION,
       page: () => const ReservationView(),
@@ -114,6 +121,21 @@ class AppPages {
       name: _Paths.RESERVATION_EDIT,
       page: () => ReservationEditView(),
       binding: ReservationEditBinding(),
+    ),
+    GetPage(
+      name: _Paths.SPLASH,
+      page: () => const SplashView(),
+      binding: SplashBinding(),
+    ),
+    GetPage(
+      name: _Paths.SPLASH_LOGIN,
+      page: () => const SplashLoginView(),
+      binding: SplashLoginBinding(),
+    ),
+    GetPage(
+      name: _Paths.ON_BOARDING,
+      page: () => const OnBoardingView(),
+      binding: OnBoardingBinding(),
     ),
   ];
 }

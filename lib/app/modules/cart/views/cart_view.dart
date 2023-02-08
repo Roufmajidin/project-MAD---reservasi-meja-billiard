@@ -841,8 +841,11 @@ void _showDialog(context, index, data) {
                   // var data = cController.tot.toInt();
                   var selectedPesanann = cController.selected.contains(index);
                   cController.updatepesananCekot(data);
+                  // cController.us();
                   cController.obsClear();
+                  cController.resetPoin();
                   cController.changeUkuran(0);
+                  cController.obsClearInkl(data);
 
                   Navigator.pop(context);
                   // dialogBox();
@@ -850,7 +853,7 @@ void _showDialog(context, index, data) {
                     context: context,
                     type: QuickAlertType.info,
                     text:
-                        'Yeay, Sukses Check Out \n Poinmu Bertambah menjadi ${cController.point + cController.poinPlus}!',
+                        'Yeay, Sukses Check Out \n Poinmu Bertambah menjadi}!',
                   );
 
                   // showDialog(context: context, builder: (context) => alert);

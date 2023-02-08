@@ -20,6 +20,10 @@ abstract class Routes {
   static const RESERVASI = _Paths.RESERVASI;
   static const SEMUA_MENU = _Paths.SEMUA_MENU;
   static const RESERVATION_EDIT = _Paths.RESERVATION_EDIT;
+  static const SPLASH = _Paths.SPLASH;
+  static const SPLASH_LOGIN = _Paths.SPLASH_LOGIN;
+  static const ON_BOARDING = _Paths.ON_BOARDING;
+  static const ON_BOARDING_SLIDER = _Paths.ON_BOARDING_SLIDER;
 }
 
 abstract class _Paths {
@@ -41,4 +45,8 @@ abstract class _Paths {
   static const RESERVASI = '/reservasi';
   static const SEMUA_MENU = '/semua-menu';
   static const RESERVATION_EDIT = '/reservation-edit';
+  static const SPLASH = '/splash';
+  static const SPLASH_LOGIN = '/splash-login';
+  static const ON_BOARDING = '/on-boarding';
+  static const ON_BOARDING_SLIDER = '/on-boarding-slider';
 }
