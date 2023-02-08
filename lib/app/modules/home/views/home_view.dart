@@ -119,6 +119,7 @@ class _HomeViewState extends State<HomeView> {
             ),
             GestureDetector(
               onTap: () {
+                controller.resetPoin();
                 Get.to(CartView());
               },
               child: Padding(
@@ -445,7 +446,9 @@ class _HomeViewState extends State<HomeView> {
                                                       color: judul,
                                                       fontWeight:
                                                           FontWeight.w600,
-                                                      fontSize: 18),
+                                                      fontSize: 18,
+                                                      fontFamily:
+                                                          'Roboto Condensed'),
                                                 ),
                                                 SizedBox(
                                                     height: Get.height * 0.01),
@@ -459,7 +462,8 @@ class _HomeViewState extends State<HomeView> {
                                                         2),
                                                     style: TextStyle(
                                                         color: Colors.white,
-                                                        fontSize: 15),
+                                                        fontSize: 15,
+                                                        fontFamily: 'Poppins'),
                                                   ),
                                                 )
                                               ],

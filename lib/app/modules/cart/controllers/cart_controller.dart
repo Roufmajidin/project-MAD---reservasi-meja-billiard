@@ -56,8 +56,8 @@ class CartController extends GetxController {
   var inkl = [].obs;
 
   // end
-  var point = 1.obs;
-  int poinPlus = 2;
+  var point = 0.obs;
+  var poinPlus = 2;
 
   var selected = [].obs;
   var selected2 = [].obs;
@@ -419,7 +419,24 @@ class CartController extends GetxController {
     point += pointt;
 
     update();
-    print(point);
+    print('point is ${point}');
+    // return p;
+  }
+
+  void resetPoin() async {
+    var collection = FirebaseFirestore.instance.collection('users');
+    //userUid is the current auth user
+    var docSnapshot =
+        await collection.doc(FirebaseAuth.instance.currentUser!.email).get();
+    var data = docSnapshot.data()!;
+    // point += data['poin_belanja'];
+    int pointt = (data['poin_belanja']).toInt();
+    // point += pointt;
+    // int a = pointt += poinPlus;
+    point = 0.obs;
+
+    update();
+    print('reset point is ${point}');
     // return p;
   }
 
@@ -634,26 +651,25 @@ class CartController extends GetxController {
     DateTime now = DateTime.now();
     print(selectedPesanan);
 
-    FirebaseFirestore.instance
+    var bb = FirebaseFirestore.instance
         .collection('pesananUser')
         .doc(selectedPesanan)
         .update({
       'isselesai': true,
       'tanggalCekout': now,
       'total_t': data,
-    }).whenComplete(() {
-      obsClear();
-      obsClearInkl(data);
     });
     // int poin = 10;
-    print('sukses cekot pesanan');
-    FirebaseFirestore.instance
+    // print('sukses cekot pesanan');
+
+    var cc = FirebaseFirestore.instance
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.email)
-        .update({'poin_belanja': point + poinPlus});
-
+        .update({'poin_belanja': point.toInt() + 2});
     print('sukses poin belanja');
   }
+
+  us() {}
 
   // print(a);
 
