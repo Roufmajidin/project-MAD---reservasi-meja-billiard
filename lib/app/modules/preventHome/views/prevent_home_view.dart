@@ -7,11 +7,15 @@ import 'package:iconify_flutter/icons/ri.dart';
 import 'package:rf_majid/app/modules/UserAkun/views/user_akun_view.dart';
 import 'package:rf_majid/app/modules/home/views/home_view.dart';
 
+import '../../cart/controllers/cart_controller.dart';
 import '../../reservation/views/reservation_view.dart';
 import '../controllers/prevent_home_controller.dart';
 
 class PreventHomeView extends GetView<PreventHomeController> {
-  const PreventHomeView({Key? key}) : super(key: key);
+  PreventHomeView({Key? key}) : super(key: key);
+  final cart = Get.find<CartController>();
+  // final cart = Get.lazyPut(() => CartController());
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<PreventHomeController>(builder: (controller) {

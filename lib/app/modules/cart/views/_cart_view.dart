@@ -112,7 +112,7 @@ class CartView extends StatelessWidget {
                 InkWell(
                   onTap: () {
                     var data = cController.tot.toInt();
-                    cController.obsClear(data);
+                    cController.obsClear();
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,

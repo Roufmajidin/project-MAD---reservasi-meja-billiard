@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/bi.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
 
 import '../../../data/format_harga.dart';
 import '../../../data/lokalData/appColor.dart';
@@ -60,6 +62,7 @@ class SemuaPaketView extends StatelessWidget {
             child: StreamBuilder(
                 stream: FirebaseFirestore.instance
                     .collection('allpaket')
+                    .where('isDelete', isEqualTo: false)
                     .snapshots(),
                 builder: (__,
                     AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
@@ -148,10 +151,10 @@ class SemuaPaketView extends StatelessWidget {
                                         child: Column(
                                           children: [
                                             Text(
-                                              "Rp." +
-                                                  // allpaket[index]["harga"]
-                                                  data.docs[index]["harga"]
-                                                      .toString(),
+                                              CurrencyFormat.convertToIdr(
+                                                  data.docs[index]['harga']
+                                                      .toInt(),
+                                                  2),
                                               style: TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 14,
@@ -189,6 +192,8 @@ class SemuaPaketView extends StatelessWidget {
 
   void modalBawah(BuildContext context, index, data) {
     data;
+    // final CartController cController = Get.find();
+
     showModalBottomSheet(
         backgroundColor: Color.fromARGB(255, 24, 30, 42),
         context: context,
@@ -449,6 +454,8 @@ class SemuaPaketView extends StatelessWidget {
                                                   dataMBM.docs[index]
                                                           ['namamenu']
                                                       .toString(),
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                   style: TextStyle(
                                                       color: Colors.white,
                                                       fontSize: 13),
@@ -483,9 +490,47 @@ class SemuaPaketView extends StatelessWidget {
                           borderRadius: BorderRadius.circular(8)),
                       child: InkWell(
                         onTap: () {
-                          controller.addPesanan(allpaket, index, context);
+                          // controller.addPesanan(allpaket, index, context);
+                          var namapaket = data.docs[index]['namapaket'];
+                          var hargaPaket = data.docs[index]['harga'];
+                          // var data1 = data;
+                          var m = controller.menuA;
+                          // print(i);
+                          // List daaa = [];
+                          print(m);
+
+                          int quant = controller.count();
+                          FirebaseFirestore.instance.collection('pesananUser')
+
+                              // )
+
+                              .add({
+                            'namapaket': data.docs[index]['namapaket'],
+                            'harga': data.docs[index]['harga'],
+                            'quantity': quant,
+                            'hargaminuman': controller.hargaMinuman,
+                            'pemesan': FirebaseAuth.instance.currentUser!.uid,
+                            'waktu': data.docs[index]['waktu'],
+                            'untuk_tanggal':
+                                controller.dateTime.toString().split(" ")[0],
+                            'untuk_jam':
+                                controller.timeUp.toString().split(" ")[0],
+                            'meja': data.docs[index]['meja'],
+                            'isCekhed': false,
+                            'onHistory': false,
+                            'isselesai': false,
+                            'inklud': FieldValue.arrayUnion(m)
+
+                            // 'inklud':
+                          });
                           // controller.minuman();
                           Navigator.pop(context);
+                          QuickAlert.show(
+                            context: context,
+                            type: QuickAlertType.success,
+                            text:
+                                'Terimakasih ${FirebaseAuth.instance.currentUser!.displayName}. \n yuk tingga di check Out! ',
+                          );
                         },
                         child: Center(
                           child: Text(

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/bi.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:rf_majid/app/data/format_harga.dart';
 import 'package:rf_majid/app/data/lokalData/appColor.dart';
 import 'package:rf_majid/app/modules/cart/controllers/cart_controller.dart';
@@ -18,7 +20,10 @@ class dataPaket extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('allpaket').snapshots(),
+        stream: FirebaseFirestore.instance
+            .collection('allpaket')
+            .where('isDelete', isEqualTo: false)
+            .snapshots(),
         builder:
             (__, AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
           if (snapshot.hasError) {
@@ -99,12 +104,22 @@ class dataPaket extends StatelessWidget {
                                         Container(
                                           child: Column(
                                             children: [
-                                              Text(
-                                                "Hapus",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 14),
+                                              InkWell(
+                                                onTap: () {
+                                                  _showDialog(
+                                                      context, index, data);
+                                                  print(
+                                                      "tombol diklik pada menu ${data.docs[index]['namapaket']}");
+                                                },
+                                                child: Text(
+                                                  "Hapus",
+                                                  style: TextStyle(
+                                                      color: Color.fromARGB(
+                                                          255, 224, 23, 23),
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 14),
+                                                ),
                                               ),
                                               SizedBox(
                                                 height: 6,
@@ -551,6 +566,12 @@ class dataPaket extends StatelessWidget {
 
                 controller.clearListInput();
                 Navigator.pop(context);
+                QuickAlert.show(
+                  context: context,
+                  type: QuickAlertType.info,
+                  text:
+                      'Hallo admin, Sukses Update \n Packages " ${controllerNamapaket.text.trim()} "',
+                );
               },
               child: Center(
                 child: Text(
@@ -620,4 +641,60 @@ class dataPaket extends StatelessWidget {
 // end row inklud edit
 
   // end
+  void _showDialog(context, index, data) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          final CartController cController = Get.find();
+
+          return AlertDialog(
+            // alignment: ,
+            // iconPadding: EdgeInsets.all(40),
+            insetPadding: EdgeInsets.all(20),
+            // contentPadding: EdgeInsets.zero,
+            // clipBehavior: Clip.antiAliasWithSaveLayer,
+            elevation: 0.8,
+            backgroundColor: Color.fromARGB(248, 51, 58, 74),
+            title: const Text(
+              'Konfirmasi dong!',
+              style: TextStyle(color: Colors.white),
+            ),
+            content: Text(
+                'Anda Yakin akan Menhapus Paket " ${data.docs[index]['namapaket']} "',
+                style: TextStyle(color: Colors.white)),
+            actions: [
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                  onPressed: () {
+                    Navigator.pop(context);
+                    // cController.point;
+                  },
+                  child: const Text('No')),
+              ElevatedButton(
+                  style:
+                      ElevatedButton.styleFrom(backgroundColor: Colors.green),
+                  onPressed: () {
+                    Navigator.pop(context);
+                    var dataIdPaket = data.docs[index].id;
+
+                    controller.deletePaket(dataIdPaket, index, data);
+                    // dialogBox();
+                    QuickAlert.show(
+                      context: context,
+                      type: QuickAlertType.info,
+                      text:
+                          'Sukses Menghapus data Paket ${data.docs[index]['namapaket']}!',
+                    );
+
+                    // showDialog(context: context, builder: (context) => alert);
+
+                    return;
+                  },
+                  child: const Text(
+                    'Hapus',
+                  )),
+            ],
+          );
+        });
+  }
 }

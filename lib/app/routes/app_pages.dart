@@ -62,7 +62,7 @@ class AppPages {
         transition: Transition.noTransition),
     GetPage(
       name: _Paths.PREVENT_HOME,
-      page: () => const PreventHomeView(),
+      page: () => PreventHomeView(),
       binding: PreventHomeBinding(),
     ),
     GetPage(

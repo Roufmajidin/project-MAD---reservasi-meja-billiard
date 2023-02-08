@@ -20,6 +20,7 @@ import 'package:rf_majid/app/modules/semuaPaket/controllers/semua_paket_controll
 import 'package:rf_majid/app/modules/semuaPaket/views/semua_paket_view.dart';
 
 // import '../../cart/data/allPaket.dart';
+import '../../../data/format_harga.dart';
 import '../../cart/views/cart_view.dart';
 
 class HomeView extends StatefulWidget {
@@ -211,6 +212,7 @@ class _HomeViewState extends State<HomeView> {
                 child: StreamBuilder(
                     stream: FirebaseFirestore.instance
                         .collection('allpaket')
+                        .where('isDelete', isEqualTo: false)
                         .snapshots(),
                     builder: (__,
                         AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
@@ -233,8 +235,8 @@ class _HomeViewState extends State<HomeView> {
 
                       return ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        // itemCount: allpaket.length < 3 ? allpaket.length : 3,
-                        itemCount: data.size,
+                        itemCount: data.size < 1 ? data.size : 3,
+                        // itemCount: data.size,
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: const EdgeInsets.only(left: 9),
@@ -306,10 +308,10 @@ class _HomeViewState extends State<HomeView> {
                                             child: Column(
                                               children: [
                                                 Text(
-                                                  "Rp." +
-                                                      // allpaket[index]["harga"]
-                                                      data.docs[index]["harga"]
-                                                          .toString(),
+                                                  CurrencyFormat.convertToIdr(
+                                                      data.docs[index]['harga']
+                                                          .toInt(),
+                                                      2),
                                                   style: TextStyle(
                                                       color: Colors.white,
                                                       fontSize: 14,
@@ -400,7 +402,9 @@ class _HomeViewState extends State<HomeView> {
 
                     final dataM = snapshot.requireData;
                     return ListView.builder(
-                      itemCount: dataM.size,
+                      // itemCount: dataM.size,
+                      itemCount: dataM.size < 1 ? dataM.size : 4,
+
                       scrollDirection: Axis.vertical,
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
@@ -448,12 +452,11 @@ class _HomeViewState extends State<HomeView> {
                                                 Container(
                                                   // padding: EdgeInsets.only(left: 10),
                                                   child: Text(
-                                                    "Rp." +
-                                                        // menu[index]["harga"]
-                                                        //     .toString(),
+                                                    CurrencyFormat.convertToIdr(
                                                         dataM.docs[index]
-                                                                ["harga"]
-                                                            .toString(),
+                                                                ['harga']
+                                                            .toInt(),
+                                                        2),
                                                     style: TextStyle(
                                                         color: Colors.white,
                                                         fontSize: 15),
@@ -641,40 +644,70 @@ class _HomeViewState extends State<HomeView> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Waktu",
+                            Text("to Jam",
                                 style: TextStyle(color: judul, fontSize: 16)),
-                            Container(
-                              // width: 150,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    child: Row(
-                                      children: <Widget>[
-                                        Icon(
-                                          Icons.access_time,
-                                          size: 12.0,
-                                          color: Colors.teal,
-                                        ),
-                                        Text(
-                                          " $_time",
-                                          style: TextStyle(
-                                              color: Colors.teal,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 12.0),
-                                        ),
-                                      ],
+                            InkWell(
+                              onTap: () {
+                                // DateTime selectedDate =
+                                //     controller.dateTimeNow.toLocal();
+                                TimeOfDay selectedTime =
+                                    TimeOfDay(hour: 00, minute: 00);
+                                _selectTime(BuildContext context) async {
+                                  final TimeOfDay? picked =
+                                      await showTimePicker(
+                                    context: context,
+                                    initialTime: controller.time,
+                                  );
+
+                                  if (picked != null)
+                                    // setState(() {
+                                    //   selectedDate = picked;
+                                    // });
+                                    controller.updateTime(picked, context);
+                                }
+
+                                _selectTime(context);
+                              },
+                              child: Container(
+                                // width: 150,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      child: Row(
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.access_time,
+                                            size: 12.0,
+                                            color: Colors.teal,
+                                          ),
+                                          GetBuilder<CartController>(
+                                            init: CartController(),
+                                            initState: (_) {},
+                                            builder: (_) {
+                                              return Text(
+                                                "${controller.timeUp}"
+                                                    .split(' ')[0],
+                                                style: TextStyle(
+                                                    color: Colors.teal,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 12.0),
+                                              );
+                                            },
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    "  Change",
-                                    style: TextStyle(
-                                        color: Colors.teal,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12.0),
-                                  ),
-                                ],
+                                    Text(
+                                      "  Change",
+                                      style: TextStyle(
+                                          color: Colors.teal,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 12.0),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ],
@@ -727,7 +760,7 @@ class _HomeViewState extends State<HomeView> {
                                             initState: (_) {},
                                             builder: (_) {
                                               return Text(
-                                                "${controller.dateTime!.toLocal()}"
+                                                "${controller.dateTime}"
                                                     .split(' ')[0],
                                                 style: TextStyle(
                                                     color: Colors.teal,
@@ -858,6 +891,8 @@ class _HomeViewState extends State<HomeView> {
                                                                 FontWeight
                                                                     .bold))),
                                                 Text(
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
                                                   // menu[index]['namamenu']
                                                   //     .toString(),
                                                   dataMBM.docs[index]
@@ -917,14 +952,22 @@ class _HomeViewState extends State<HomeView> {
                             'hargaminuman': controller.hargaMinuman,
                             'pemesan': FirebaseAuth.instance.currentUser!.uid,
                             'waktu': data.docs[index]['waktu'],
+                            'untuk_tanggal':
+                                controller.dateTime.toString().split(" ")[0],
+                            'untuk_jam':
+                                controller.timeUp.toString().split(" ")[0],
                             'meja': data.docs[index]['meja'],
                             'isCekhed': false,
                             'onHistory': false,
                             'isselesai': false,
+                            // 'total_t': quant * data.docs[index]['harga'] +
+                            // controller.hargaMinuman,
                             'inklud': FieldValue.arrayUnion(m)
 
                             // 'inklud':
                           });
+                          // controller.refreshToogle();
+                          controller.obsClear();
                           Navigator.pop(context);
 
                           controller.refreshR();
@@ -984,11 +1027,17 @@ class _HomeViewState extends State<HomeView> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               // Text(menu[index]["namamenu"].toString(),
-                              Text(dataM.docs[index]["namamenu"].toString(),
-                                  style: TextStyle(
-                                      color: Color.fromARGB(255, 164, 164, 164),
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w800)),
+                              Container(
+                                width: 180,
+                                child: Text(
+                                    overflow: TextOverflow.ellipsis,
+                                    dataM.docs[index]["namamenu"].toString(),
+                                    style: TextStyle(
+                                        color:
+                                            Color.fromARGB(255, 164, 164, 164),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w800)),
+                              ),
                               SizedBox(height: 21),
                               Text("Harga",
                                   style: TextStyle(
@@ -1060,7 +1109,9 @@ class _HomeViewState extends State<HomeView> {
                             ),
                             SizedBox(height: 21),
                             // Text(menu[index]["harga"].toString(),
-                            Text(dataM.docs[index]["harga"].toString(),
+                            Text(
+                                CurrencyFormat.convertToIdr(
+                                    dataM.docs[index]['harga'].toInt(), 2),
                                 style: TextStyle(
                                     color: Color.fromARGB(255, 164, 164, 164),
                                     fontSize: 16)),
@@ -1082,6 +1133,7 @@ class _HomeViewState extends State<HomeView> {
                       child: StreamBuilder(
                           stream: FirebaseFirestore.instance
                               .collection('allpaket')
+                              .where('isDelete', isEqualTo: false)
                               .snapshots(),
                           builder: (__,
                               AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
@@ -1193,6 +1245,8 @@ class _HomeViewState extends State<HomeView> {
                           // print("asas");
 
                           // controller.create_test(menu, index, context);
+                          controller.obsClear();
+
                           QuickAlert.show(
                             context: context,
                             type: QuickAlertType.success,

@@ -11,6 +11,8 @@ import '../controllers/user_akun_controller.dart';
 
 class UserAkunView extends GetView<UserAkunController> {
   UserAkunView({Key? key}) : super(key: key);
+  final cCart = Get.find<CartController>();
+
   final authC = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
@@ -80,6 +82,8 @@ class buttonLogout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var cCart = Get.find<CartController>();
+
     return Center(
       child: Container(
         height: 40,
@@ -90,6 +94,8 @@ class buttonLogout extends StatelessWidget {
         child: Center(
           child: InkWell(
             onTap: () {
+              // point = 0.obs;
+              cCart.clearPoin();
               authC.logout();
             },
             child: Text(
