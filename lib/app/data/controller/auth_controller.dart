@@ -99,8 +99,8 @@ class AuthController extends GetxController {
       });
     }
 
-    //  Get.offAllNamed(Routes.USER_AKUN)
-    Get.offAllNamed(Routes.PREVENT_HOME);
+    // Get.offAllNamed(Routes.PREVENT_HOME);
+    Get.toNamed(Routes.SPLASH);
   }
 
   Future logout() async {

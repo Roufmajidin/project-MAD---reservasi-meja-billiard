@@ -10,6 +10,7 @@ import 'package:rf_majid/app/modules/reservasi/controllers/reservasi_controller.
 import 'package:rf_majid/app/modules/reservationEdit/controllers/reservation_edit_controller.dart';
 // import 'package:rf_majid/app/modules/reservation/controllers/reservation_controller.dart';
 import 'package:rf_majid/app/modules/semuaPaket/views/semua_paket_view.dart';
+import 'package:rf_majid/app/modules/splash/controllers/splash_controller.dart';
 import 'package:rf_majid/firebase_options.dart';
 import 'app/modules/semuaMenu/controllers/semua_menu_controller.dart';
 import 'app/routes/app_pages.dart';
@@ -23,26 +24,33 @@ Future<void> main() async {
   Get.put(CartController(), permanent: true);
   Get.put(HomeController(), permanent: true);
   Get.put(SemuaMenuController(), permanent: true);
-  Get.put(CartController(), permanent: true);
 
   Get.put(ReservationEditController(), permanent: true);
   Get.put(ReservasiController(), permanent: true);
   Get.put(SemuaPaketView(), permanent: true);
+  Get.put(SplashController(), permanent: true);
   final cart = Get.find<CartController>();
 
   runApp(StreamBuilder<User?>(
 // findSystemLocale().then(runTheRestOfMyProgram);
 
+      // stream: FirebaseAuth.instance.authStateChanges(),
+      // builder: (context, snapshot) {
+      // String init = Routes.SPLASH;
+      // if (snapshot.connectionState == ConnectionState.waiting) {
+      // return const Center(child: CircularProgressIndicator());
+      // }
+      // if (snapshot.hasData) {
+      // Routes.SPLASH;
+      // cart.showDisplayName();
+
+      // debugPrint("Pengguna sedang masuk: ${snapshot.data!.email}");
+      // } else {
+      // Routes.LOGIN;
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
-        String init = Routes.LOGIN;
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
-        }
-        if (snapshot.hasData) {
-          init = Routes.PREVENT_HOME;
-          cart.showDisplayName();
-          // debugPrint("Pengguna sedang masuk: ${snapshot.data!.email}");
         }
 
         return GetMaterialApp(
@@ -56,7 +64,8 @@ Future<void> main() async {
           ),
           title: "Application",
           debugShowCheckedModeBanner: false,
-          initialRoute: init,
+          initialRoute:
+              snapshot.data != null ? Routes.SPLASH : Routes.SPLASH_LOGIN,
           getPages: AppPages.routes,
           supportedLocales: const [Locale('id'), Locale('en')],
         );
