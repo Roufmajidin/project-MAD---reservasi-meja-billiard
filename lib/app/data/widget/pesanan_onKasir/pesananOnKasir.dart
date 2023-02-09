@@ -45,13 +45,17 @@ class pesananOnKasir extends StatelessWidget {
 
           // print(DateFormat('dd-MMM-yyy').format(date));
           return Container(
-            constraints: BoxConstraints(maxHeight: 950),
-            padding: EdgeInsets.only(top: 80),
+            // height: Get.height * 2,
+            constraints: BoxConstraints(maxHeight: 900),
+            padding: EdgeInsets.only(top: 80, bottom: 80),
             child: ListView.builder(
                 itemCount: data.size,
                 scrollDirection: Axis.vertical,
-                physics: ScrollPhysics(),
+                // physics: ScrollPhysics(),
+                // physics: NeverScrollableScrollPhysics(),
                 // shrinkWrap: true,
+                // cacheExtent: 0.1,
+                // padding: EdgeInsets.only(bottom: 200),
                 itemBuilder: (context, index) {
                   var value = data.docs[index]['isCekhed'];
                   var d = data.docs[index].id;

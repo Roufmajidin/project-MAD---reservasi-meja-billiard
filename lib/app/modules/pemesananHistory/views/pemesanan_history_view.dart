@@ -63,9 +63,9 @@ class PemesananHistoryView extends GetView<PemesananHistoryController> {
               child: Stack(
                   // crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                SizedBox(
-                  height: 20,
-                ),
+                // SizedBox(
+                // height: 20,
+                // ),
                 SingleChildScrollView(
                   physics: ScrollPhysics(),
                   scrollDirection: Axis.vertical,

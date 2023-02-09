@@ -42,7 +42,7 @@ class pesananOnUser extends StatelessWidget {
 
           return Container(
             padding: EdgeInsets.only(top: 80),
-            constraints: BoxConstraints(maxHeight: 950),
+            constraints: BoxConstraints(maxHeight: 900),
             child: ListView.builder(
                 itemCount: data.size,
                 scrollDirection: Axis.vertical,
