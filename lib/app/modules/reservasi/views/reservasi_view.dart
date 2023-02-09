@@ -8,6 +8,7 @@ import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:rf_majid/app/data/format_harga.dart';
 import 'package:rf_majid/app/data/lokalData/appColor.dart';
 import 'package:rf_majid/app/modules/cart/controllers/cart_controller.dart';
+import 'package:rf_majid/app/routes/app_pages.dart';
 
 import '../../../data/controller/auth_controller.dart';
 import '../controllers/reservasi_controller.dart';
@@ -505,6 +506,7 @@ class ReservasiView extends StatelessWidget {
                           });
                           // end
                           Navigator.pop(context);
+                          Get.offAllNamed(Routes.PREVENT_HOME_ADMIN);
                           QuickAlert.show(
                             context: context,
                             type: QuickAlertType.info,

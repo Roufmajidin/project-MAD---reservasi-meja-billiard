@@ -24,6 +24,8 @@ abstract class Routes {
   static const SPLASH_LOGIN = _Paths.SPLASH_LOGIN;
   static const ON_BOARDING = _Paths.ON_BOARDING;
   static const ON_BOARDING_SLIDER = _Paths.ON_BOARDING_SLIDER;
+  static const PESANAN_ON_USER = _Paths.PESANAN_ON_USER;
+  static const PESANAN_ON_KASIR = _Paths.PESANAN_ON_KASIR;
 }
 
 abstract class _Paths {
@@ -49,4 +51,6 @@ abstract class _Paths {
   static const SPLASH_LOGIN = '/splash-login';
   static const ON_BOARDING = '/on-boarding';
   static const ON_BOARDING_SLIDER = '/on-boarding-slider';
+  static const PESANAN_ON_USER = '/pesanan-on-user';
+  static const PESANAN_ON_KASIR = '/pesanan-on-kasir';
 }
