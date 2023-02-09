@@ -22,6 +22,9 @@ class AuthController extends GetxController {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   //
+  TextEditingController controllerMinuman = TextEditingController();
+  TextEditingController controllerhargaMinuman = TextEditingController();
+  TextEditingController controllerGambar = TextEditingController();
   late TextEditingController searchFriendsController,
       namaPaketcontroller,
       mejacontroller;

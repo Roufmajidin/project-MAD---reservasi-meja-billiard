@@ -285,10 +285,8 @@ class dataPaket extends StatelessWidget {
               TextFormField(
                 controller: controllerNamapaket
                   ..text = data.docs[index]['namapaket'].toString(),
-                onSaved: (value) {
-                  print(value);
-
-                  // print(con);
+                onChanged: (value) {
+                  namapaket = value;
                 },
                 showCursor: false,
                 textCapitalization: TextCapitalization.sentences,
