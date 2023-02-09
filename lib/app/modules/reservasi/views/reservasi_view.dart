@@ -3,14 +3,19 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:iconify_flutter/iconify_flutter.dart';
+import 'package:iconify_flutter/icons/ri.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:rf_majid/app/data/format_harga.dart';
 import 'package:rf_majid/app/data/lokalData/appColor.dart';
 import 'package:rf_majid/app/modules/cart/controllers/cart_controller.dart';
+import 'package:rf_majid/app/modules/pemesanan/views/pemesanan_view.dart';
+import 'package:rf_majid/app/modules/prevent_home_admin/views/prevent_home_admin_view.dart';
 import 'package:rf_majid/app/routes/app_pages.dart';
 
 import '../../../data/controller/auth_controller.dart';
+import '../../prevent_home_admin/views/prevent_home_admin_view.dart';
 import '../controllers/reservasi_controller.dart';
 
 class ReservasiView extends StatelessWidget {
@@ -33,9 +38,45 @@ class ReservasiView extends StatelessWidget {
     return Scaffold(
         backgroundColor: Color.fromARGB(255, 20, 20, 20),
         appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 20, 20, 20),
-          title: const Text('ReservasiView'),
-          centerTitle: true,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                width: 50,
+                height: 20,
+                child: GestureDetector(
+                  onTap: () {
+                    Get.offAllNamed(Routes.PREVENT_HOME_ADMIN);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 5),
+                    child: const Icon(
+                      Icons.arrow_back_ios,
+                      color: Colors.white,
+                      size: 14,
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                child: Text(
+                  "History Pemesanan User",
+                  style: TextStyle(color: judul, fontSize: 14),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {},
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 5),
+                  child: const Iconify(
+                    Ri.settings_2_line,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          backgroundColor: Colors.black,
         ),
         body: SafeArea(
             child: Column(

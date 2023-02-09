@@ -21,6 +21,7 @@ import 'package:rf_majid/app/data/widget/trollyTap.dart';
 import 'package:rf_majid/app/modules/cart/controllers/cart_controller.dart';
 
 import '../../../data/format_harga.dart';
+import '../../../routes/app_pages.dart';
 import '../controllers/reservation_edit_controller.dart';
 
 class ReservationEditView extends GetView<ReservationEditController> {
@@ -37,7 +38,10 @@ class ReservationEditView extends GetView<ReservationEditController> {
           leadingWidth: 50,
           actions: [
             GestureDetector(
-              child: Icon(Icons.add),
+              child: Icon(
+                Icons.add,
+                size: 18,
+              ),
               onTap: () {
                 controller.tabIndex == 0
                     ? modalBawahCreatePaket(context)
@@ -48,11 +52,26 @@ class ReservationEditView extends GetView<ReservationEditController> {
               padding: EdgeInsets.symmetric(horizontal: 16),
             ),
           ],
-          title: Center(child: Text("DataPaket")),
+          title: Center(
+              child: Text(
+            "DataPaket",
+            style: TextStyle(fontSize: 15),
+          )),
           leading: Container(
-            child: Icon(
-              Icons.arrow_back_ios,
-              color: Colors.white,
+            width: 50,
+            height: 20,
+            child: GestureDetector(
+              onTap: () {
+                Get.offAllNamed(Routes.PREVENT_HOME_ADMIN);
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(right: 5),
+                child: const Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.white,
+                  size: 15,
+                ),
+              ),
             ),
           ),
         ),
