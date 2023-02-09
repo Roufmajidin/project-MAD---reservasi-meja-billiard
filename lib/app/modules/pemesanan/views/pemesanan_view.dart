@@ -9,6 +9,7 @@ import 'package:rf_majid/app/modules/cart/controllers/cart_controller.dart';
 import 'package:rf_majid/app/modules/reservasi/views/reservasi_view.dart';
 import 'package:rf_majid/app/modules/reservation/controllers/reservation_controller.dart';
 import 'package:rf_majid/app/modules/reservationEdit/views/reservation_edit_view.dart';
+import 'package:rf_majid/app/routes/app_pages.dart';
 
 import '../../../data/lokalData/appColor.dart';
 import '../controllers/pemesanan_controller.dart';
@@ -111,7 +112,7 @@ class PemesananView extends GetView<PemesananController> {
                       children: [
                         InkWell(
                           onTap: () {
-                            Get.to(ReservasiView());
+                            Get.offAllNamed(Routes.RESERVASI);
                           },
                           child: Stack(
                             alignment: Alignment.center,
@@ -144,7 +145,8 @@ class PemesananView extends GetView<PemesananController> {
                         ),
                         InkWell(
                           onTap: () {
-                            Get.to(ReservationEditView());
+                            // Get.to(ReservationEditView());
+                            Get.offAllNamed(Routes.RESERVATION_EDIT);
                           },
                           child: Stack(
                             alignment: Alignment.center,

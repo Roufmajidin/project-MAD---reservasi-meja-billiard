@@ -14,11 +14,11 @@ import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/onBoarding/bindings/on_boarding_binding.dart';
 import '../modules/onBoarding/views/on_boarding_view.dart';
-
 import '../modules/pemesanan/bindings/pemesanan_binding.dart';
 import '../modules/pemesanan/views/pemesanan_view.dart';
 import '../modules/pemesananHistory/bindings/pemesanan_history_binding.dart';
 import '../modules/pemesananHistory/views/pemesanan_history_view.dart';
+
 import '../modules/preventHome/bindings/prevent_home_binding.dart';
 import '../modules/preventHome/views/prevent_home_view.dart';
 import '../modules/prevent_home_admin/bindings/prevent_home_admin_binding.dart';

@@ -7,11 +7,13 @@ import 'package:rf_majid/app/data/controller/auth_controller.dart';
 import 'package:rf_majid/app/modules/cart/controllers/cart_controller.dart';
 import 'package:rf_majid/app/modules/home/controllers/home_controller.dart';
 import 'package:rf_majid/app/modules/reservasi/controllers/reservasi_controller.dart';
+import 'package:rf_majid/app/modules/reservasi/views/reservasi_view.dart';
 import 'package:rf_majid/app/modules/reservationEdit/controllers/reservation_edit_controller.dart';
 // import 'package:rf_majid/app/modules/reservation/controllers/reservation_controller.dart';
 import 'package:rf_majid/app/modules/semuaPaket/views/semua_paket_view.dart';
 import 'package:rf_majid/app/modules/splash/controllers/splash_controller.dart';
 import 'package:rf_majid/firebase_options.dart';
+import 'app/modules/pemesananHistory/controllers/pemesanan_history_controller.dart';
 import 'app/modules/semuaMenu/controllers/semua_menu_controller.dart';
 import 'app/routes/app_pages.dart';
 
@@ -26,9 +28,10 @@ Future<void> main() async {
   Get.put(SemuaMenuController(), permanent: true);
 
   Get.put(ReservationEditController(), permanent: true);
-  Get.put(ReservasiController(), permanent: true);
+  // Get.put(ReservasiController(), permanent: true);
   Get.put(SemuaPaketView(), permanent: true);
   Get.put(SplashController(), permanent: true);
+  Get.put(PemesananHistoryController(), permanent: true);
   final cart = Get.find<CartController>();
 
   runApp(StreamBuilder<User?>(

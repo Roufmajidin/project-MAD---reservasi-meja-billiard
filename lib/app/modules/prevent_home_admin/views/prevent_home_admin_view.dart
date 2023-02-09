@@ -14,6 +14,7 @@ import '../controllers/prevent_home_admin_controller.dart';
 
 class PreventHomeAdminView extends GetView<PreventHomeAdminController> {
   final authC = Get.find<AuthController>();
+  // Get.put(ReservasiController(), permanent: true);
 
   PreventHomeAdminView({Key? key}) : super(key: key);
   @override
@@ -27,7 +28,7 @@ class PreventHomeAdminView extends GetView<PreventHomeAdminController> {
             children: [
               PemesananView(),
               ReservationEditView(),
-              HomeAdminView(),
+              PemesananHistoryView(),
               HomeAdminView(),
             ],
           ),
