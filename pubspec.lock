@@ -3,6 +3,8 @@
 packages:
   _flutterfire_internals:
     dependency: transitive
+  _flutterfire_internals:
+    dependency: transitive
     description:
       name: _flutterfire_internals
       sha256: "3ff770dfff04a67b0863dff205a0936784de1b87a5e99b11c693fc10e66a9ce3"
@@ -10,6 +12,7 @@ packages:
       sha256: "3ff770dfff04a67b0863dff205a0936784de1b87a5e99b11c693fc10e66a9ce3"
       url: "https://pub.dev"
     source: hosted
+    version: "1.0.12"
     version: "1.0.12"
   archive:
     dependency: transitive
@@ -21,6 +24,7 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.3.5"
+  async:
   async:
     dependency: transitive
     description:
@@ -41,6 +45,7 @@ packages:
       sha256: "3f5261cd3fb5f2a9ab4e2fc3fba84fd9fcaac8821f20a1d4e71f557521b22599"
       url: "https://pub.dev"
     source: hosted
+    version: "3.0.0"
     version: "3.0.0"
   boolean_selector:
     dependency: transitive
@@ -793,6 +798,8 @@ packages:
     version: "1.8.0"
   panara_dialogs:
     dependency: "direct main"
+  panara_dialogs:
+    dependency: "direct main"
     description:
       name: panara_dialogs
       sha256: "0260305ffecc4c7e00655dd8824aa9ad4dc3fcb6ec9fcd97cd9fcf303db8205c"
@@ -800,6 +807,7 @@ packages:
       sha256: "0260305ffecc4c7e00655dd8824aa9ad4dc3fcb6ec9fcd97cd9fcf303db8205c"
       url: "https://pub.dev"
     source: hosted
+    version: "0.1.4"
     version: "0.1.4"
   path:
     dependency: transitive
@@ -1234,4 +1242,5 @@ packages:
     version: "6.1.0"
 sdks:
   dart: ">=2.18.5 <3.0.0"
+  flutter: ">=3.3.0"
   flutter: ">=3.3.0"
