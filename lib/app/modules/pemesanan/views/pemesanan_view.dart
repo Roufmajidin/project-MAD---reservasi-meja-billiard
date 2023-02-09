@@ -18,6 +18,7 @@ class PemesananView extends GetView<PemesananController> {
   PemesananView({Key? key}) : super(key: key);
   @override
   final authC = Get.find<AuthController>();
+  final CartController controllerC = Get.find();
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,6 +113,10 @@ class PemesananView extends GetView<PemesananController> {
                       children: [
                         InkWell(
                           onTap: () {
+                            controllerC.clearListInklud();
+                            controllerC.base();
+                            controllerC.refreshR();
+
                             Get.offAllNamed(Routes.RESERVASI);
                           },
                           child: Stack(

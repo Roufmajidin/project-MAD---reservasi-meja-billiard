@@ -192,6 +192,8 @@ class ReservasiView extends StatelessWidget {
                                 ),
                                 InkWell(
                                   onTap: () {
+                                    controllerC.refreshR();
+
                                     modalBawah(context, index, data);
                                   },
                                   child: Container(
@@ -484,6 +486,7 @@ class ReservasiView extends StatelessWidget {
 
                           // query
                           int quant = controller.count();
+                          DateTime now = DateTime.now();
                           FirebaseFirestore.instance
                               .collection('PesananUserOnKasir')
 
@@ -500,12 +503,17 @@ class ReservasiView extends StatelessWidget {
                             'isCekhed': true,
                             'onHistory': true,
                             'isselesai': true,
+                            'total_t': data.docs[index]['harga'] * quant +
+                                controller.hargaMinuman,
+                            'tanggalCekout': now,
                             'inklud': FieldValue.arrayUnion(m)
 
                             // 'inklud':
                           });
                           // end
                           Navigator.pop(context);
+                          controller.clearListInklud();
+                          print(controller.clearListInklud());
                           Get.offAllNamed(Routes.PREVENT_HOME_ADMIN);
                           QuickAlert.show(
                             context: context,

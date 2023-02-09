@@ -77,7 +77,7 @@ class pesananOnUser extends StatelessWidget {
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold,
-                                                fontSize: 18,
+                                                fontSize: 16,
                                                 fontFamily: 'Poppins'),
                                           ),
                                           SizedBox(height: Get.height * 0.01),
@@ -87,7 +87,7 @@ class pesananOnUser extends StatelessWidget {
                                               data.docs[index]['email'],
                                               style: TextStyle(
                                                   color: Colors.white,
-                                                  fontSize: 16),
+                                                  fontSize: 12),
                                             ),
                                           )
                                         ],

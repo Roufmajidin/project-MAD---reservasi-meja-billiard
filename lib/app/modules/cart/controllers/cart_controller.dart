@@ -254,6 +254,7 @@ class CartController extends GetxController {
   refreshR() {
     menuA.clear();
     htMenu.clear();
+    print('selectedminuman dari nol is : ${menuA}');
   }
 
   toogle(dataMBM, index) {
@@ -400,6 +401,52 @@ class CartController extends GetxController {
       print(isC);
       print(isId);
     });
+    // ubahDetail = a.obs;
+
+    update();
+    print(a);
+  }
+
+  void detailOnKasir(data, index) {
+    var a = 'ok';
+    var isC = data.docs[index]['isCekhed'];
+    var isId = data.docs[index].id;
+
+    FirebaseFirestore.instance
+        .collection('PesananUserOnKasir')
+        .doc(isId)
+        .update({
+      'isCekhed': false,
+
+      // 'total_t': data,
+    }).whenComplete(() {
+      print(isC);
+      print(isId);
+    });
+
+    // ubahDetail = a.obs;
+
+    update();
+    print(a);
+  }
+
+  void detailOnKasirMin(data, index) {
+    var a = 'ok';
+    var isC = data.docs[index]['isCekhed'];
+    var isId = data.docs[index].id;
+
+    FirebaseFirestore.instance
+        .collection('PesananUserOnKasir')
+        .doc(isId)
+        .update({
+      'isCekhed': true,
+
+      // 'total_t': data,
+    }).whenComplete(() {
+      print(isC);
+      print(isId);
+    });
+
     // ubahDetail = a.obs;
 
     update();
