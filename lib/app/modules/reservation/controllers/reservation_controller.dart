@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 
 class ReservationController extends GetxController {
   //TODO: Implement ReservationController
-
   var count = 0.obs;
   //
   var tabIndex = 0;

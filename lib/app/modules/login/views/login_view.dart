@@ -1,12 +1,21 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:rf_majid/app/data/controller/auth_controller.dart';
+import 'package:rf_majid/app/routes/app_pages.dart';
 
-import '../../home/views/home_view.dart';
+import '../../cart/controllers/cart_controller.dart';
 import '../controllers/login_controller.dart';
 
 class LoginView extends GetView<LoginController> {
-  const LoginView({Key? key}) : super(key: key);
+  LoginView({Key? key}) : super(key: key);
+
+  final authC = Get.find<AuthController>();
+  final _auth = FirebaseAuth.instance;
+  late String email;
+  late String password;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,6 +70,9 @@ class LoginView extends GetView<LoginController> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         TextFormField(
+          onChanged: (value) {
+            email = value;
+          },
           showCursor: false,
           textCapitalization: TextCapitalization.sentences,
           decoration: InputDecoration(
@@ -86,6 +98,9 @@ class LoginView extends GetView<LoginController> {
         ),
         const SizedBox(height: 22),
         TextFormField(
+          onChanged: (value) {
+            password = value;
+          },
           showCursor: false,
           obscureText: true,
           textCapitalization: TextCapitalization.sentences,
@@ -177,7 +192,7 @@ class LoginView extends GetView<LoginController> {
               end: Alignment.center,
               stops: const [0.0, 1.0],
               colors: [
-                Color(0xffEDE88A),
+                Color.fromARGB(255, 233, 223, 37),
                 Color.fromARGB(255, 143, 161, 52),
               ],
             ),
@@ -195,8 +210,13 @@ class LoginView extends GetView<LoginController> {
                   Colors.transparent,
                 ),
               ),
-              onPressed: () {
-                Get.to(Home());
+              onPressed: () async {
+                final user = await _auth.signInWithEmailAndPassword(
+                    email: email, password: password);
+                if (user != null) {
+                  // print(email);
+                  Get.offAllNamed(Routes.PREVENT_HOME_ADMIN);
+                }
               },
               child: const Text('LOGIN',
                   style: TextStyle(color: Colors.white, fontSize: 16))),
@@ -216,8 +236,8 @@ class LoginView extends GetView<LoginController> {
                 end: Alignment.centerRight,
                 stops: const [0.0, 1.0],
                 colors: [
-                  Color.fromARGB(255, 135, 135, 135),
-                  Color.fromARGB(255, 218, 218, 218),
+                  Color(0xffEDE88A),
+                  Color.fromARGB(255, 143, 161, 52),
                 ],
               ),
               borderRadius: BorderRadius.circular(12),
@@ -234,7 +254,9 @@ class LoginView extends GetView<LoginController> {
                   Colors.transparent,
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                authC.signInWithGoogle();
+              },
               child: Row(
                 children: [
                   SizedBox(
@@ -242,7 +264,6 @@ class LoginView extends GetView<LoginController> {
                   ),
                   Icon(
                     Icons.login,
-                    color: Colors.amberAccent,
                   ),
                   SizedBox(
                     width: 80,
