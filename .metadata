@@ -1,42 +1,16 @@
 # This file tracks properties of this Flutter project.
-
 # Used by Flutter tool to assess capabilities and perform upgrades etc.
-
 #
-
 # This file should be version controlled.
 
 version:
-<<<<<<< HEAD
-revision: b8f7f1f9869bb2d116aa6a70dbeac61000b52849
-channel: stable
-=======
   revision: 135454af32477f815a7525073027a3ff9eff1bfd
   channel: stable
->>>>>>> 54bdb27 (fix reservation view (User))
 
 project_type: app
 
 # Tracks metadata for the flutter migrate command
-
 migration:
-<<<<<<< HEAD
-platforms: - platform: root
-create_revision: b8f7f1f9869bb2d116aa6a70dbeac61000b52849
-base_revision: b8f7f1f9869bb2d116aa6a70dbeac61000b52849 - platform: android
-create_revision: b8f7f1f9869bb2d116aa6a70dbeac61000b52849
-base_revision: b8f7f1f9869bb2d116aa6a70dbeac61000b52849 - platform: ios
-create_revision: b8f7f1f9869bb2d116aa6a70dbeac61000b52849
-base_revision: b8f7f1f9869bb2d116aa6a70dbeac61000b52849 - platform: linux
-create_revision: b8f7f1f9869bb2d116aa6a70dbeac61000b52849
-base_revision: b8f7f1f9869bb2d116aa6a70dbeac61000b52849 - platform: macos
-create_revision: b8f7f1f9869bb2d116aa6a70dbeac61000b52849
-base_revision: b8f7f1f9869bb2d116aa6a70dbeac61000b52849 - platform: web
-create_revision: b8f7f1f9869bb2d116aa6a70dbeac61000b52849
-base_revision: b8f7f1f9869bb2d116aa6a70dbeac61000b52849 - platform: windows
-create_revision: b8f7f1f9869bb2d116aa6a70dbeac61000b52849
-base_revision: b8f7f1f9869bb2d116aa6a70dbeac61000b52849
-=======
   platforms:
     - platform: root
       create_revision: 135454af32477f815a7525073027a3ff9eff1bfd
@@ -59,16 +33,13 @@ base_revision: b8f7f1f9869bb2d116aa6a70dbeac61000b52849
     - platform: windows
       create_revision: 135454af32477f815a7525073027a3ff9eff1bfd
       base_revision: 135454af32477f815a7525073027a3ff9eff1bfd
->>>>>>> 54bdb27 (fix reservation view (User))
 
-# User provided section
+  # User provided section
 
-# List of Local paths (relative to this file) that should be
-
-# ignored by the migrate tool.
-
-#
-
-# Files that are not part of the templates will be ignored by default.
-
-unmanaged_files: - 'lib/main.dart' - 'ios/Runner.xcodeproj/project.pbxproj'
+  # List of Local paths (relative to this file) that should be
+  # ignored by the migrate tool.
+  #
+  # Files that are not part of the templates will be ignored by default.
+  unmanaged_files:
+    - 'lib/main.dart'
+    - 'ios/Runner.xcodeproj/project.pbxproj'
