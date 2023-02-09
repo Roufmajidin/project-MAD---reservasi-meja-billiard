@@ -254,7 +254,10 @@ class CartController extends GetxController {
   refreshR() {
     menuA.clear();
     htMenu.clear();
-    print('selectedminuman dari nol is : ${menuA}');
+    hargaMinuman = 0.0;
+    update();
+    print(
+        'selectedminuman dari nol is : ${menuA}, hargaMinuman:${hargaMinuman}, clear ${htMenu}, clear ${menuA}');
   }
 
   toogle(dataMBM, index) {
