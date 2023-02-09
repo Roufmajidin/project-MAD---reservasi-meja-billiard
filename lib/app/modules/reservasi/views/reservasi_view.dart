@@ -30,8 +30,9 @@ class ReservasiView extends StatelessWidget {
     // String email;
 
     return Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor: Color.fromARGB(255, 20, 20, 20),
         appBar: AppBar(
+          backgroundColor: Color.fromARGB(255, 20, 20, 20),
           title: const Text('ReservasiView'),
           centerTitle: true,
         ),
@@ -45,7 +46,7 @@ class ReservasiView extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Sofia Sans Condensed',
-                  color: Color.fromARGB(255, 0, 0, 0),
+                  color: Color.fromARGB(255, 218, 218, 218),
                   fontSize: 20,
                 ),
               ),
@@ -73,12 +74,12 @@ class ReservasiView extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12),
                           borderSide: BorderSide(
                             style: BorderStyle.solid,
-                            color: Color.fromARGB(255, 164, 164, 164),
+                            color: Color.fromARGB(248, 24, 30, 42),
                           ),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                              color: Color.fromARGB(255, 164, 164, 164),
+                              color: Color.fromARGB(248, 24, 30, 42),
                               width: 2.0),
                           borderRadius: BorderRadius.circular(12),
                         ),
@@ -143,7 +144,8 @@ class ReservasiView extends StatelessWidget {
                       itemBuilder: (BuildContext context, int index) {
                         return Card(
                           color:
-                              Color.fromARGB(250, 18, 30, 54).withOpacity(0.5),
+                              // Color.fromARGB(250, 18, 30, 54).withOpacity(0.5),
+                              Color.fromARGB(248, 24, 30, 42),
                           child: Container(
                             // height: 80,
                             padding: EdgeInsets.only(top: 18),
@@ -481,7 +483,8 @@ class ReservasiView extends StatelessWidget {
 
                           // query
                           int quant = controller.count();
-                          FirebaseFirestore.instance.collection('pesananUser')
+                          FirebaseFirestore.instance
+                              .collection('PesananUserOnKasir')
 
                               // )
 
