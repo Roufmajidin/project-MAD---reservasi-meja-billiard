@@ -1,16 +1,19 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/bi.dart';
-import 'package:project_mad/app/modules/home/views/home_view.dart';
+import 'package:rf_majid/app/modules/cart/controllers/cart_controller.dart';
+import 'package:rf_majid/app/modules/home/views/home_view.dart';
 
+import '../../../data/controller/auth_controller.dart';
 import '../controllers/user_akun_controller.dart';
 
 class UserAkunView extends GetView<UserAkunController> {
-  const UserAkunView({Key? key}) : super(key: key);
+  UserAkunView({Key? key}) : super(key: key);
+  final cCart = Get.find<CartController>();
+
+  final authC = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,24 +74,29 @@ class UserAkunView extends GetView<UserAkunController> {
 }
 
 class buttonLogout extends StatelessWidget {
-  const buttonLogout({
+  final authC = Get.find<AuthController>();
+
+  buttonLogout({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var cCart = Get.find<CartController>();
+
     return Center(
-      child: Container(
-        height: 40,
-        width: 200,
-        decoration: BoxDecoration(
-            color: Color.fromARGB(255, 235, 231, 156),
-            borderRadius: BorderRadius.circular(8)),
-        child: Center(
-          child: InkWell(
-            onTap: () {
-              Get.to(Home());
-            },
+      child: InkWell(
+        onTap: () {
+          cCart.clearPoin();
+          authC.logout();
+        },
+        child: Container(
+          height: 40,
+          width: 200,
+          decoration: BoxDecoration(
+              color: Color.fromARGB(255, 235, 231, 156),
+              borderRadius: BorderRadius.circular(8)),
+          child: Center(
             child: Text(
               "LOG OUT",
               style: TextStyle(
@@ -104,10 +112,11 @@ class buttonLogout extends StatelessWidget {
 }
 
 class profileUser extends StatelessWidget {
-  const profileUser({
+  profileUser({
     Key? key,
   }) : super(key: key);
-
+  final authCon = Get.find<AuthController>();
+  final cartC = Get.find<CartController>();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -117,44 +126,80 @@ class profileUser extends StatelessWidget {
           color: Color.fromARGB(249, 24, 33, 50),
           borderRadius: BorderRadius.circular(5)),
       child: Row(
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
             padding: EdgeInsets.only(top: 12),
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(50),
-                child: Image.asset(
-                  'assets/gambar/profile.png',
-                  height: 50,
+                child: Image.network(
+                  authCon.auth.currentUser!.photoURL!,
+                  height: 45,
                 )),
             // width: 100.0,
           ),
           SizedBox(
             width: 20,
           ),
-          Container(
-            padding: EdgeInsets.only(
-              top: 12,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Rouf Majid",
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.w600),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                padding: EdgeInsets.only(
+                  top: 12,
                 ),
-                SizedBox(
-                  height: 3,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      authCon.auth.currentUser!.displayName!,
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.w600),
+                    ),
+                    SizedBox(
+                      height: 3,
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(right: 20),
+                      width: 160,
+                      child: Text(
+                        overflow: TextOverflow.ellipsis,
+                        authCon.auth.currentUser!.email!,
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                    )
+                  ],
                 ),
-                Text(
-                  "+62 84323901290",
-                  style: TextStyle(
+              )
+
+              // poin user
+
+              ,
+              Row(
+                children: [
+                  const Iconify(
+                    Bi.coin,
                     color: Colors.white,
+                    size: 18,
                   ),
-                )
-              ],
-            ),
-          )
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    '${cartC.point.toString()} Poin',
+                    style: TextStyle(color: Colors.white, fontSize: 12),
+                  )
+                ],
+              ),
+            ],
+          ),
+
+          SizedBox(
+            width: 20,
+          ),
+          //
         ],
       ),
     );

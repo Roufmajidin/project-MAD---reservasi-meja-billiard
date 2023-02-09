@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "841866151526",
+    "project_id": "majidin-27602",
+    "storage_bucket": "majidin-27602.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:841866151526:android:7c856eb49a489d2e0e8fa7",
+        "android_client_info": {
+          "package_name": "com.example.rf_majid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "841866151526-f51k6s331hp2fpu2vemdiuqkickf5ock.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNofrmyvnVBSf49aNFKeQOJu_RFUdUXtY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "841866151526-f51k6s331hp2fpu2vemdiuqkickf5ock.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
