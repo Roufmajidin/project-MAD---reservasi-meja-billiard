@@ -6,6 +6,7 @@ environment:
   sdk: '>=2.18.5 <3.0.0'
 
 dependencies:
+  badges: ^3.0.2
   bottom_sheet: ^3.1.2
   carousel_slider: ^4.1.1
   cloud_firestore: ^4.2.0
@@ -29,6 +30,7 @@ dependencies:
     sdk: flutter
   flutter_rounded_date_picker: ^3.0.2
   flutter_secure_storage: ^7.0.1
+  flutter_svg: null
   get: 4.6.5
   getwidget: ^3.0.1
   google_sign_in: ^5.4.2
@@ -43,7 +45,6 @@ dependencies:
   rflutter_alert: ^2.0.4
   standard_dialogs: ^2.0.0
   stylish_dialog: ^1.0.1
-  flutter_svg:
 
 dev_dependencies:
   flutter_lints: ^2.0.0
