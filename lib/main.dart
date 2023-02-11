@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:rf_majid/app/data/controller/auth_controller.dart';
+import 'package:rf_majid/app/data/controller/multiController.dart';
 import 'package:rf_majid/app/modules/cart/controllers/cart_controller.dart';
 import 'package:rf_majid/app/modules/detailPesananUser/controllers/detail_pesanan_user_controller.dart';
 import 'package:rf_majid/app/modules/home/controllers/home_controller.dart';
@@ -40,6 +41,7 @@ Future<void> main() async {
   Get.put(PemesananController(), permanent: true);
   Get.put(PreventHomeAdminController(), permanent: true);
   Get.put(DetailPesananUserController(), permanent: true);
+  Get.put(multiController(), permanent: true);
   final cart = Get.find<CartController>();
 
   runApp(StreamBuilder<User?>(

@@ -91,7 +91,7 @@ class _HomeViewState extends State<HomeView> {
     // Get.put(CartController(), permanent: true);
     Get.put(HomeController(), permanent: true);
     Get.put(AuthController(), permanent: true);
-    // Get.put(CartController(), permanent: true);
+    Get.put(CartController(), permanent: true);
     Get.put(HomeController(), permanent: true);
     Get.put(SemuaPaketController(), permanent: true);
 
@@ -180,6 +180,7 @@ class _HomeViewState extends State<HomeView> {
                                 print("object");
                                 controller.ini();
                                 Get.to(SemuaPaketView());
+                                // Get.all
                               },
                               child: const Text(
                                 "See All",
@@ -287,6 +288,7 @@ class _HomeViewState extends State<HomeView> {
                                   ),
                                   InkWell(
                                     onTap: () {
+                                      controller.refreshR();
                                       modalBawah(context, index, data);
                                     },
                                     child: Container(
@@ -351,6 +353,7 @@ class _HomeViewState extends State<HomeView> {
                   Row(children: [
                     InkWell(
                       onTap: () {
+                        controller.refreshR();
                         Get.to(SemuaMenuView());
                       },
                       child: const Text(
@@ -406,8 +409,8 @@ class _HomeViewState extends State<HomeView> {
                       itemBuilder: (context, index) {
                         return InkWell(
                             onTap: (() {
+                              controller.refreshR();
                               modalBawahmenu(context, index, dataM);
-                              controller.base();
                             }),
                             child: Container(
                                 padding: const EdgeInsets.only(top: 2, left: 1),

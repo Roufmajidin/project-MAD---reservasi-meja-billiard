@@ -15,6 +15,7 @@ import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/ri.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
+import 'package:rf_majid/app/data/controller/multiController.dart';
 import 'package:rf_majid/app/data/format_harga.dart';
 import 'package:rf_majid/app/data/lokalData/appColor.dart';
 import 'package:rf_majid/app/modules/cart/data/cart.dart';
@@ -47,6 +48,7 @@ class CartView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(CartController(), permanent: true);
+    final multiController multicontrollers = Get.find();
 
     int index = 1;
 
@@ -265,15 +267,6 @@ class CartView extends StatelessWidget {
                                               var dataid = data.docs[index].id;
                                               var iss =
                                                   data.docs[index]['isCekhed'];
-                                              cController.up(
-                                                  data, index, dataid);
-                                              cController.changeTabI(1);
-                                              cController.changeUkuran(1);
-
-                                              // print('diklik');
-                                              // var isC = true;
-                                              cController.kondisiPaket(
-                                                  data, index, dataid);
 
 // tetet
                                               print(data.docs[index].id);
@@ -293,14 +286,16 @@ class CartView extends StatelessWidget {
                                             child: Flexible(
                                               child: Container(
                                                 decoration: BoxDecoration(
-                                                    color: data.docs[index]
-                                                                ['isCekhed'] ==
-                                                            true
-                                                        ? Color.fromRGBO(92,
-                                                                115, 159, 0.973)
-                                                            .withOpacity(0.6)
-                                                        : Color.fromARGB(
-                                                            248, 24, 30, 42),
+                                                    color: Color.fromARGB(
+                                                        248, 24, 30, 42),
+                                                    //  data.docs[index]
+                                                    //             ['isCekhed'] ==
+                                                    //         true
+                                                    //     ? Color.fromRGBO(92,
+                                                    //             115, 159, 0.973)
+                                                    //         .withOpacity(0.6)
+                                                    //     : Color.fromARGB(
+                                                    //         248, 24, 30, 42),
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             10)),
@@ -316,106 +311,99 @@ class CartView extends StatelessWidget {
                                                     children: [
                                                       Row(
                                                         children: [
-                                                          GetBuilder<
-                                                              CartController>(
-                                                            init:
-                                                                CartController(),
-                                                            initState: (_) {},
-                                                            builder: (_) {
-                                                              return CustomCheckBox(
-                                                                  value:
-                                                                      cController
-                                                                          .cKo,
-                                                                  shouldShowBorder:
-                                                                      true,
-                                                                  uncheckedFillColor:
-                                                                      Colors
-                                                                          .transparent,
-                                                                  uncheckedIconColor:
-                                                                      Colors
-                                                                          .transparent,
-                                                                  borderColor:
-                                                                      Color.fromARGB(
-                                                                          249,
-                                                                          180,
-                                                                          180,
-                                                                          180),
-                                                                  checkedFillColor:
-                                                                      const Color
-                                                                              .fromARGB(
-                                                                          250,
-                                                                          18,
-                                                                          30,
-                                                                          54),
-                                                                  borderRadius:
-                                                                      4,
-                                                                  borderWidth:
-                                                                      1,
-                                                                  checkBoxSize:
-                                                                      18,
-                                                                  splashColor:
-                                                                      Colors
-                                                                          .amber,
-                                                                  onChanged: (
-                                                                    bool? value,
-                                                                  ) {
-                                                                    // setState(() {
-                                                                    // var isChecked = value!;
-                                                                    // });
-                                                                    cController.ckB(
-                                                                        isChecked,
-                                                                        value,
-                                                                        index);
+                                                          data.docs[index][
+                                                                      'isCekhed'] ==
+                                                                  false
+                                                              ? GestureDetector(
+                                                                  onTap: () {
+                                                                    print(
+                                                                        "cekbox aktif");
+                                                                    var dataid = data
+                                                                        .docs[
+                                                                            index]
+                                                                        .id;
 
-                                                                    // print(index);
-                                                                  });
-                                                            },
-                                                          ),
-                                                          GestureDetector(
-                                                            onTap: () {
-                                                              // var cprint =
-                                                              print(
-                                                                  "cekbox aktif");
-                                                              var dataid = data
-                                                                  .docs[index]
-                                                                  .id;
-                                                              cController
-                                                                  .upMinuman(
-                                                                      data,
-                                                                      index,
-                                                                      dataid);
+                                                                    multicontrollers
+                                                                        .ubahTrue(
+                                                                            data,
+                                                                            index,
+                                                                            dataid);
 
-                                                              cController
-                                                                  .kondisiMinuman(
-                                                                      data,
-                                                                      index,
-                                                                      dataid);
-                                                              print(data
-                                                                  .docs[index]
-                                                                  .id);
-                                                            },
-                                                            onLongPress: () {
-                                                              print(
-                                                                  "cekbox nonaktif");
-                                                              var dataid = data
-                                                                  .docs[index]
-                                                                  .id;
+                                                                    // proses database
+                                                                    cController.up(
+                                                                        data,
+                                                                        index,
+                                                                        dataid);
+                                                                    cController
+                                                                        .changeTabI(
+                                                                            1);
+                                                                    cController
+                                                                        .changeUkuran(
+                                                                            1);
+                                                                    cController.kondisiPaket(
+                                                                        data,
+                                                                        index,
+                                                                        dataid);
+                                                                    //
+                                                                  },
+                                                                  child:
+                                                                      Container(
+                                                                    padding: EdgeInsets.only(
+                                                                        right:
+                                                                            12),
+                                                                    child: Icon(
+                                                                      Icons
+                                                                          .check_box_outline_blank,
+                                                                      color: Colors
+                                                                          .white,
+                                                                    ),
+                                                                  ),
+                                                                )
+                                                              : GestureDetector(
+                                                                  onTap: () {
+                                                                    print(
+                                                                        "cekbox aktif");
+                                                                    var dataid = data
+                                                                        .docs[
+                                                                            index]
+                                                                        .id;
 
-                                                              cController
-                                                                  .minusUp(
-                                                                      data,
-                                                                      index,
-                                                                      dataid);
-                                                              cController
-                                                                  .kondisiPaket(
-                                                                      data,
-                                                                      index,
-                                                                      dataid);
-                                                            },
-                                                            child: Container(
-                                                              child: Text(""),
-                                                            ),
-                                                          ),
+                                                                    multicontrollers
+                                                                        .ubahFalse(
+                                                                            data,
+                                                                            index,
+                                                                            dataid);
+
+                                                                    // proses database
+                                                                    cController.minusUp(
+                                                                        data,
+                                                                        index,
+                                                                        dataid);
+                                                                    cController.kondisiPaket(
+                                                                        data,
+                                                                        index,
+                                                                        dataid);
+                                                                    // update  collection reserved user di pesanan/doc(firebaseAUth)
+                                                                    cController
+                                                                        .changeTabI(
+                                                                            0);
+                                                                    cController
+                                                                        .changeUkuran(
+                                                                            0);
+                                                                  },
+                                                                  child:
+                                                                      Container(
+                                                                    padding: EdgeInsets.only(
+                                                                        right:
+                                                                            12),
+                                                                    child: Icon(
+                                                                      Icons
+                                                                          .check_box,
+                                                                      color: Colors
+                                                                          .white,
+                                                                    ),
+                                                                  ),
+                                                                ),
                                                           Column(
                                                             crossAxisAlignment:
                                                                 CrossAxisAlignment

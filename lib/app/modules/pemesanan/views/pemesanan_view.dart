@@ -113,8 +113,6 @@ class PemesananView extends GetView<PemesananController> {
                       children: [
                         InkWell(
                           onTap: () {
-                            controllerC.clearListInklud();
-                            controllerC.base();
                             controllerC.refreshR();
 
                             Get.offAllNamed(Routes.RESERVASI);
