@@ -12,6 +12,7 @@ class multiController extends GetxController {
       'isCekhed': false,
 
       // 'total_t': data,
+      // 'total_t': data,
     }).whenComplete(() {
       print(isC);
       print(isId);
