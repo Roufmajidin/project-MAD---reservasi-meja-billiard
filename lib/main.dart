@@ -5,8 +5,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:rf_majid/app/data/controller/auth_controller.dart';
 import 'package:rf_majid/app/modules/cart/controllers/cart_controller.dart';
+import 'package:rf_majid/app/modules/detailPesananUser/controllers/detail_pesanan_user_controller.dart';
 import 'package:rf_majid/app/modules/home/controllers/home_controller.dart';
 import 'package:rf_majid/app/modules/pemesanan/views/pemesanan_view.dart';
+import 'package:rf_majid/app/modules/prevent_home_admin/controllers/prevent_home_admin_controller.dart';
 import 'package:rf_majid/app/modules/reservasi/controllers/reservasi_controller.dart';
 import 'package:rf_majid/app/modules/reservasi/views/reservasi_view.dart';
 import 'package:rf_majid/app/modules/reservationEdit/controllers/reservation_edit_controller.dart';
@@ -36,6 +38,8 @@ Future<void> main() async {
   Get.put(PemesananHistoryController(), permanent: true);
   Get.put(ReservasiController(), permanent: true);
   Get.put(PemesananController(), permanent: true);
+  Get.put(PreventHomeAdminController(), permanent: true);
+  Get.put(DetailPesananUserController(), permanent: true);
   final cart = Get.find<CartController>();
 
   runApp(StreamBuilder<User?>(
@@ -51,7 +55,6 @@ Future<void> main() async {
       // Routes.SPLASH;
       // cart.showDisplayName();
 
-      // debugPrint("Pengguna sedang masuk: ${snapshot.data!.email}");
       // } else {
       // Routes.LOGIN;
       stream: FirebaseAuth.instance.authStateChanges(),

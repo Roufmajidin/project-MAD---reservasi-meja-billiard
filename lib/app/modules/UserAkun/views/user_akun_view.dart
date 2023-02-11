@@ -217,73 +217,12 @@ class bahasa extends StatelessWidget {
       padding: EdgeInsets.all(10),
       // height: 25,
       // alignment: Alignment.center,
-      decoration: BoxDecoration(
-          color: Color.fromARGB(249, 24, 33, 50),
-          borderRadius: BorderRadius.circular(2)),
+
       child: Row(
         children: [
-          Container(
-            // padding: EdgeInsets.only(left: 25),
-            child: ClipRRect(
-                borderRadius: BorderRadius.circular(50),
-                child: Text(
-                  "Language",
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.w600),
-                )
-
-                // width: 100.0,
-                ),
-          ),
           SizedBox(
             width: 120,
           ),
-          Container(
-            padding: EdgeInsets.only(left: 25),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Iconify(
-                      Bi.circle_fill,
-                      color: Colors.white,
-                      size: 14,
-                    ),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    Text(
-                      "EN",
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.w600),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  width: 20,
-                ),
-                Row(
-                  children: [
-                    Iconify(
-                      Bi.circle,
-                      color: Colors.white,
-                      size: 14,
-                    ),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    Text(
-                      "ID",
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          )
         ],
       ),
     );

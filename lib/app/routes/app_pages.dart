@@ -6,6 +6,8 @@ import '../modules/about/bindings/about_binding.dart';
 import '../modules/about/views/about_view.dart';
 import '../modules/cart/bindings/cart_binding.dart';
 import '../modules/cart/views/cart_view.dart';
+import '../modules/detailPesananUser/bindings/detail_pesanan_user_binding.dart';
+import '../modules/detailPesananUser/views/detail_pesanan_user_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/homeAdmin/bindings/home_admin_binding.dart';
@@ -18,7 +20,6 @@ import '../modules/pemesanan/bindings/pemesanan_binding.dart';
 import '../modules/pemesanan/views/pemesanan_view.dart';
 import '../modules/pemesananHistory/bindings/pemesanan_history_binding.dart';
 import '../modules/pemesananHistory/views/pemesanan_history_view.dart';
-
 import '../modules/preventHome/bindings/prevent_home_binding.dart';
 import '../modules/preventHome/views/prevent_home_view.dart';
 import '../modules/prevent_home_admin/bindings/prevent_home_admin_binding.dart';
@@ -76,66 +77,72 @@ class AppPages {
       name: _Paths.RESERVATION,
       page: () => const ReservationView(),
       binding: ReservationBinding(),
+      transition: Transition.noTransition,
     ),
     GetPage(
-      name: _Paths.USER_AKUN,
-      page: () => UserAkunView(),
-      binding: UserAkunBinding(),
-    ),
+        name: _Paths.USER_AKUN,
+        page: () => UserAkunView(),
+        binding: UserAkunBinding(),
+        transition: Transition.noTransition),
     GetPage(
-      name: _Paths.SEMUA_PAKET,
-      page: () => SemuaPaketView(),
-      binding: SemuaPaketBinding(),
-    ),
+        name: _Paths.SEMUA_PAKET,
+        page: () => SemuaPaketView(),
+        binding: SemuaPaketBinding(),
+        transition: Transition.noTransition),
     GetPage(
-      name: _Paths.PREVENT_HOME_ADMIN,
-      page: () => PreventHomeAdminView(),
-      binding: PreventHomeAdminBinding(),
-    ),
+        name: _Paths.PREVENT_HOME_ADMIN,
+        page: () => PreventHomeAdminView(),
+        binding: PreventHomeAdminBinding(),
+        transition: Transition.noTransition),
     GetPage(
-      name: _Paths.PEMESANAN,
-      page: () => PemesananView(),
-      binding: PemesananBinding(),
-    ),
+        name: _Paths.PEMESANAN,
+        page: () => PemesananView(),
+        binding: PemesananBinding(),
+        transition: Transition.noTransition),
     GetPage(
-      name: _Paths.PEMESANAN_HISTORY,
-      page: () => PemesananHistoryView(),
-      binding: PemesananHistoryBinding(),
-    ),
+        name: _Paths.PEMESANAN_HISTORY,
+        page: () => PemesananHistoryView(),
+        binding: PemesananHistoryBinding(),
+        transition: Transition.noTransition),
     GetPage(
-      name: _Paths.HOME_ADMIN,
-      page: () => const HomeAdminView(),
-      binding: HomeAdminBinding(),
-    ),
+        name: _Paths.HOME_ADMIN,
+        page: () => const HomeAdminView(),
+        binding: HomeAdminBinding(),
+        transition: Transition.noTransition),
     GetPage(
-      name: _Paths.RESERVASI,
-      page: () => ReservasiView(),
-      binding: ReservasiBinding(),
-    ),
+        name: _Paths.RESERVASI,
+        page: () => ReservasiView(),
+        binding: ReservasiBinding(),
+        transition: Transition.noTransition),
     GetPage(
-      name: _Paths.SEMUA_MENU,
-      page: () => SemuaMenuView(),
-      binding: SemuaMenuBinding(),
-    ),
+        name: _Paths.SEMUA_MENU,
+        page: () => SemuaMenuView(),
+        binding: SemuaMenuBinding(),
+        transition: Transition.noTransition),
     GetPage(
-      name: _Paths.RESERVATION_EDIT,
-      page: () => ReservationEditView(),
-      binding: ReservationEditBinding(),
-    ),
+        name: _Paths.RESERVATION_EDIT,
+        page: () => ReservationEditView(),
+        binding: ReservationEditBinding(),
+        transition: Transition.noTransition),
     GetPage(
-      name: _Paths.SPLASH,
-      page: () => const SplashView(),
-      binding: SplashBinding(),
-    ),
+        name: _Paths.SPLASH,
+        page: () => const SplashView(),
+        binding: SplashBinding(),
+        transition: Transition.noTransition),
     GetPage(
-      name: _Paths.SPLASH_LOGIN,
-      page: () => const SplashLoginView(),
-      binding: SplashLoginBinding(),
-    ),
+        name: _Paths.SPLASH_LOGIN,
+        page: () => const SplashLoginView(),
+        binding: SplashLoginBinding(),
+        transition: Transition.noTransition),
     GetPage(
-      name: _Paths.ON_BOARDING,
-      page: () => const OnBoardingView(),
-      binding: OnBoardingBinding(),
-    ),
+        name: _Paths.ON_BOARDING,
+        page: () => const OnBoardingView(),
+        binding: OnBoardingBinding(),
+        transition: Transition.noTransition),
+    GetPage(
+        name: _Paths.DETAIL_PESANAN_USER,
+        page: () => const DetailPesananUserView(),
+        binding: DetailPesananUserBinding(),
+        transition: Transition.noTransition),
   ];
 }

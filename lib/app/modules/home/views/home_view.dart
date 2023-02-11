@@ -10,6 +10,7 @@ import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:rf_majid/app/data/controller/auth_controller.dart';
 import 'package:rf_majid/app/data/lokalData/appColor.dart';
+import 'package:rf_majid/app/data/widget/trollyTap.dart';
 
 // import 'package:rf_majid/app/data/widget/trollyTap.dart';
 import 'package:rf_majid/app/modules/cart/controllers/cart_controller.dart';
@@ -118,18 +119,11 @@ class _HomeViewState extends State<HomeView> {
               ),
             ),
             GestureDetector(
-              onTap: () {
-                controller.resetPoin();
-                Get.to(CartView());
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(right: 5),
-                child: const Iconify(
-                  Bi.cart,
-                  color: Colors.white,
-                ),
-              ),
-            ),
+                onTap: () {
+                  controller.resetPoin();
+                  Get.to(CartView());
+                },
+                child: trollyTap()),
           ],
         ),
         backgroundColor: Colors.black,

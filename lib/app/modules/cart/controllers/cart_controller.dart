@@ -456,6 +456,11 @@ class CartController extends GetxController {
     print(a);
   }
 
+  final Stream<QuerySnapshot> cart = FirebaseFirestore.instance
+      .collection('pesananUser')
+      .where('pemesan', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+      .where('isselesai', isEqualTo: false)
+      .snapshots();
   void showDisplayName() async {
     var collection = FirebaseFirestore.instance.collection('users');
     //userUid is the current auth user

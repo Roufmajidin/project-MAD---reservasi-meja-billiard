@@ -5,8 +5,10 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:rf_majid/app/data/format_harga.dart';
+import 'package:rf_majid/app/modules/detailPesananUser/views/detail_pesanan_user_view.dart';
 
 import '../../../modules/cart/views/_cart_view.dart';
+import '../../../routes/app_pages.dart';
 
 class pesananOnUser extends StatelessWidget {
   const pesananOnUser({super.key});
@@ -152,6 +154,20 @@ class pesananOnUser extends StatelessWidget {
                                       onTap: () {
                                         print(
                                             "ID USER : ${data.docs[index]['uid']}");
+                                        // Get.offAllNamed(
+                                        // Routes.DETAIL_PESANAN_USER);
+                                        Get.to(DetailPesananUserView(),
+                                            arguments:
+
+                                                // 'id': data.docs[index]['uid'],
+                                                // 'namaUser': data.docs[index]
+                                                // ['name']
+
+                                                [
+                                              data.docs[index]['uid'],
+                                              data.docs[index]['name'],
+                                              data.docs[index]['poin_belanja'],
+                                            ]);
                                       },
                                       child: Container(
                                           // width: 120,

@@ -26,6 +26,7 @@ abstract class Routes {
   static const ON_BOARDING_SLIDER = _Paths.ON_BOARDING_SLIDER;
   static const PESANAN_ON_USER = _Paths.PESANAN_ON_USER;
   static const PESANAN_ON_KASIR = _Paths.PESANAN_ON_KASIR;
+  static const DETAIL_PESANAN_USER = _Paths.DETAIL_PESANAN_USER;
 }
 
 abstract class _Paths {
@@ -53,4 +54,5 @@ abstract class _Paths {
   static const ON_BOARDING_SLIDER = '/on-boarding-slider';
   static const PESANAN_ON_USER = '/pesanan-on-user';
   static const PESANAN_ON_KASIR = '/pesanan-on-kasir';
+  static const DETAIL_PESANAN_USER = '/detail-pesanan-user';
 }
