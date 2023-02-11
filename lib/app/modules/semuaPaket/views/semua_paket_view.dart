@@ -7,6 +7,7 @@ import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/bi.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
+import 'package:rf_majid/app/modules/cart/views/cart_view.dart';
 
 import '../../../data/format_harga.dart';
 import '../../../data/lokalData/appColor.dart';
@@ -16,10 +17,19 @@ import '../../../data/widget/trollyTap.dart';
 import '../../cart/controllers/cart_controller.dart';
 import '../../cart/data/allPaket.dart';
 import '../controllers/semua_paket_controller.dart';
+import 'package:badges/badges.dart' as badges;
 
-class SemuaPaketView extends StatelessWidget {
+class SemuaPaketView extends StatefulWidget {
   SemuaPaketView({Key? key}) : super(key: key);
+
+  @override
+  State<SemuaPaketView> createState() => _SemuaPaketViewState();
+}
+
+class _SemuaPaketViewState extends State<SemuaPaketView> {
   final CartController controller = Get.find();
+  final SemuaPaketController controllerr = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,22 +41,63 @@ class SemuaPaketView extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 18.0, left: 14, right: 14),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                        onTap: () {
-                          Get.back();
-                        },
-                        child: Icon(Icons.arrow_back_ios,
-                            color: Colors.white, size: 18)),
-                    Text('Packages',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20.0)),
-                    trollyTap(),
-                  ],
-                ),
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                          onTap: () {
+                            Get.back();
+                          },
+                          child: Icon(Icons.arrow_back_ios,
+                              color: Colors.white, size: 18)),
+                      Text('Packages',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20.0)),
+                      Padding(
+                          padding: EdgeInsets.all(12),
+                          child: InkWell(
+                              onTap: () {
+                                Get.to(CartView());
+                              },
+                              child: badges.Badge(
+                                badgeStyle: badges.BadgeStyle(
+                                  shape: badges.BadgeShape.square,
+                                  badgeColor: Color.fromARGB(255, 223, 235, 3),
+                                  padding: EdgeInsets.all(5),
+                                  borderRadius: BorderRadius.circular(4),
+                                  elevation: 0,
+                                ),
+                                badgeContent: StreamBuilder<QuerySnapshot>(
+                                    stream: controllerr.cart,
+                                    builder: (BuildContext context,
+                                        AsyncSnapshot<QuerySnapshot>
+                                            snapshot2) {
+                                      // final data2 = snapshot2.requireData;
+
+                                      if (snapshot2.hasError) {
+                                        return Text("error");
+                                      }
+                                      if (snapshot2.connectionState ==
+                                          ConnectionState.waiting) {
+                                        return Text("Loading");
+                                      }
+                                      final int documents =
+                                          snapshot2.data!.docs.length;
+                                      // final int documents = snapshot2.data!.docs.length;
+                                      return Text(
+                                        '${documents}',
+                                        style: TextStyle(
+                                            color: Color.fromARGB(
+                                                255, 64, 64, 64)),
+                                      );
+                                    }),
+                                child: Iconify(
+                                  Bi.cart,
+                                  color: Colors.white,
+                                ),
+                              ))),
+                    ]),
               ),
               Container(
                 margin: EdgeInsets.only(top: 10),

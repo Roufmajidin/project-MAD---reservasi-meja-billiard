@@ -440,7 +440,7 @@ class dataMinuman extends StatelessWidget {
                         },
                       );
 
-                      controller.clearListInput();
+                      controller.refreshR();
                       controller.cleargmbr();
                       Navigator.pop(context);
                     },

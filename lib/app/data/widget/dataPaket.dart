@@ -562,7 +562,7 @@ class dataPaket extends StatelessWidget {
                 // .where('isCekhed', isEqualTo: true)
                 // .get()
 
-                controller.clearListInput();
+                controller.refreshR();
                 Navigator.pop(context);
                 QuickAlert.show(
                   context: context,

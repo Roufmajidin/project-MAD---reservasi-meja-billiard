@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 class SemuaMenuController extends GetxController {
@@ -20,4 +22,9 @@ class SemuaMenuController extends GetxController {
   }
 
   void increment() => count.value++;
+  final Stream<QuerySnapshot> cart = FirebaseFirestore.instance
+      .collection('pesananUser')
+      .where('pemesan', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+      .where('isselesai', isEqualTo: false)
+      .snapshots();
 }
