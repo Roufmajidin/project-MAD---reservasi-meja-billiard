@@ -65,7 +65,7 @@ flutter:
     - assets/gambar/profile.png
     - assets/gambar/8401.jpg
     - assets/splash.png
-    - assets/splash_2.png
+#     - assets/splash_2.png 
     - assets/on_boarding/
   uses-material-design: true
   fonts:
