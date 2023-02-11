@@ -496,7 +496,7 @@ Widget _formFieldsCreateMinuman(context) {
               // .where('isCekhed', isEqualTo: true)
               // .get()
 
-              controller.clearListInput();
+              controller.refreshR();
               Navigator.pop(context);
               QuickAlert.show(
                 context: context,
@@ -834,7 +834,7 @@ Widget _formFieldsCreate(context) {
               // .where('isCekhed', isEqualTo: true)
               // .get()
 
-              controller.clearListInput();
+              controller.refreshR();
               Navigator.pop(context);
               QuickAlert.show(
                 context: context,

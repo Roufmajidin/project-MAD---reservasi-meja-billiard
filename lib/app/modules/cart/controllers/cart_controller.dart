@@ -143,10 +143,6 @@ class CartController extends GetxController {
     // print(counti);
   }
 
-  void clearListInput() {
-    valuess = [].obs;
-  }
-
   void clearPoin() {
     point = 0.obs;
     print(point);
@@ -183,7 +179,7 @@ class CartController extends GetxController {
     update();
   }
 
-  void ckB(isChecked, value, index) {
+  void ckB(value, data, index) {
     // bool ckO = value;
     // print(index);
     // cKo.update();
@@ -220,15 +216,6 @@ class CartController extends GetxController {
     // print(ink);
   }
 
-  clearListInklud() {
-    // var array = value;
-    List d = [];
-    // d.add(value);
-    ink = [].obs;
-    update();
-    print(ink);
-  }
-
   menuAdd(dataa, dataMBM) {
     hargaMinuman = 0.0;
     update();
@@ -252,10 +239,24 @@ class CartController extends GetxController {
   }
 
   refreshR() {
+    valuess = [].obs;
     menuA.clear();
+    menuB.clear();
     htMenu.clear();
+    List d = [];
+    // d.add(value);
+    ink = [].obs;
+    menuB = [].obs;
+    // selectedPaket.clear();
+
+    selected.clear();
+    selectedPaket.clear();
+    // update();
     hargaMinuman = 0.0;
     update();
+    print(ink);
+    print('list paket : ${menuB}');
+
     print(
         'selectedminuman dari nol is : ${menuA}, hargaMinuman:${hargaMinuman}, clear ${htMenu}, clear ${menuA}');
   }
@@ -348,14 +349,6 @@ class CartController extends GetxController {
   }
 
   void base() {
-    menuB = [].obs;
-    // selectedPaket.clear();
-    update();
-
-    selected.clear();
-    // update();
-    print('list paket : ${menuB}');
-
     update();
   }
 
@@ -940,6 +933,10 @@ class CartController extends GetxController {
     // untuk meng Update ceklist is false
   }
 
+  void pr() {
+    print("unch");
+  }
+
   void addToHis(data, int index, dataid) {
     int harga_t = data.docs[index]['harga'] * data.docs[index]['quantity'];
 
@@ -1140,26 +1137,10 @@ class CartController extends GetxController {
       meja = data.docs[index]['meja'];
       hargaP = g;
       var infoinklud = data.docs[index]['inklud'];
-      // var aa = List.generate(infoinklud.length, (index2) {
-      //   List a = [];
-      //   for (var element in infoinklud) {
-      //     a.add(data.docs[index]['inklud'][index2]);
-      //     // inkl += a;
-      //     update
-      //     print('asas m:${infoinklud}');
-      //   }
-      // });
+
       inkl += infoinklud;
       print('inklud is ${infoinklud}');
-      // inkl = data.docs[index]['inklud'][0]['harga'];
-      // List hargaM = data.docs[index]['inklud'];
-      // List a = [];
-      // for (var element in hargaM) {
-      //   print('element is ${element}');
-      //   // a += hargaM;
-      //   inkl + element;
-      // }
-      // inkl == a;
+
       update();
       print('harga paket ${harga}');
       print('total minuman ${data.docs[index]['hargaminuman']}');

@@ -553,8 +553,7 @@ class ReservasiView extends StatelessWidget {
                           });
                           // end
                           Navigator.pop(context);
-                          controller.clearListInklud();
-                          print(controller.clearListInklud());
+                          controller.refreshR();
                           Get.offAllNamed(Routes.PREVENT_HOME_ADMIN);
                           QuickAlert.show(
                             context: context,

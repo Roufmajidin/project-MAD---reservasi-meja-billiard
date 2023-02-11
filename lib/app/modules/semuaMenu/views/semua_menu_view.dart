@@ -3,20 +3,25 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:iconify_flutter/iconify_flutter.dart';
+import 'package:iconify_flutter/icons/bi.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:rf_majid/app/data/format_harga.dart';
+import 'package:rf_majid/app/modules/cart/views/_cart_view.dart';
 
 import '../../../data/controller/auth_controller.dart';
 import '../../../data/lokalData/appColor.dart';
 import '../../../data/widget/trollyTap.dart';
 import '../../cart/controllers/cart_controller.dart';
 import '../controllers/semua_menu_controller.dart';
+import 'package:badges/badges.dart' as badges;
 
 class SemuaMenuView extends GetView<SemuaMenuController> {
   SemuaMenuView({Key? key}) : super(key: key);
   final authC = Get.find<AuthController>();
   final CartController controllerS = Get.find();
+  final SemuaMenuController controllerr = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +46,48 @@ class SemuaMenuView extends GetView<SemuaMenuController> {
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                             fontSize: 20.0)),
-                    trollyTap(),
+                    Padding(
+                        padding: EdgeInsets.all(12),
+                        child: InkWell(
+                            onTap: () {
+                              Get.to(CartView());
+                            },
+                            child: badges.Badge(
+                              badgeStyle: badges.BadgeStyle(
+                                shape: badges.BadgeShape.square,
+                                badgeColor: Color.fromARGB(255, 223, 235, 3),
+                                padding: EdgeInsets.all(5),
+                                borderRadius: BorderRadius.circular(4),
+                                elevation: 0,
+                              ),
+                              badgeContent: StreamBuilder<QuerySnapshot>(
+                                  stream: controllerr.cart,
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot<QuerySnapshot> snapshot2) {
+                                    // final data2 = snapshot2.requireData;
+
+                                    if (snapshot2.hasError) {
+                                      return Text("error");
+                                    }
+                                    if (snapshot2.connectionState ==
+                                        ConnectionState.waiting) {
+                                      return Text("Loading");
+                                    }
+                                    final int documents =
+                                        snapshot2.data!.docs.length;
+                                    // final int documents = snapshot2.data!.docs.length;
+                                    return Text(
+                                      '${documents}',
+                                      style: TextStyle(
+                                          color:
+                                              Color.fromARGB(255, 64, 64, 64)),
+                                    );
+                                  }),
+                              child: Iconify(
+                                Bi.cart,
+                                color: Colors.white,
+                              ),
+                            ))),
                   ],
                 ),
               ),
@@ -411,7 +457,10 @@ class SemuaMenuView extends GetView<SemuaMenuController> {
                             type: QuickAlertType.success,
                             text:
                                 'Terimakasih ${FirebaseAuth.instance.currentUser!.displayName}. \n yuk tingga di check Out! ',
-                          );
+                          ).whenComplete(() {
+                            controllerS.refreshR();
+                          });
+                          // controllerS.obsClear();
                         },
                         child: Center(
                           child: Text(
