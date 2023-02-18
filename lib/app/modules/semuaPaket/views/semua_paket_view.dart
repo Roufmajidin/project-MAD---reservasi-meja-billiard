@@ -58,6 +58,7 @@ class _SemuaPaketViewState extends State<SemuaPaketView> {
                           padding: EdgeInsets.all(12),
                           child: InkWell(
                               onTap: () {
+                                controller.clearPoin();
                                 Get.to(CartView());
                               },
                               child: badges.Badge(

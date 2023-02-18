@@ -25,6 +25,8 @@ class trollyTap extends StatelessWidget {
       padding: EdgeInsets.all(12),
       child: InkWell(
           onTap: () {
+            controller.resetPoin();
+
             Get.to(CartView());
           },
           child: badges.Badge(
@@ -43,6 +45,9 @@ class trollyTap extends StatelessWidget {
 
                   if (snapshot2.hasError) {
                     return Text("error");
+                  }
+                  if (!snapshot2.hasData || snapshot2.data!.docs.isEmpty) {
+                    return Text("0");
                   }
                   if (snapshot2.connectionState == ConnectionState.waiting) {
                     return Text("Loading");

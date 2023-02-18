@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 import 'package:rf_majid/app/data/format_harga.dart';
 import 'package:rf_majid/app/modules/detailPesananUser/views/detail_pesanan_user_view.dart';
 
-import '../../../modules/cart/views/_cart_view.dart';
 import '../../../routes/app_pages.dart';
 
 class pesananOnUser extends StatelessWidget {

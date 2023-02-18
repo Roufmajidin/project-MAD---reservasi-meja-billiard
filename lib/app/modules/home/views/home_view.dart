@@ -11,6 +11,7 @@ import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:rf_majid/app/data/controller/auth_controller.dart';
 import 'package:rf_majid/app/data/lokalData/appColor.dart';
 import 'package:rf_majid/app/data/widget/trollyTap.dart';
+import 'package:rf_majid/app/data/widget/userInfo.dart';
 
 // import 'package:rf_majid/app/data/widget/trollyTap.dart';
 import 'package:rf_majid/app/modules/cart/controllers/cart_controller.dart';
@@ -19,6 +20,7 @@ import 'package:rf_majid/app/modules/home/controllers/home_controller.dart';
 import 'package:rf_majid/app/modules/semuaMenu/views/semua_menu_view.dart';
 import 'package:rf_majid/app/modules/semuaPaket/controllers/semua_paket_controller.dart';
 import 'package:rf_majid/app/modules/semuaPaket/views/semua_paket_view.dart';
+import 'package:rf_majid/app/routes/app_pages.dart';
 
 // import '../../cart/data/allPaket.dart';
 import '../../../data/format_harga.dart';
@@ -101,29 +103,14 @@ class _HomeViewState extends State<HomeView> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-              height: 20,
-              child: GestureDetector(
-                  excludeFromSemantics: false,
-                  onTap: () {
-                    // Navigator.of(context).back();
-                    authC.logout();
-                    // print("object");
-                  },
-                  child: Image.asset('assets/gambar/logo_2.png')),
-            ),
+            usereInfo(),
             Container(
               child: Text(
                 "Billiard Reservation",
                 style: TextStyle(color: judul, fontSize: 14),
               ),
             ),
-            GestureDetector(
-                onTap: () {
-                  controller.resetPoin();
-                  Get.to(CartView());
-                },
-                child: trollyTap()),
+            trollyTap(),
           ],
         ),
         backgroundColor: Colors.black,
@@ -289,6 +276,7 @@ class _HomeViewState extends State<HomeView> {
                                   InkWell(
                                     onTap: () {
                                       controller.refreshR();
+                                      controller.showDisplayName();
                                       modalBawah(context, index, data);
                                     },
                                     child: Container(
@@ -354,7 +342,7 @@ class _HomeViewState extends State<HomeView> {
                     InkWell(
                       onTap: () {
                         controller.refreshR();
-                        Get.to(SemuaMenuView());
+                        Get.offAllNamed(Routes.SEMUA_MENU);
                       },
                       child: const Text(
                         "See All",

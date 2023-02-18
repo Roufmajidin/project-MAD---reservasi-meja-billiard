@@ -328,7 +328,10 @@ class CartView extends StatelessWidget {
                                                                             data,
                                                                             index,
                                                                             dataid);
-
+                                                                    cController
+                                                                        .showPoin();
+                                                                    //  cController
+                                                                    // .showPoin();
                                                                     // proses database
                                                                     cController.up(
                                                                         data,
@@ -724,6 +727,112 @@ class CartView extends StatelessWidget {
                       // ),
                       SizedBox(height: 10),
 
+                      cController.tabUkuran == 1
+                          ?
+                          // cController.voucherUpdate == 'false' &&
+                          // cController.voucher != null &&
+
+                          // cController.pointU == cController.pointUser
+                          // cController.pointU
+                          // &&
+                          // cController.toogleV == 'true'
+
+                          cController.pointUser >= 200 &&
+                                  cController.isAmbil == false
+                              ? GestureDetector(
+                                  onTap: () {
+                                    print("menggunakan Free Cekout");
+
+                                    // validasi dulu VOUCER ID sama ISAMBIL
+                                    // var id = cController.voucher;
+                                    // var id = cController.voucher;
+                                    // cController.showIdVoucer(id);
+                                    // var vouc = cController.voucher;
+                                    // cController.showPoin();
+                                    cController.showPoin();
+
+                                    cController.updateCkl();
+
+                                    //
+
+                                    cController.ubahT();
+
+                                    // update DATABASE 'isAMbil'
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        padding: EdgeInsets.only(right: 12),
+                                        child: Icon(
+                                          cController.pointUser <= 200
+                                              ? Icons.not_interested_sharp
+                                              : Icons.check_box_outline_blank,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Container(
+                                        // width: 120,
+                                        child: Text(
+                                          "Gunakan Free Shipping",
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 12),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : GestureDetector(
+                                  onTap: () {
+                                    print("hide Free Cekout");
+                                    // print(cController.voucherUpdate);
+                                    // hide  obx VOUCER ID sama ISAMBIL
+                                    cController.showPoin();
+
+                                    cController.minusupdateCkl();
+
+                                    cController.pointUser <= 200
+                                        ? cController.ubahKosong()
+                                        : cController.ubahminT();
+                                  },
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        padding: EdgeInsets.only(right: 12),
+                                        child: Icon(
+                                          cController.pointUser <= 200
+                                              ? Icons.flip_to_back_sharp
+                                              : Icons.check_box_outlined,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                      Row(
+                                        children: [
+                                          Container(
+                                            child: Text("Voucher :",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 12,
+                                                    fontWeight:
+                                                        FontWeight.bold)),
+                                          ),
+                                          Container(
+                                              // width: 120,
+
+                                              child: Text(
+                                            "Poin Kurang",
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 12),
+                                          )),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                )
+                          : SizedBox(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -831,6 +940,7 @@ void _showDialog(context, index, data) {
                   cController.updatepesananCekot(data);
                   // cController.us();
                   cController.obsClear();
+                  cController.showPoin();
                   cController.resetPoin();
                   cController.changeUkuran(0);
                   cController.obsClearInkl(data);

@@ -1,13 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/bi.dart';
 import 'package:rf_majid/app/modules/cart/controllers/cart_controller.dart';
+import 'package:rf_majid/app/modules/cart/views/cart_view.dart';
 import 'package:rf_majid/app/modules/home/views/home_view.dart';
 
 import '../../../data/controller/auth_controller.dart';
 import '../controllers/user_akun_controller.dart';
+import 'package:badges/badges.dart' as badges;
 
 class UserAkunView extends GetView<UserAkunController> {
   UserAkunView({Key? key}) : super(key: key);
@@ -87,6 +90,7 @@ class buttonLogout extends StatelessWidget {
     return Center(
       child: InkWell(
         onTap: () {
+          // cCart.freeOder
           cCart.clearPoin();
           authC.logout();
         },
@@ -111,12 +115,27 @@ class buttonLogout extends StatelessWidget {
   }
 }
 
-class profileUser extends StatelessWidget {
+class profileUser extends StatefulWidget {
   profileUser({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<profileUser> createState() => _profileUserState();
+}
+
+class _profileUserState extends State<profileUser> {
+  final cartc = Get.find<UserAkunController>();
+  @override
+  void initState() {
+    super.initState();
+    cartc.convertToNumber;
+  }
+
   final authCon = Get.find<AuthController>();
+
   final cartC = Get.find<CartController>();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -145,8 +164,8 @@ class profileUser extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                padding: EdgeInsets.only(
-                  top: 12,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 18,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -187,9 +206,19 @@ class profileUser extends StatelessWidget {
                   SizedBox(
                     width: 10,
                   ),
-                  Text(
-                    '${cartC.point.toString()} Poin',
-                    style: TextStyle(color: Colors.white, fontSize: 12),
+                  Padding(
+                    padding: EdgeInsets.only(left: 2),
+                    child: InkWell(
+                      onTap: () {
+                        cartC.resetPoin();
+
+                        Get.to(CartView());
+                      },
+                      child: Text(
+                        '${cartC.pointUser.toString()} Poin',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
                   )
                 ],
               ),

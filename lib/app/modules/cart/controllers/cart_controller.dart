@@ -1,5 +1,5 @@
-import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 // import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -57,6 +57,8 @@ class CartController extends GetxController {
 
   // end
   var point = 0.obs;
+  int pointUser = 0;
+  int pointU = 0;
   var poinPlus = 2;
 
   var selected = [].obs;
@@ -72,7 +74,7 @@ class CartController extends GetxController {
   DateTime? selectedDate;
   String? _selectedTime;
   // final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
+  var freeOder = 0.obs;
   var db = FirebaseFirestore.instance;
   void changeWarna(index) {
     warna = index;
@@ -82,6 +84,68 @@ class CartController extends GetxController {
 
   void updateDate(picked) {
     dateTime = picked;
+    update();
+  }
+
+  RxBool toogleV = false.obs;
+
+  void updateCkl() {
+    int ck = 200;
+
+    print("bisa");
+    toogleV = isAmbil;
+    update();
+    print("karena poinmu adlah ${pointUser} ");
+
+    update();
+  }
+
+  void ubahT() {
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.email)
+        .update({
+      'isAmbil': true,
+      'poin_belanja': pointUser -= 200,
+      'id_voucher': null,
+      'freeOrder': 0,
+    });
+    toogleV = true.obs;
+    update();
+  }
+
+  void ubahminT() {
+    toogleV = false.obs;
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.email)
+        .update({'isAmbil': false});
+
+    update();
+  }
+
+  void ubahKosong() {
+    toogleV = false.obs;
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.email)
+        .update({'isAmbil': false});
+
+    update();
+  }
+
+  void minusupdateCkl() {
+    int ck = 200;
+    toogleV = isAmbil;
+
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.email)
+        .update({'isAmbil': false});
+
+    update();
+    print("karena poinmu dibbawah ${ck} ");
+
     update();
   }
 
@@ -449,25 +513,95 @@ class CartController extends GetxController {
     print(a);
   }
 
-  final Stream<QuerySnapshot> cart = FirebaseFirestore.instance
+  late Stream<QuerySnapshot> cart = FirebaseFirestore.instance
       .collection('pesananUser')
       .where('pemesan', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
       .where('isselesai', isEqualTo: false)
       .snapshots();
+  late Stream<QuerySnapshot> poin = FirebaseFirestore.instance
+      .collection('pesananUser')
+      .where('pemesan',
+          isEqualTo: FirebaseAuth.instance.currentUser!.displayName)
+      // .where('isselesai', isEqualTo: false)
+      .snapshots();
+
+// generate random
+  String generateRandomString(int length) {
+    final random = Random();
+    const availableChars =
+        'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+    final randomString = List.generate(length,
+            (index) => availableChars[random.nextInt(availableChars.length)])
+        .join();
+
+    return randomString;
+  }
+
+//
+  RxBool isAmbil = false.obs;
+  void showPoin() async {
+    var collection = FirebaseFirestore.instance.collection('users');
+    //userUid is the current auth user
+    var docSnapshot =
+        await collection.doc(FirebaseAuth.instance.currentUser!.email).get();
+    var data = docSnapshot.data()!;
+    int pointt = data['poin_belanja'];
+    var voucherr = data['id_voucher'].toString();
+    bool isAmbill = data['isAmbil'];
+    var freeOrderr = data['freeOrder'];
+    // point += pointt;
+
+    // int a = pointt += poinPlus;
+    pointUser = pointt;
+    isAmbil = isAmbill.obs;
+    isVoucher = voucherr.obs;
+    isFreeOrder += freeOrderr;
+
+    print('Poin bertambah menjadi ${pointUser}');
+    print('isAmbil bertambah menjadi ${isAmbil}');
+    update();
+  }
+
+  var isVoucher = ''.obs;
+  RxInt isFreeOrder = 0.obs;
+
   void showDisplayName() async {
     var collection = FirebaseFirestore.instance.collection('users');
     //userUid is the current auth user
     var docSnapshot =
         await collection.doc(FirebaseAuth.instance.currentUser!.email).get();
     var data = docSnapshot.data()!;
-    // point += data['poin_belanja'];
-    int pointt = (data['poin_belanja']).toInt();
+    var pointt = data['poin_belanja'];
+    var voucherr = data['id_voucher'].toString();
+    var isAmbill = data['isAmbil'].toString();
+    var freeOrderr = data['freeOrder'];
     // point += pointt;
+
     // int a = pointt += poinPlus;
     point += pointt;
 
     update();
-    print('point is ${point}');
+    if (pointt >= 20) {
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.email)
+          .update({
+        'freeOrder': 1,
+        'id_voucher': generateRandomString(10),
+        'isAmbil': false,
+      });
+    } else {
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.email)
+          .update({
+        'freeOrder': 0,
+        'isAmbil': false,
+        'id_voucher': "",
+        // 'id_voucher': "",
+      });
+    }
+
     // return p;
   }
 
@@ -699,14 +833,27 @@ class CartController extends GetxController {
     DateTime now = DateTime.now();
     print(selectedPesanan);
 
-    var bb = FirebaseFirestore.instance
-        .collection('pesananUser')
-        .doc(selectedPesanan)
-        .update({
-      'isselesai': true,
-      'tanggalCekout': now,
-      'total_t': data,
-    });
+    if (isAmbil == true) {
+      var bb = FirebaseFirestore.instance
+          .collection('pesananUser')
+          .doc(selectedPesanan)
+          .update({
+        'isselesai': true,
+        'tanggalCekout': now,
+        'total_t': 0,
+        'kategori': 'Gratis',
+      });
+    } else {
+      var bb = FirebaseFirestore.instance
+          .collection('pesananUser')
+          .doc(selectedPesanan)
+          .update({
+        'isselesai': true,
+        'tanggalCekout': now,
+        'total_t': data,
+        'kategori': 'normal',
+      });
+    }
     // int poin = 10;
     // print('sukses cekot pesanan');
 
@@ -818,12 +965,12 @@ class CartController extends GetxController {
     print('is ${data1.runtimeType}');
   }
 
-  Stream<QuerySnapshot> StreamPesanan() {
-    return db
-        .collection('pesananUser')
-        .where('isCekhed', isEqualTo: true)
-        .snapshots();
-  }
+  // Stream<QuerySnapshot> streamPesanan() {
+  //   var db = FirebaseFirestore.instance
+  //       .collection('pesananUser')
+  //       .where('isCekhed', isEqualTo: true)
+  //       .snapshots();
+  // }
 
   // void addMenu(menu, int index, context) {
   // var i = FirebaseFirestore.instance.collection('pesananUser');
@@ -1398,21 +1545,6 @@ class CartController extends GetxController {
   //   print(snapshot.data());
   // }
 
-  void add() async {
-    final storage = new FlutterSecureStorage();
-    Object? cart;
-    await storage.write(key: 'cart', value: jsonEncode(cart));
-    CollectionReference cartRef =
-        FirebaseFirestore.instance.collection('carts');
-    await cartRef.add({
-      'user_id': 'asasas',
-      'items': [
-        {'name': 'Apple', 'quantity': 10, 'price': 5},
-        {'name': 'Banana', 'quantity': 5, 'price': 3},
-      ],
-      'total_price': 35,
-    });
-  }
 }
 
 class Paket {

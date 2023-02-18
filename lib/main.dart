@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:rf_majid/app/data/controller/auth_controller.dart';
 import 'package:rf_majid/app/data/controller/multiController.dart';
+import 'package:rf_majid/app/modules/UserAkun/controllers/user_akun_controller.dart';
 import 'package:rf_majid/app/modules/cart/controllers/cart_controller.dart';
 import 'package:rf_majid/app/modules/detailPesananUser/controllers/detail_pesanan_user_controller.dart';
 import 'package:rf_majid/app/modules/home/controllers/home_controller.dart';
@@ -30,35 +31,25 @@ Future<void> main() async {
   Get.put(AuthController(), permanent: true);
   Get.put(CartController(), permanent: true);
   Get.put(HomeController(), permanent: true);
-  Get.put(SemuaMenuController(), permanent: true);
+  // Get.put(SemuaMenuController(), permanent: true);
 
   Get.put(ReservationEditController(), permanent: true);
   // Get.put(ReservasiController(), permanent: true);
-  Get.put(SemuaPaketView(), permanent: true);
+  // Get.put(SemuaPaketView(), permanent: true);
   Get.put(SplashController(), permanent: true);
+  // Get.put(SemuaMenuController(), permanent: true);
   Get.put(PemesananHistoryController(), permanent: true);
   Get.put(ReservasiController(), permanent: true);
   Get.put(PemesananController(), permanent: true);
   Get.put(PreventHomeAdminController(), permanent: true);
   Get.put(DetailPesananUserController(), permanent: true);
+  Get.put(UserAkunController(), permanent: true);
   Get.put(multiController(), permanent: true);
   final cart = Get.find<CartController>();
 
   runApp(StreamBuilder<User?>(
 // findSystemLocale().then(runTheRestOfMyProgram);
 
-      // stream: FirebaseAuth.instance.authStateChanges(),
-      // builder: (context, snapshot) {
-      // String init = Routes.SPLASH;
-      // if (snapshot.connectionState == ConnectionState.waiting) {
-      // return const Center(child: CircularProgressIndicator());
-      // }
-      // if (snapshot.hasData) {
-      // Routes.SPLASH;
-      // cart.showDisplayName();
-
-      // } else {
-      // Routes.LOGIN;
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {

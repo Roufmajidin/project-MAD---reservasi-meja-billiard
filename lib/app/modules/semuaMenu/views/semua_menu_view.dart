@@ -8,11 +8,12 @@ import 'package:iconify_flutter/icons/bi.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:rf_majid/app/data/format_harga.dart';
-import 'package:rf_majid/app/modules/cart/views/_cart_view.dart';
+import 'package:rf_majid/app/data/widget/trollyTap.dart';
+import 'package:rf_majid/app/modules/cart/views/cart_view.dart';
 
 import '../../../data/controller/auth_controller.dart';
 import '../../../data/lokalData/appColor.dart';
-import '../../../data/widget/trollyTap.dart';
+// import '../../../data/widget/trollyTap.dart';
 import '../../cart/controllers/cart_controller.dart';
 import '../controllers/semua_menu_controller.dart';
 import 'package:badges/badges.dart' as badges;
@@ -50,6 +51,8 @@ class SemuaMenuView extends GetView<SemuaMenuController> {
                         padding: EdgeInsets.all(12),
                         child: InkWell(
                             onTap: () {
+                              controllerS.clearPoin();
+
                               Get.to(CartView());
                             },
                             child: badges.Badge(
