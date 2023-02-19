@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/bi.dart';
-import 'package:rf_majid/app/data/format_harga.dart';
-import 'package:rf_majid/app/data/lokalData/appColor.dart';
-import 'package:rf_majid/app/modules/cart/controllers/cart_controller.dart';
-import 'package:rf_majid/app/modules/cart/views/cart_view.dart';
+import 'package:Coruja_billiard/app/data/format_harga.dart';
+import 'package:Coruja_billiard/app/data/lokalData/appColor.dart';
+import 'package:Coruja_billiard/app/modules/cart/controllers/cart_controller.dart';
+import 'package:Coruja_billiard/app/modules/cart/views/cart_view.dart';
 
 import '../controllers/reservation_controller.dart';
 

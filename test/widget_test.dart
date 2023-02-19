@@ -8,6 +8,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:rf_majid/main.dart';
+import 'package:Coruja_billiard/main.dart';
 
 void main() {}

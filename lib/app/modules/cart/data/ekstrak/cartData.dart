@@ -9,8 +9,8 @@ import 'package:getwidget/getwidget.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/bi.dart';
-import 'package:rf_majid/app/modules/cart/controllers/cart_controller.dart';
-import 'package:rf_majid/app/modules/cart/data/cart.dart';
+import 'package:Coruja_billiard/app/modules/cart/controllers/cart_controller.dart';
+import 'package:Coruja_billiard/app/modules/cart/data/cart.dart';
 
 class cartPaket extends StatelessWidget {
   bool iscekBox2Cheked = false;

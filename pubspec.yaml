@@ -1,4 +1,4 @@
-name: rf_majid
+name: Coruja_billiard
 version: 1.0.0+1
 publish_to: none
 description: A new Flutter project.
@@ -9,6 +9,7 @@ dependencies:
   badges: ^3.0.2
   bottom_sheet: ^3.1.2
   carousel_slider: ^4.1.1
+  change_app_package_name: ^1.1.0
   cloud_firestore: ^4.2.0
   cupertino_icons: ^1.0.2
   custom_check_box: ^0.0.4

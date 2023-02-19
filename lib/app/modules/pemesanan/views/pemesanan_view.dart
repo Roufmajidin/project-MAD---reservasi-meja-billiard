@@ -4,12 +4,12 @@ import 'package:get/get.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/bi.dart';
 import 'package:iconify_flutter/icons/ri.dart';
-import 'package:rf_majid/app/data/controller/auth_controller.dart';
-import 'package:rf_majid/app/modules/cart/controllers/cart_controller.dart';
-import 'package:rf_majid/app/modules/reservasi/views/reservasi_view.dart';
-import 'package:rf_majid/app/modules/reservation/controllers/reservation_controller.dart';
-import 'package:rf_majid/app/modules/reservationEdit/views/reservation_edit_view.dart';
-import 'package:rf_majid/app/routes/app_pages.dart';
+import 'package:Coruja_billiard/app/data/controller/auth_controller.dart';
+import 'package:Coruja_billiard/app/modules/cart/controllers/cart_controller.dart';
+import 'package:Coruja_billiard/app/modules/reservasi/views/reservasi_view.dart';
+import 'package:Coruja_billiard/app/modules/reservation/controllers/reservation_controller.dart';
+import 'package:Coruja_billiard/app/modules/reservationEdit/views/reservation_edit_view.dart';
+import 'package:Coruja_billiard/app/routes/app_pages.dart';
 
 import '../../../data/lokalData/appColor.dart';
 import '../controllers/pemesanan_controller.dart';

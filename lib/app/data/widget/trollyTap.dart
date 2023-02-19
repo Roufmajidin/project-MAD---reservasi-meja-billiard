@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/bi.dart';
-import 'package:rf_majid/app/modules/cart/views/cart_view.dart';
-import 'package:rf_majid/app/routes/app_pages.dart';
+import 'package:Coruja_billiard/app/modules/cart/views/cart_view.dart';
+import 'package:Coruja_billiard/app/routes/app_pages.dart';
 import 'package:badges/badges.dart' as badges;
 
 import '../../modules/cart/controllers/cart_controller.dart';

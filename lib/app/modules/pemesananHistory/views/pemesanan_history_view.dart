@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/bi.dart';
 import 'package:iconify_flutter/icons/ri.dart';
-import 'package:rf_majid/app/data/widget/pesanan_onKasir/pesananOnKasir.dart';
-import 'package:rf_majid/app/data/widget/pesanan_onUser/pesananOnUser.dart';
-import 'package:rf_majid/app/modules/reservation/controllers/reservation_controller.dart';
+import 'package:Coruja_billiard/app/data/widget/pesanan_onKasir/pesananOnKasir.dart';
+import 'package:Coruja_billiard/app/data/widget/pesanan_onUser/pesananOnUser.dart';
+import 'package:Coruja_billiard/app/modules/reservation/controllers/reservation_controller.dart';
 
 import '../../../data/controller/auth_controller.dart';
 import '../../../data/lokalData/appColor.dart';

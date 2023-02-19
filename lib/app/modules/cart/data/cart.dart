@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:rf_majid/app/data/controller/auth_controller.dart';
+import 'package:Coruja_billiard/app/data/controller/auth_controller.dart';
 
 class Cart extends StatelessWidget {
   // final getI = AuthController().getuid();

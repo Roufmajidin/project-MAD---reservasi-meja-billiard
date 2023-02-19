@@ -6,10 +6,10 @@ import 'package:get/get.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/bi.dart';
 import 'package:iconify_flutter/icons/ri.dart';
-import 'package:rf_majid/app/data/format_harga.dart';
-import 'package:rf_majid/app/modules/cart/controllers/cart_controller.dart';
-import 'package:rf_majid/app/modules/reservation/views/reservation_view.dart';
-import 'package:rf_majid/app/routes/app_pages.dart';
+import 'package:Coruja_billiard/app/data/format_harga.dart';
+import 'package:Coruja_billiard/app/modules/cart/controllers/cart_controller.dart';
+import 'package:Coruja_billiard/app/modules/reservation/views/reservation_view.dart';
+import 'package:Coruja_billiard/app/routes/app_pages.dart';
 
 import '../../../data/controller/auth_controller.dart';
 import '../../../data/lokalData/appColor.dart';

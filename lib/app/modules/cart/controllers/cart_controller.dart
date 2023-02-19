@@ -12,8 +12,8 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:rf_majid/app/data/lokalData/menu.dart';
-import 'package:rf_majid/app/modules/cart/data/allPaket.dart';
+import 'package:Coruja_billiard/app/data/lokalData/menu.dart';
+import 'package:Coruja_billiard/app/modules/cart/data/allPaket.dart';
 
 class CartController extends GetxController {
   var count = 1.obs;

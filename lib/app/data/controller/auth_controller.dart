@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:rf_majid/app/routes/app_pages.dart';
+import 'package:Coruja_billiard/app/routes/app_pages.dart';
 
 import '../../modules/cart/controllers/cart_controller.dart';
 

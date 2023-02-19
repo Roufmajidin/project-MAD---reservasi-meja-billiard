@@ -15,10 +15,10 @@ import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/ri.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
-import 'package:rf_majid/app/data/controller/multiController.dart';
-import 'package:rf_majid/app/data/format_harga.dart';
-import 'package:rf_majid/app/data/lokalData/appColor.dart';
-import 'package:rf_majid/app/modules/cart/data/cart.dart';
+import 'package:Coruja_billiard/app/data/controller/multiController.dart';
+import 'package:Coruja_billiard/app/data/format_harga.dart';
+import 'package:Coruja_billiard/app/data/lokalData/appColor.dart';
+import 'package:Coruja_billiard/app/modules/cart/data/cart.dart';
 
 import '../../../data/controller/auth_controller.dart';
 import '../controllers/cart_controller.dart';

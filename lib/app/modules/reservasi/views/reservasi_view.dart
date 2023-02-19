@@ -7,12 +7,12 @@ import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/ri.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
-import 'package:rf_majid/app/data/format_harga.dart';
-import 'package:rf_majid/app/data/lokalData/appColor.dart';
-import 'package:rf_majid/app/modules/cart/controllers/cart_controller.dart';
-import 'package:rf_majid/app/modules/pemesanan/views/pemesanan_view.dart';
-import 'package:rf_majid/app/modules/prevent_home_admin/views/prevent_home_admin_view.dart';
-import 'package:rf_majid/app/routes/app_pages.dart';
+import 'package:Coruja_billiard/app/data/format_harga.dart';
+import 'package:Coruja_billiard/app/data/lokalData/appColor.dart';
+import 'package:Coruja_billiard/app/modules/cart/controllers/cart_controller.dart';
+import 'package:Coruja_billiard/app/modules/pemesanan/views/pemesanan_view.dart';
+import 'package:Coruja_billiard/app/modules/prevent_home_admin/views/prevent_home_admin_view.dart';
+import 'package:Coruja_billiard/app/routes/app_pages.dart';
 
 import '../../../data/controller/auth_controller.dart';
 import '../../prevent_home_admin/views/prevent_home_admin_view.dart';

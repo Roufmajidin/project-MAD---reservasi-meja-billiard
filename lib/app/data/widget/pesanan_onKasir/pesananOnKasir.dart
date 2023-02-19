@@ -5,7 +5,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/get_core.dart';
-import 'package:rf_majid/app/data/format_harga.dart';
+import 'package:Coruja_billiard/app/data/format_harga.dart';
 
 import '../../../modules/cart/controllers/cart_controller.dart';
 

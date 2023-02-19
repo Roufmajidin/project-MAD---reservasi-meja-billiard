@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
-import 'package:rf_majid/app/data/format_harga.dart';
-import 'package:rf_majid/app/modules/detailPesananUser/views/detail_pesanan_user_view.dart';
+import 'package:Coruja_billiard/app/data/format_harga.dart';
+import 'package:Coruja_billiard/app/modules/detailPesananUser/views/detail_pesanan_user_view.dart';
 
 import '../../../routes/app_pages.dart';
 

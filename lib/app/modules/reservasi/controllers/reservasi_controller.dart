@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:rf_majid/app/data/lokalData/datapaket.dart';
-import 'package:rf_majid/app/modules/cart/data/allPaket.dart';
+import 'package:Coruja_billiard/app/data/lokalData/datapaket.dart';
+import 'package:Coruja_billiard/app/modules/cart/data/allPaket.dart';
 
 class ReservasiController extends GetxController {
   //TODO: Implement ReservasiController

@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:rf_majid/app/data/controller/auth_controller.dart';
-import 'package:rf_majid/app/routes/app_pages.dart';
+import 'package:Coruja_billiard/app/data/controller/auth_controller.dart';
+import 'package:Coruja_billiard/app/routes/app_pages.dart';
 
 import '../../cart/controllers/cart_controller.dart';
 import '../controllers/login_controller.dart';

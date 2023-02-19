@@ -7,7 +7,7 @@ import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/bi.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
-import 'package:rf_majid/app/modules/cart/views/cart_view.dart';
+import 'package:Coruja_billiard/app/modules/cart/views/cart_view.dart';
 
 import '../../../data/format_harga.dart';
 import '../../../data/lokalData/appColor.dart';

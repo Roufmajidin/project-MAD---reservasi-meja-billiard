@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/bi.dart';
 import 'package:iconify_flutter/icons/ri.dart';
-import 'package:rf_majid/app/data/widget/controller.dart';
+import 'package:Coruja_billiard/app/data/widget/controller.dart';
 import 'package:get/get.dart';
-import 'package:rf_majid/app/modules/about/views/about_view.dart';
-import 'package:rf_majid/app/modules/cart/views/cart_view.dart';
-import 'package:rf_majid/app/modules/home/views/home_view.dart';
+import 'package:Coruja_billiard/app/modules/about/views/about_view.dart';
+import 'package:Coruja_billiard/app/modules/cart/views/cart_view.dart';
+import 'package:Coruja_billiard/app/modules/home/views/home_view.dart';
 
 import '../../modules/cart/controllers/cart_controller.dart';
 

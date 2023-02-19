@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/bi.dart';
 import 'package:iconify_flutter/icons/ri.dart';
-import 'package:rf_majid/app/modules/UserAkun/views/user_akun_view.dart';
-import 'package:rf_majid/app/modules/home/views/home_view.dart';
+import 'package:Coruja_billiard/app/modules/UserAkun/views/user_akun_view.dart';
+import 'package:Coruja_billiard/app/modules/home/views/home_view.dart';
 
 import '../../cart/controllers/cart_controller.dart';
 import '../../reservation/views/reservation_view.dart';

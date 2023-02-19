@@ -13,12 +13,12 @@ import 'package:iconify_flutter/icons/ri.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
-import 'package:rf_majid/app/data/controller/auth_controller.dart';
-import 'package:rf_majid/app/data/lokalData/appColor.dart';
-import 'package:rf_majid/app/data/widget/dataMinuman.dart';
-import 'package:rf_majid/app/data/widget/dataPaket.dart';
-import 'package:rf_majid/app/data/widget/trollyTap.dart';
-import 'package:rf_majid/app/modules/cart/controllers/cart_controller.dart';
+import 'package:Coruja_billiard/app/data/controller/auth_controller.dart';
+import 'package:Coruja_billiard/app/data/lokalData/appColor.dart';
+import 'package:Coruja_billiard/app/data/widget/dataMinuman.dart';
+import 'package:Coruja_billiard/app/data/widget/dataPaket.dart';
+import 'package:Coruja_billiard/app/data/widget/trollyTap.dart';
+import 'package:Coruja_billiard/app/modules/cart/controllers/cart_controller.dart';
 
 import '../../../data/format_harga.dart';
 import '../../../routes/app_pages.dart';

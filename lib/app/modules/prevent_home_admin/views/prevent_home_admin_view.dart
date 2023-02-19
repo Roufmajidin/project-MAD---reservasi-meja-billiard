@@ -4,10 +4,10 @@ import 'package:get/get.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/bi.dart';
 import 'package:iconify_flutter/icons/ri.dart';
-import 'package:rf_majid/app/modules/homeAdmin/views/home_admin_view.dart';
-import 'package:rf_majid/app/modules/pemesanan/views/pemesanan_view.dart';
-import 'package:rf_majid/app/modules/pemesananHistory/views/pemesanan_history_view.dart';
-import 'package:rf_majid/app/modules/reservationEdit/views/reservation_edit_view.dart';
+import 'package:Coruja_billiard/app/modules/homeAdmin/views/home_admin_view.dart';
+import 'package:Coruja_billiard/app/modules/pemesanan/views/pemesanan_view.dart';
+import 'package:Coruja_billiard/app/modules/pemesananHistory/views/pemesanan_history_view.dart';
+import 'package:Coruja_billiard/app/modules/reservationEdit/views/reservation_edit_view.dart';
 
 import '../../../data/controller/auth_controller.dart';
 import '../controllers/prevent_home_admin_controller.dart';
