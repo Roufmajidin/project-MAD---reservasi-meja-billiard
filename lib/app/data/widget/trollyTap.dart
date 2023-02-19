@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -38,7 +39,12 @@ class trollyTap extends StatelessWidget {
               elevation: 0,
             ),
             badgeContent: StreamBuilder<QuerySnapshot>(
-                stream: controller.cart,
+                stream: FirebaseFirestore.instance
+                    .collection('pesananUser')
+                    .where('pemesan',
+                        isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+                    .where('isselesai', isEqualTo: false)
+                    .snapshots(),
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot2) {
                   // final data2 = snapshot2.requireData;

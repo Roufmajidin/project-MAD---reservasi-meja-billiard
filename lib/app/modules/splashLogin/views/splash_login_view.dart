@@ -53,9 +53,9 @@ class _SplashLoginViewState extends State<SplashLoginView> {
                   ),
                 ],
               ),
-              CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.orange),
-              ),
+              // CircularProgressIndicator(
+              //   valueColor: AlwaysStoppedAnimation<Color>(Colors.orange),
+              // ),
             ],
           ),
         ),

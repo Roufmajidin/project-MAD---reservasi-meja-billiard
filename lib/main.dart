@@ -29,7 +29,7 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   Get.put(AuthController(), permanent: true);
-  Get.put(CartController(), permanent: true);
+  // Get.put(CartController(), permanent: true);
   Get.put(HomeController(), permanent: true);
   // Get.put(SemuaMenuController(), permanent: true);
 
@@ -37,6 +37,7 @@ Future<void> main() async {
   // Get.put(ReservasiController(), permanent: true);
   // Get.put(SemuaPaketView(), permanent: true);
   Get.put(SplashController(), permanent: true);
+  Get.lazyPut(() => CartController());
   // Get.put(SemuaMenuController(), permanent: true);
   Get.put(PemesananHistoryController(), permanent: true);
   Get.put(ReservasiController(), permanent: true);
@@ -45,7 +46,7 @@ Future<void> main() async {
   Get.put(DetailPesananUserController(), permanent: true);
   Get.put(UserAkunController(), permanent: true);
   Get.put(multiController(), permanent: true);
-  final cart = Get.find<CartController>();
+  // final cart = Get.find<CartController>();
 
   runApp(StreamBuilder<User?>(
 // findSystemLocale().then(runTheRestOfMyProgram);
