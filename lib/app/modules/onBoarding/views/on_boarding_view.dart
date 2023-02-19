@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:rf_majid/app/data/widget/onBoardingSlider.dart';
-import 'package:rf_majid/app/modules/preventHome/views/prevent_home_view.dart';
-import 'package:rf_majid/app/routes/app_pages.dart';
+import 'package:Coruja_billiard/app/data/widget/onBoardingSlider.dart';
+import 'package:Coruja_billiard/app/modules/preventHome/views/prevent_home_view.dart';
+import 'package:Coruja_billiard/app/routes/app_pages.dart';
+import 'package:Coruja_billiard/app/modules/cart/controllers/cart_controller.dart';
 
 import '../controllers/on_boarding_controller.dart';
 
@@ -46,6 +47,8 @@ class _OnBoardingViewState extends State<OnBoardingView> {
   //
   @override
   Widget build(BuildContext context) {
+    Get.lazyPut(() => CartController());
+
     return Scaffold(
       body: Stack(
         children: <Widget>[
