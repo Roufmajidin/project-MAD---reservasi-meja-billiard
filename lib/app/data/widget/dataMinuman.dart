@@ -409,6 +409,9 @@ class dataMinuman extends StatelessWidget {
                 ),
                 style: TextStyle(color: Colors.grey[50], fontSize: 17),
               ),
+              SizedBox(
+                height: 22,
+              ),
               Center(
                 child: Container(
                   height: 40,

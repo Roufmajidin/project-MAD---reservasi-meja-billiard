@@ -513,15 +513,14 @@ class dataPaket extends StatelessWidget {
         ),
         Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-            child: Flexible(
-                // height: 200,
-                child: Obx(() => ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: controller.counti(),
-                      itemBuilder: (context, index) {
-                        return _row(index);
-                      },
-                    )))),
+            child: Obx(() => ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: controller.counti(),
+                  itemBuilder: (context, index) {
+                    return _row(index);
+                  },
+                ))),
+
         Center(
           child: Container(
             height: 40,
