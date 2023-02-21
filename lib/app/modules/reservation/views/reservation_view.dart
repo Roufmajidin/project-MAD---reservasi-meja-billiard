@@ -22,8 +22,8 @@ class ReservationView extends GetView<ReservationController> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Color.fromARGB(255, 20, 20, 20),
-          leadingWidth: 500,
-          title: Text("Histroy"),
+          leadingWidth: 600,
+          title: Text("History"),
           leading: GestureDetector(
             // excludeFromSemantics: false,
             onTap: () {
@@ -533,7 +533,8 @@ class onHistory extends StatelessWidget {
                                     height: 10,
                                   ),
                                   Container(
-                                    padding: EdgeInsets.only(left: 12, top: 0),
+                                    padding: EdgeInsets.only(
+                                        left: 12, top: 0, right: 12),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -649,206 +650,208 @@ class onHistory extends StatelessWidget {
                                       ? Padding(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 14.0),
-                                          child: Flexible(
-                                            // flex: 1,
-                                            child: Column(
-                                              children: [
-                                                Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Text(
-                                                          "Rincian",
-                                                          style: TextStyle(
-                                                              color: Color
-                                                                  .fromARGB(
-                                                                      255,
-                                                                      255,
-                                                                      255,
-                                                                      255),
-                                                              fontSize: 14,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600),
-                                                        ),
-                                                        SizedBox(height: 4),
-                                                        Column(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Container(
-                                                              child: Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
-                                                                children: [
-                                                                  Text(
-                                                                    "Harga Paket",
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Color.fromARGB(
-                                                                          255,
-                                                                          196,
-                                                                          196,
-                                                                          196),
-                                                                      fontSize:
-                                                                          14,
-                                                                    ),
-                                                                  ),
-                                                                  Text(
-                                                                    CurrencyFormat.convertToIdr(
-                                                                        data.docs[index]
-                                                                            [
-                                                                            'harga'],
-                                                                        2),
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Color.fromARGB(
-                                                                          255,
-                                                                          196,
-                                                                          196,
-                                                                          196),
-                                                                      fontSize:
-                                                                          14,
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                            Container(
-                                                              // width: 350,
-                                                              child: Column(
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  Text(
-                                                                    "Total Include: ",
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Color.fromARGB(
-                                                                          255,
-                                                                          196,
-                                                                          196,
-                                                                          196),
-                                                                      fontSize:
-                                                                          14,
-                                                                    ),
-                                                                  ),
-                                                                  SizedBox(
-                                                                      height:
-                                                                          12),
-                                                                  //inklud detail
-                                                                  Container(
-                                                                    // width: 320,
-                                                                    padding:
-                                                                        EdgeInsets
-                                                                            .only(
-                                                                      left: 12,
-                                                                    ),
-                                                                    child:
-                                                                        Column(
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                      children: List.generate(
-                                                                          infoinklud.length,
-                                                                          (index2) => InkWell(
-                                                                                onTap: () {
-                                                                                  print(
-                                                                                    data.docs[0]['inklud'][index]['namamenu'],
-                                                                                  );
-                                                                                },
-                                                                                child: Container(
-                                                                                  child: Row(
-                                                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                    children: [
-                                                                                      Container(
-                                                                                        // width: 100,
-                                                                                        child: Text(
-                                                                                          ' - ${infoinklud[index2]['namamenu']}',
-                                                                                          style: TextStyle(color: Color.fromARGB(255, 138, 138, 138)),
-                                                                                        ),
-                                                                                      ),
-                                                                                      Container(
-                                                                                        // width: 100,
-                                                                                        child: Text(
-                                                                                          CurrencyFormat.convertToIdr(infoinklud[index2]['harga'], 2),
-                                                                                          style: TextStyle(color: Color.fromARGB(255, 138, 138, 138)),
-                                                                                        ),
-                                                                                      ),
-                                                                                    ],
-                                                                                  ),
-                                                                                ),
-                                                                              )),
-                                                                    ),
-                                                                  ),
-                                                                  SizedBox(
-                                                                    height: 10,
-                                                                  ),
-                                                                  //end
-                                                                ],
-                                                              ),
-                                                            ),
-                                                            Container(
-                                                              child: Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
-                                                                children: [
-                                                                  Text(
-                                                                    "Total Harga",
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: Color.fromARGB(
-                                                                          255,
-                                                                          196,
-                                                                          196,
-                                                                          196),
-                                                                      fontSize:
-                                                                          14,
-                                                                    ),
-                                                                  ),
-                                                                  Text(
-                                                                    CurrencyFormat.convertToIdr(
-                                                                        data.docs[index]
-                                                                            [
-                                                                            'total_t'],
-                                                                        2),
-                                                                    style: TextStyle(
-                                                                        color: Color.fromARGB(
+                                          child: Column(
+                                            children: [
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        "Rincian",
+                                                        style: TextStyle(
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    255,
+                                                                    255,
+                                                                    255),
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
+                                                      ),
+                                                      SizedBox(height: 4),
+                                                      Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Container(
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                Text(
+                                                                  "Harga Paket",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Color
+                                                                        .fromARGB(
                                                                             255,
                                                                             196,
                                                                             196,
                                                                             196),
-                                                                        fontSize:
-                                                                            14,
-                                                                        fontWeight:
-                                                                            FontWeight.w600),
+                                                                    fontSize:
+                                                                        14,
                                                                   ),
-                                                                ],
-                                                              ),
+                                                                ),
+                                                                Text(
+                                                                  CurrencyFormat.convertToIdr(
+                                                                      data.docs[
+                                                                              index]
+                                                                          [
+                                                                          'harga'],
+                                                                      2),
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Color
+                                                                        .fromARGB(
+                                                                            255,
+                                                                            196,
+                                                                            196,
+                                                                            196),
+                                                                    fontSize:
+                                                                        14,
+                                                                  ),
+                                                                ),
+                                                              ],
                                                             ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
+                                                          ),
+                                                          Container(
+                                                            // width: 350,
+                                                            child: Column(
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Text(
+                                                                  "Total Include: ",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Color
+                                                                        .fromARGB(
+                                                                            255,
+                                                                            196,
+                                                                            196,
+                                                                            196),
+                                                                    fontSize:
+                                                                        14,
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                    height: 12),
+                                                                //inklud detail
+                                                                Container(
+                                                                  // width: 320,
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .only(
+                                                                    left: 12,
+                                                                  ),
+                                                                  child: Column(
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .start,
+                                                                    children: List.generate(
+                                                                        infoinklud.length,
+                                                                        (index2) => InkWell(
+                                                                              onTap: () {
+                                                                                print(
+                                                                                  data.docs[0]['inklud'][index]['namamenu'],
+                                                                                );
+                                                                              },
+                                                                              child: Container(
+                                                                                child: Row(
+                                                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                  children: [
+                                                                                    Container(
+                                                                                      // width: 100,
+                                                                                      child: Text(
+                                                                                        ' - ${infoinklud[index2]['namamenu']}',
+                                                                                        style: TextStyle(color: Color.fromARGB(255, 138, 138, 138)),
+                                                                                      ),
+                                                                                    ),
+                                                                                    Container(
+                                                                                      // width: 100,
+                                                                                      child: Text(
+                                                                                        CurrencyFormat.convertToIdr(infoinklud[index2]['harga'], 2),
+                                                                                        style: TextStyle(color: Color.fromARGB(255, 138, 138, 138)),
+                                                                                      ),
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                              ),
+                                                                            )),
+                                                                  ),
+                                                                ),
+                                                                SizedBox(
+                                                                  height: 10,
+                                                                ),
+                                                                //end
+                                                              ],
+                                                            ),
+                                                          ),
+                                                          Container(
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                Text(
+                                                                  "Total Harga",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    color: Color
+                                                                        .fromARGB(
+                                                                            255,
+                                                                            196,
+                                                                            196,
+                                                                            196),
+                                                                    fontSize:
+                                                                        14,
+                                                                  ),
+                                                                ),
+                                                                Text(
+                                                                  CurrencyFormat.convertToIdr(
+                                                                      data.docs[
+                                                                              index]
+                                                                          [
+                                                                          'total_t'],
+                                                                      2),
+                                                                  style: TextStyle(
+                                                                      color: Color.fromARGB(
+                                                                          255,
+                                                                          196,
+                                                                          196,
+                                                                          196),
+                                                                      fontSize:
+                                                                          14,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w600),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
                                           ),
                                         )
-                                      : Container()
+                                      : SizedBox()
                                 ],
                               ));
                         },
