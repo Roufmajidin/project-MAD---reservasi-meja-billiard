@@ -35,9 +35,11 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   List items = [
-    'assets/gambar/gambar1.png',
-    'assets/gambar/gambar2.jpg',
-    'assets/gambar/gambar3.jpg',
+    'assets/gambar/1.jpeg',
+    'assets/gambar/2.jpeg',
+    'assets/gambar/33.jpeg',
+    'assets/gambar/4.jpeg',
+    'assets/gambar/5.jpeg',
   ];
 
   List<String> countries = [
@@ -106,7 +108,7 @@ class _HomeViewState extends State<HomeView> {
             usereInfo(),
             Container(
               child: Text(
-                "Billiard Reservation",
+                "Coruja Billiard",
                 style: TextStyle(color: judul, fontSize: 14),
               ),
             ),

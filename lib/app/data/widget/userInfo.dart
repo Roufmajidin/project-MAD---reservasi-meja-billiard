@@ -27,20 +27,15 @@ class usereInfo extends StatelessWidget {
       padding: EdgeInsets.all(12),
       child: InkWell(
           onTap: () {
-            authC.logout();
+            // authC.logout();
           },
           child: badges.Badge(
             badgeStyle: badges.BadgeStyle(
-              shape: badges.BadgeShape.square,
-              badgeColor: Color.fromARGB(255, 223, 235, 3),
+              // shape: badges.BadgeShape.square,
+              badgeColor: Color.fromARGB(255, 0, 0, 0),
               padding: EdgeInsets.all(5),
               borderRadius: BorderRadius.circular(4),
               elevation: 0,
-            ),
-            badgeContent: Text(
-              "1",
-              style:
-                  TextStyle(color: Color.fromARGB(255, 0, 0, 0), fontSize: 12),
             ),
             child: const Iconify(
               Bi.person_circle,

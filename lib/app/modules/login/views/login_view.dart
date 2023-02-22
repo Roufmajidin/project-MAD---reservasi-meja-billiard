@@ -18,6 +18,7 @@ class LoginView extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(CartController());
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.black,
@@ -49,11 +50,13 @@ class LoginView extends GetView<LoginController> {
                     const SizedBox(height: 12),
                     _formFields(context),
                     const SizedBox(height: 16),
+
                     _signinButton(),
                     const SizedBox(height: 16),
-                    _LoginGoogle(),
                     _divider(),
-                    _Register(),
+                    _LoginGoogle(),
+                    // _divider(),
+                    // _Register(),
                     // _socialLogins(),
                     // const SizedBox(height: 16),
                     // _signupButton(context),
@@ -126,20 +129,23 @@ class LoginView extends GetView<LoginController> {
           ),
           style: TextStyle(color: Colors.grey[50], fontSize: 17),
         ),
-        Container(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          alignment: Alignment.centerLeft,
-          child: InkWell(
-            onTap: () {},
-            child: Text(
-              'Forgot Password',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Color.fromARGB(255, 182, 182, 182),
-              ),
-            ),
-          ),
-        ),
+        SizedBox(
+          height: 20,
+        )
+        // Container(
+        //   padding: const EdgeInsets.symmetric(vertical: 10),
+        //   alignment: Alignment.centerLeft,
+        //   child: InkWell(
+        //     onTap: () {},
+        //     child: Text(
+        //       'Forgot Password',
+        //       style: TextStyle(
+        //         fontWeight: FontWeight.bold,
+        //         color: Color.fromARGB(255, 182, 182, 182),
+        //       ),
+        //     ),
+        //   ),
+        // ),
       ],
     );
   }
@@ -218,8 +224,14 @@ class LoginView extends GetView<LoginController> {
                   Get.offAllNamed(Routes.PREVENT_HOME_ADMIN);
                 }
               },
-              child: const Text('LOGIN',
-                  style: TextStyle(color: Colors.white, fontSize: 16))),
+              child: const Text(
+                'LOGIN',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.bold),
+              )),
         ),
       ),
     ]);
@@ -232,8 +244,8 @@ class LoginView extends GetView<LoginController> {
             padding: const EdgeInsets.symmetric(vertical: 5),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
+                begin: Alignment.center,
+                end: Alignment.center,
                 stops: const [0.0, 1.0],
                 colors: [
                   Color(0xffEDE88A),
@@ -257,20 +269,13 @@ class LoginView extends GetView<LoginController> {
               onPressed: () {
                 authC.signInWithGoogle();
               },
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Icon(
-                    Icons.login,
-                  ),
-                  SizedBox(
-                    width: 80,
-                  ),
-                  const Text('Sign In with Google',
-                      style: TextStyle(color: Colors.white, fontSize: 18))
-                ],
+              child: Center(
+                child: const Text('Sign In with Google',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.bold)),
               ),
             )),
       ),
@@ -293,7 +298,7 @@ class LoginView extends GetView<LoginController> {
             ),
           ),
           Text(
-            'or register',
+            'or Login',
             style: TextStyle(
               color: Colors.grey.shade500,
               fontSize: 15,
