@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -5,9 +6,11 @@ import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/bi.dart';
 import 'package:Coruja_billiard/app/modules/cart/controllers/cart_controller.dart';
 import 'package:Coruja_billiard/app/modules/cart/views/cart_view.dart';
+import 'package:Coruja_billiard/app/modules/home/views/home_view.dart';
 
 import '../../../data/controller/auth_controller.dart';
 import '../controllers/user_akun_controller.dart';
+import 'package:badges/badges.dart' as badges;
 
 class UserAkunView extends GetView<UserAkunController> {
   UserAkunView({Key? key}) : super(key: key);
@@ -52,10 +55,10 @@ class UserAkunView extends GetView<UserAkunController> {
               Column(
                 children: [
                   profileUser(),
-                  // SizedBox(
-                  //   height: 20,
-                  // ),
-                  // bahasa(),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  bahasa(),
                   SizedBox(
                     height: 20,
                   ),
@@ -265,7 +268,7 @@ class list extends StatelessWidget {
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+          padding: EdgeInsets.all(10),
           // height: 25,
           // alignment: Alignment.center,
           decoration: BoxDecoration(
@@ -274,7 +277,6 @@ class list extends StatelessWidget {
           child: Row(
             children: [
               Container(
-
                   // padding: EdgeInsets.only(left: 11),
                   child: Text(
                 "Setting Akun",
@@ -292,8 +294,7 @@ class list extends StatelessWidget {
           height: 2,
         ),
         Container(
-          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-
+          padding: EdgeInsets.all(10),
           // height: 25,
           // alignment: Alignment.center,
           decoration: BoxDecoration(
@@ -302,7 +303,6 @@ class list extends StatelessWidget {
           child: Row(
             children: [
               Container(
-
                   // padding: EdgeInsets.only(left: 25),
                   child: Text(
                 "Change Email",
@@ -320,9 +320,7 @@ class list extends StatelessWidget {
           height: 2,
         ),
         Container(
-          // padding: EdgeInsets.all(10),
-          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-
+          padding: EdgeInsets.all(10),
           // height: 25,
           // alignment: Alignment.center,
           decoration: BoxDecoration(

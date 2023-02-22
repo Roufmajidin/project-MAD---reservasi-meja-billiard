@@ -42,16 +42,15 @@ class _SplashLoginViewState extends State<SplashLoginView> {
                   Image.asset("assets/splash.png",
                       height: 200.0, width: 180.0, fit: BoxFit.fill),
                   SizedBox(height: 50),
-                  // Text(
-                  //   "Welcome",
-                  //   textAlign: TextAlign.center,
-                  //   style: TextStyle(
-                  //     color: Colors.white,
-                  //     fontFamily: 'Poppins',
-                  //     fontWeight: FontWeight.bold,
-                  //     fontSize: 18.0,
-                  //   ),
-                  // ),
+                  Text(
+                    "Selamat Datang di Reservasi \n Billiard Volte \n silahkan Login",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.0,
+                    ),
+                  ),
                 ],
               ),
               // CircularProgressIndicator(

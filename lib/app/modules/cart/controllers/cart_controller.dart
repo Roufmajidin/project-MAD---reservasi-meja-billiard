@@ -513,7 +513,7 @@ class CartController extends GetxController {
     print(a);
   }
 
-  late Stream<QuerySnapshot> cart = FirebaseFirestore.instance
+  Stream<QuerySnapshot> cart = FirebaseFirestore.instance
       .collection('pesananUser')
       .where('pemesan', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
       .where('isselesai', isEqualTo: false)

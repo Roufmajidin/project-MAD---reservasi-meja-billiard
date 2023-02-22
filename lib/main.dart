@@ -38,6 +38,7 @@ Future<void> main() async {
   // Get.put(ReservasiController(), permanent: true);
   // Get.put(SemuaPaketView(), permanent: true);
   Get.put(SplashController(), permanent: true);
+  Get.lazyPut(() => CartController());
   // Get.put(SemuaMenuController(), permanent: true);
   Get.put(PemesananHistoryController(), permanent: true);
   Get.put(ReservasiController(), permanent: true);
@@ -47,7 +48,7 @@ Future<void> main() async {
   Get.put(UserAkunController(), permanent: true);
   Get.put(multiController(), permanent: true);
   // final cart = Get.find<CartController>();
-  Get.lazyPut(() => CartController());
+
   runApp(StreamBuilder<User?>(
 // findSystemLocale().then(runTheRestOfMyProgram);
 

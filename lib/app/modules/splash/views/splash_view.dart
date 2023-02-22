@@ -53,16 +53,15 @@ class _SplashViewState extends State<SplashView> {
                   Image.asset("assets/splash.png",
                       height: 200.0, width: 180.0, fit: BoxFit.fill),
                   SizedBox(height: 50),
-                  // Text(
-                  //   "Selamat Datang di \n Reservasi Billiard Volte",
-                  //   textAlign: TextAlign.center,
-                  //   style: TextStyle(
-                  //     color: Colors.white,
-                  //     fontFamily: 'Poppins',
-                  //     fontWeight: FontWeight.bold,
-                  //     fontSize: 18.0,
-                  //   ),
-                  // ),
+                  Text(
+                    "Selamat Datang di \n Reservasi Billiard Volte",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.0,
+                    ),
+                  ),
                 ],
               ),
               CircularProgressIndicator(
