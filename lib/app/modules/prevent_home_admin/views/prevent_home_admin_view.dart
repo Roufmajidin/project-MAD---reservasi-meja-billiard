@@ -1,4 +1,3 @@
-import 'package:Coruja_billiard/app/modules/cart/controllers/cart_controller.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -16,11 +15,10 @@ import '../controllers/prevent_home_admin_controller.dart';
 class PreventHomeAdminView extends GetView<PreventHomeAdminController> {
   final authC = Get.find<AuthController>();
   // Get.put(ReservasiController(), permanent: true);
+
   PreventHomeAdminView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    Get.put(CartController());
-
     return GetBuilder<PreventHomeAdminController>(builder: (controller) {
       return Scaffold(
         backgroundColor: Color(0xf19191E),

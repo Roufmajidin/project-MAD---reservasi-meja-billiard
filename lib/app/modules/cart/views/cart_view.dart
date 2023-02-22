@@ -502,7 +502,8 @@ void _showDialog(context, index, data) {
                   QuickAlert.show(
                     context: context,
                     type: QuickAlertType.info,
-                    text: 'Yeay, Sukses Check Out !',
+                    text:
+                        'Yeay, Sukses Check Out \n Poinmu Bertambah menjadi}!',
                   );
 
                   // showDialog(context: context, builder: (context) => alert);

@@ -27,10 +27,11 @@ import '../controllers/reservation_edit_controller.dart';
 class ReservationEditView extends GetView<ReservationEditController> {
   ReservationEditView({Key? key}) : super(key: key);
 
-  // final CartController cController = Get.find();
+  final CartController cController = Get.find();
 
   @override
   Widget build(BuildContext context) {
+    // final CartController controller = Get.find();
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Color.fromARGB(255, 20, 20, 20),
