@@ -106,8 +106,8 @@ class CartController extends GetxController {
         .doc(FirebaseAuth.instance.currentUser!.email)
         .update({
       'isAmbil': true,
-      'poin_belanja': pointUser -= 200,
-      'id_voucher': null,
+      'poin_belanja': pointUser -= 20,
+      // 'id_voucher': null,
       'freeOrder': 0,
     });
     toogleV = true.obs;
@@ -135,16 +135,16 @@ class CartController extends GetxController {
   }
 
   void minusupdateCkl() {
-    int ck = 200;
+    int ck = 20 + pointUser;
     toogleV = isAmbil;
 
     FirebaseFirestore.instance
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.email)
-        .update({'isAmbil': false});
-
+        .update({'isAmbil': false, 'poin_belanja': ck, 'freeOrder': 1});
+    isAmbil = false.obs;
     update();
-    print("karena poinmu dibbawah ${ck} ");
+    print("is voucer non aktif");
 
     update();
   }
@@ -1011,11 +1011,11 @@ class CartController extends GetxController {
   // void addMenu(menu, int index, context) async {
   //   var controller = CartController();
 
-  final Stream<QuerySnapshot> pesanan = FirebaseFirestore.instance
-      .collection('pesananUser')
-      .where('pemesan', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-      // .where('isCekhed', isEqualTo: false)
-      .snapshots();
+  // final Stream<QuerySnapshot> pesanan = FirebaseFirestore.instance
+  //     .collection('pesananUser')
+  //     .where('pemesan', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+  //     // .where('isCekhed', isEqualTo: false)
+  //     .snapshots();
   //   List<List<int>> multidimensionalArray = [
   //     [1, 2, 3],
   //     [4, 5, 6]

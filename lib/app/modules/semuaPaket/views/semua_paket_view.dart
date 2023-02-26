@@ -14,6 +14,7 @@ import '../../../data/lokalData/appColor.dart';
 import '../../../data/lokalData/datapaket.dart';
 import '../../../data/lokalData/menu.dart';
 import '../../../data/widget/trollyTap.dart';
+import '../../../routes/app_pages.dart';
 import '../../cart/controllers/cart_controller.dart';
 import '../../cart/data/allPaket.dart';
 import '../controllers/semua_paket_controller.dart';
@@ -45,7 +46,8 @@ class _SemuaPaketViewState extends State<SemuaPaketView> {
                     children: [
                       InkWell(
                           onTap: () {
-                            Get.back();
+                            // Get.back();
+                            Get.offAllNamed(Routes.PREVENT_HOME);
                           },
                           child: Icon(Icons.arrow_back_ios,
                               color: Colors.white, size: 18)),
@@ -53,6 +55,7 @@ class _SemuaPaketViewState extends State<SemuaPaketView> {
                           style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
+                              fontFamily: 'poppins',
                               fontSize: 20.0)),
                       Padding(
                           padding: EdgeInsets.all(12),
@@ -102,7 +105,7 @@ class _SemuaPaketViewState extends State<SemuaPaketView> {
               ),
               Container(
                 margin: EdgeInsets.only(top: 10),
-                height: 2,
+                height: 0.2,
                 decoration: BoxDecoration(color: Colors.white),
               )
             ],
@@ -247,6 +250,7 @@ class _SemuaPaketViewState extends State<SemuaPaketView> {
     // final CartController cController = Get.find();
 
     showModalBottomSheet(
+        isScrollControlled: true,
         backgroundColor: Color.fromARGB(255, 24, 30, 42),
         context: context,
         shape: RoundedRectangleBorder(
@@ -255,6 +259,8 @@ class _SemuaPaketViewState extends State<SemuaPaketView> {
         builder: (context) {
           return Container(
             // width: 700,
+            height: 500,
+
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12),
@@ -403,7 +409,7 @@ class _SemuaPaketViewState extends State<SemuaPaketView> {
                       width: 400,
                       padding:
                           EdgeInsets.symmetric(horizontal: 3.0, vertical: 2.0),
-                      height: 60,
+                      height: 200,
                       child: StreamBuilder(
                           stream: FirebaseFirestore.instance
                               .collection('allminuman')
@@ -429,97 +435,124 @@ class _SemuaPaketViewState extends State<SemuaPaketView> {
                             // var dataMinuman =
 
                             final dataMBM = snapshot.requireData;
-                            return ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: dataMBM.size,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return Obx(
-                                    () => Container(
-                                      width: 130,
-                                      // height: 30,
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          controller.toogle(dataMBM, index);
-                                          // print(controller.selected);
-                                          // print(controller.totminuman);
-                                          // var array = controller.selected;
-                                          // List dataa = [];
+                            return GridView.builder(
+                              itemCount: dataMBM.size,
+                              scrollDirection: Axis.horizontal,
+                              gridDelegate:
+                                  // ignore: prefer_const_constructors
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                              ),
+                              itemBuilder: (context, index) {
+                                return Obx(
+                                  () => Container(
+                                    // width: 200,
+                                    height: 30,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        controller.toogle(dataMBM, index);
+                                        // print(controller.selected);
+                                        // print(controller.totminuman);
+                                        // var array = controller.selected;
+                                        // List dataa = [];
 
-                                          // for (var element in array) {
-                                          //   dataa.add(dataMBM.docs[element]
-                                          //       ['namamenu']);
-                                          //   // dataa.add(
-                                          //   //     dataMBM.docs[element]['harga']);
-                                          //   // return dataa;
-                                          // }
-                                          // print(dataa);
-                                          // controller.menuAdd(dataa, dataMBM);
-                                          // var a = array.forEach((element) {
-                                          //   // print(dataMBM.docs[element]
-                                          //   //     ["namamenu"]);
-                                          //   dataa.add(dataMBM.docs[element]
-                                          //       ['namamenu']);
-                                          // });
-                                          // print(dataa);
-                                          // print(
-                                          //     dataMBM.docs[index]['namamenu']);
-                                          // controller.g();
-                                          // print(dataa);
-                                        },
-                                        child: Card(
-                                          color: controller.selected
-                                                  .contains(index)
-                                              ? Color.fromARGB(
-                                                  255,
-                                                  238,
-                                                  233,
-                                                  126,
-                                                ).withOpacity(0.8)
-                                              : Color.fromARGB(76, 0, 0, 0),
-                                          child: Container(
-                                            padding: EdgeInsets.only(top: 4),
-                                            child: Center(
-                                                child: Column(
-                                              children: [
-                                                Container(
-                                                    padding:
-                                                        EdgeInsets.only(top: 4),
-                                                    child: Text(
-                                                        controller.selected
-                                                                .contains(index)
-                                                            ? "Selected"
-                                                            : "Pilih",
+                                        // for (var element in array) {
+                                        //   dataa.add(dataMBM.docs[element]
+                                        //       ['namamenu']);
+                                        //   // dataa.add(
+                                        //   //     dataMBM.docs[element]['harga']);
+                                        //   // return dataa;
+                                        // }
+                                        // print(dataa);
+                                        // controller.menuAdd(dataa, dataMBM);
+                                        // var a = array.forEach((element) {
+                                        //   // print(dataMBM.docs[element]
+                                        //   //     ["namamenu"]);
+                                        //   dataa.add(dataMBM.docs[element]
+                                        //       ['namamenu']);
+                                        // });
+                                        // print(dataa);
+                                        // print(
+                                        //     dataMBM.docs[index]['namamenu']);
+                                        // controller.g();
+                                        // print(dataa);
+                                      },
+                                      // tete
+                                      child: Card(
+                                        // margin: EdgeInsets.all(69),
+
+                                        color: controller.selected
+                                                .contains(index)
+                                            ? Color.fromARGB(255, 206, 201, 101)
+                                            : Color.fromARGB(76, 0, 0, 0),
+                                        child: Center(
+                                            child: Column(
+                                          children: [
+                                            Container(
+                                                width: 200,
+                                                child: Text(
+                                                    controller.selected
+                                                            .contains(index)
+                                                        ? ""
+                                                        : "",
+                                                    style: TextStyle(
+                                                        color: Color.fromARGB(
+                                                            255, 22, 21, 21),
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.bold))),
+                                            Stack(
+                                                // alignment: Alignment.top,
+                                                children: [
+                                                  Container(
+                                                    padding: EdgeInsets.only(
+                                                        top: 16),
+                                                    child: Center(
+                                                      child: Image.network(
+                                                        dataMBM.docs[index]
+                                                            ['gambar'],
+                                                        height: 60,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
+                                                        horizontal: 8.0),
+                                                    child: Center(
+                                                      child: Text(
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        // menu[index]['namamenu']
+                                                        //     .toString(),
+                                                        dataMBM.docs[index]
+                                                                ['namamenu']
+                                                            .toString(),
                                                         style: TextStyle(
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    255,
-                                                                    22,
-                                                                    21,
-                                                                    21),
-                                                            fontSize: 12,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold))),
-                                                Text(
-                                                  // menu[index]['namamenu']
-                                                  //     .toString(),
-                                                  dataMBM.docs[index]
-                                                          ['namamenu']
-                                                      .toString(),
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 13),
-                                                ),
-                                              ],
-                                            )),
-                                          ),
-                                        ),
+                                                            color: controller
+                                                                    .selected
+                                                                    .contains(
+                                                                        index)
+                                                                ? Color
+                                                                    .fromARGB(
+                                                                        255,
+                                                                        0,
+                                                                        0,
+                                                                        0)
+                                                                : Colors.white,
+                                                            fontSize: 13),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ]),
+                                          ],
+                                        )),
                                       ),
                                     ),
-                                  );
-                                });
+                                  ),
+                                );
+                              },
+                            );
                           }),
                     ),
                   ),

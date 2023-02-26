@@ -23,7 +23,11 @@ class ReservationView extends GetView<ReservationController> {
         appBar: AppBar(
           backgroundColor: Color.fromARGB(255, 20, 20, 20),
           leadingWidth: 600,
-          title: Text("History"),
+          title: Text(
+            "History",
+            style:
+                TextStyle(fontFamily: 'poppins', fontWeight: FontWeight.bold),
+          ),
           leading: GestureDetector(
             // excludeFromSemantics: false,
             onTap: () {

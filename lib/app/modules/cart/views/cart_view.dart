@@ -291,7 +291,7 @@ class CartView extends StatelessWidget {
                           // &&
                           // cController.toogleV == 'true'
 
-                          cController.pointUser >= 200 &&
+                          cController.pointUser > 20 &&
                                   cController.isAmbil == false
                               ? GestureDetector(
                                   onTap: () {
@@ -318,16 +318,16 @@ class CartView extends StatelessWidget {
                                       Container(
                                         padding: EdgeInsets.only(right: 12),
                                         child: Icon(
-                                          cController.pointUser <= 200
-                                              ? Icons.not_interested_sharp
-                                              : Icons.check_box_outline_blank,
+                                          cController.pointUser >= 20
+                                              ? Icons.check_box_outline_blank
+                                              : Icons.not_interested_sharp,
                                           color: Colors.white,
                                         ),
                                       ),
                                       Container(
                                         // width: 120,
                                         child: Text(
-                                          "Gunakan Free Shipping",
+                                          "Gunakan Free Ship",
                                           overflow: TextOverflow.ellipsis,
                                           style: TextStyle(
                                               color: Colors.white,
@@ -342,23 +342,23 @@ class CartView extends StatelessWidget {
                                     print("hide Free Cekout");
                                     // print(cController.voucherUpdate);
                                     // hide  obx VOUCER ID sama ISAMBIL
-                                    cController.showPoin();
-
-                                    cController.minusupdateCkl();
-
-                                    cController.pointUser <= 200
-                                        ? cController.ubahKosong()
-                                        : cController.ubahminT();
                                   },
                                   child: Row(
                                     children: [
-                                      Container(
-                                        padding: EdgeInsets.only(right: 12),
-                                        child: Icon(
-                                          cController.pointUser <= 200
-                                              ? Icons.flip_to_back_sharp
-                                              : Icons.check_box_outlined,
-                                          color: Colors.white,
+                                      GestureDetector(
+                                        onTap: () {
+                                          print("voucher is non");
+                                          cController.showPoin();
+                                          cController.minusupdateCkl();
+                                        },
+                                        child: Container(
+                                          padding: EdgeInsets.only(right: 12),
+                                          child: Icon(
+                                            cController.isAmbil == true
+                                                ? Icons.check_box_outlined
+                                                : Icons.flip_to_back_sharp,
+                                            color: Colors.white,
+                                          ),
                                         ),
                                       ),
                                       Row(
@@ -375,7 +375,9 @@ class CartView extends StatelessWidget {
                                               // width: 120,
 
                                               child: Text(
-                                            "Poin Kurang",
+                                            cController.isAmbil == true
+                                                ? "Voucher Used"
+                                                : "Tidak ada",
                                             overflow: TextOverflow.ellipsis,
                                             style: TextStyle(
                                                 color: Colors.white,

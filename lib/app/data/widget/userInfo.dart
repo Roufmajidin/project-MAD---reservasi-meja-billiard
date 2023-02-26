@@ -27,7 +27,7 @@ class usereInfo extends StatelessWidget {
       padding: EdgeInsets.all(12),
       child: InkWell(
           onTap: () {
-            // authC.logout();
+            authC.logout();
           },
           child: badges.Badge(
             badgeStyle: badges.BadgeStyle(

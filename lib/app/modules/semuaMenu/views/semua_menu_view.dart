@@ -1,3 +1,4 @@
+import 'package:Coruja_billiard/app/routes/app_pages.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +39,7 @@ class SemuaMenuView extends GetView<SemuaMenuController> {
                   children: [
                     InkWell(
                         onTap: () {
-                          Get.back();
+                          Get.offAllNamed(Routes.PREVENT_HOME);
                         },
                         child: Icon(Icons.arrow_back_ios,
                             color: Colors.white, size: 18)),
@@ -46,6 +47,7 @@ class SemuaMenuView extends GetView<SemuaMenuController> {
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
+                            fontFamily: 'poppins',
                             fontSize: 20.0)),
                     Padding(
                         padding: EdgeInsets.all(12),
@@ -96,7 +98,8 @@ class SemuaMenuView extends GetView<SemuaMenuController> {
               ),
               Container(
                 margin: EdgeInsets.only(top: 10),
-                height: 2,
+                // height: 2,
+                height: 0.2,
                 decoration: BoxDecoration(color: Colors.white),
               )
             ],
