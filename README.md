@@ -1,7 +1,6 @@
 # Project
 ## UAS Matakuliah Pemrograman Mobile Apps
-
-A new Flutter project.
+Universitas Catur Insan Cendekia
 
 ## Anggota Kelompok
 
