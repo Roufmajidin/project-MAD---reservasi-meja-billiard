@@ -340,9 +340,119 @@ class list extends StatelessWidget {
 
                   // width: 100.0,
 
-                  )
+                  ),
             ],
           ),
+        ),
+        SizedBox(
+          height: 2,
+        ),
+        Container(
+          // padding: EdgeInsets.all(10),
+          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+
+          // height: 25,
+          // alignment: Alignment.center,
+          decoration: BoxDecoration(
+              color: Color.fromARGB(249, 24, 33, 50),
+              borderRadius: BorderRadius.circular(8)),
+          child: Container(
+              // padding: EdgeInsets.only(left: 25),
+              child: Center(
+            child: Column(
+              children: [
+                Text(
+                  "Tentang Kami",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'Poppins'),
+                ),
+                Text(
+                  "Universitas Catur Insan Cendekia",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'Poppins'),
+                ),
+                SizedBox(
+                  height: 12,
+                ),
+                Stack(children: [
+                  // Text(
+                  //   "data",
+                  //   style: TextStyle(color: Colors.white),
+                  // ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Rouf Majidin",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400,
+                                fontFamily: 'Poppins'),
+                          ),
+                          Text(
+                            "20200120049",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400,
+                                fontFamily: 'Poppins'),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Mochammad Nurul Adzan",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400,
+                                fontFamily: 'Poppins'),
+                          ),
+                          Text(
+                            "20200120054",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400,
+                                fontFamily: 'Poppins'),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Faturohman Kusuma. J",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400,
+                                fontFamily: 'Poppins'),
+                          ),
+                          Text(
+                            " 20200120063",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400,
+                                fontFamily: 'Poppins'),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ])
+              ],
+            ),
+          )
+
+              // width: 100.0,
+
+              ),
         ),
       ],
     );
