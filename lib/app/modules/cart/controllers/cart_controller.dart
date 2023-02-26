@@ -1011,11 +1011,11 @@ class CartController extends GetxController {
   // void addMenu(menu, int index, context) async {
   //   var controller = CartController();
 
-  //   final Stream<QuerySnapshot> pesanan = FirebaseFirestore.instance
-  //       .collection('pesananUser')
-  //       .where('pemesan', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-  //       // .where('isCekhed', isEqualTo: false)
-  //       .snapshots();
+  final Stream<QuerySnapshot> pesanan = FirebaseFirestore.instance
+      .collection('pesananUser')
+      .where('pemesan', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+      // .where('isCekhed', isEqualTo: false)
+      .snapshots();
   //   List<List<int>> multidimensionalArray = [
   //     [1, 2, 3],
   //     [4, 5, 6]
