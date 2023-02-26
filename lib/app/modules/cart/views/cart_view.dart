@@ -98,7 +98,10 @@ class CartView extends StatelessWidget {
           },
           child: const Text(
             'Cart',
-            style: TextStyle(fontSize: 18),
+            style: TextStyle(
+                fontSize: 18,
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.bold),
           ),
         ),
       ),
@@ -318,9 +321,10 @@ class CartView extends StatelessWidget {
                                       Container(
                                         padding: EdgeInsets.only(right: 12),
                                         child: Icon(
-                                          cController.pointUser >= 20
+                                          cController.pointUser >= 20 &&
+                                                  cController.isAmbil == false
                                               ? Icons.check_box_outline_blank
-                                              : Icons.not_interested_sharp,
+                                              : Icons.check_box_outlined,
                                           color: Colors.white,
                                         ),
                                       ),
@@ -345,22 +349,24 @@ class CartView extends StatelessWidget {
                                   },
                                   child: Row(
                                     children: [
-                                      GestureDetector(
-                                        onTap: () {
-                                          print("voucher is non");
-                                          cController.showPoin();
-                                          cController.minusupdateCkl();
-                                        },
-                                        child: Container(
-                                          padding: EdgeInsets.only(right: 12),
-                                          child: Icon(
-                                            cController.isAmbil == true
-                                                ? Icons.check_box_outlined
-                                                : Icons.flip_to_back_sharp,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ),
+                                      cController.isAmbil == true
+                                          // cController.pointUser > 20
+                                          ? GestureDetector(
+                                              onTap: () {
+                                                print("voucher is non");
+                                                cController.showPoin();
+                                                cController.minusupdateCkl();
+                                              },
+                                              child: Container(
+                                                padding:
+                                                    EdgeInsets.only(right: 12),
+                                                child: Icon(
+                                                  Icons.check_box_outlined,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            )
+                                          : SizedBox(),
                                       Row(
                                         children: [
                                           Container(
@@ -393,14 +399,26 @@ class CartView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Obx(() {
-                            return Text(
-                              // "Rp. ${cController.tot}",
-                              CurrencyFormat.convertToIdr(
-                                  cController.tot.toInt(), 2),
-                              // "as",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 24),
-                            );
+                            return cController.tot != 0.0
+                                ? Text(
+                                    // "Rp. ${cController.tot}",
+
+                                    CurrencyFormat.convertToIdr(
+                                        cController.tot.toInt(), 2),
+
+                                    // "as",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 24),
+                                  )
+                                : Text(
+                                    // "Rp. ${cController.tot}",
+
+                                    '${CurrencyFormat.convertToIdr(0.toInt(), 2)} (Ceklist Terlebih Dahulu)',
+
+                                    // "as",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 14),
+                                  );
                           }),
                           SizedBox(
                             width: 50,
@@ -436,12 +454,20 @@ class CartView extends StatelessWidget {
                                       },
                                       // child: const Text("Show Success Confirm"),
 
-                                      child: Text(
-                                        "Check Out",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white),
-                                      ));
+                                      child: cController.tabUkuran != 0
+                                          ? Text(
+                                              "Check Out",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Color.fromARGB(
+                                                      255, 152, 152, 152)),
+                                            )
+                                          : Text(
+                                              "",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white),
+                                            ));
                                 },
                               )),
                         ],
@@ -756,6 +782,7 @@ class cartV extends StatelessWidget {
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold,
+                                                fontFamily: 'Poppins',
                                                 fontSize: 18),
                                           ),
                                           SizedBox(height: Get.height * 0.01),
@@ -766,6 +793,7 @@ class cartV extends StatelessWidget {
                                                   data.docs[index]['meja'],
                                               style: TextStyle(
                                                   color: Colors.white,
+                                                  fontFamily: 'Poppins',
                                                   fontSize: 16),
                                             ),
                                           ),

@@ -857,11 +857,19 @@ class CartController extends GetxController {
     // int poin = 10;
     // print('sukses cekot pesanan');
 
-    var cc = FirebaseFirestore.instance
-        .collection('users')
-        .doc(FirebaseAuth.instance.currentUser!.email)
-        .update({'poin_belanja': point.toInt() + 2});
-    print('sukses poin belanja');
+    if (isAmbil == true) {
+      var cc = FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.email)
+          .update({'poin_belanja': pointUser.toInt()});
+      print('sukses poin belanja');
+    } else {
+      var cc = FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.email)
+          .update({'poin_belanja': pointUser.toInt() + 2});
+      print('sukses poin belanja');
+    }
   }
 
   us() {}

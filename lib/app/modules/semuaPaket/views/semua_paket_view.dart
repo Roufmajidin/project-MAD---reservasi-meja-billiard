@@ -33,6 +33,8 @@ class _SemuaPaketViewState extends State<SemuaPaketView> {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(CartController(), permanent: true);
+
     return Scaffold(
         backgroundColor: Color.fromARGB(255, 20, 20, 20),
         body: SafeArea(
@@ -609,6 +611,9 @@ class _SemuaPaketViewState extends State<SemuaPaketView> {
                             // 'inklud':
                           });
                           // controller.minuman();
+                          controller.obsClear();
+
+                          controller.refreshR();
                           Navigator.pop(context);
                           QuickAlert.show(
                             context: context,

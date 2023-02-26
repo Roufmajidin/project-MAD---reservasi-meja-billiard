@@ -417,7 +417,7 @@ class onHistory extends StatelessWidget {
                                   // cController.ubahDetail != 'ok' ? 180 : 300,
                                   data.docs[index]['isCekhed'] == true
                                       ? 180
-                                      : 300,
+                                      : 320,
                               decoration: BoxDecoration(
                                   color: Color.fromARGB(248, 24, 30, 42),
                                   borderRadius: BorderRadius.circular(4)),
@@ -626,19 +626,39 @@ class onHistory extends StatelessWidget {
                                                       padding: EdgeInsets.only(
                                                           left: 4),
                                                       child: Text(
-                                                        CurrencyFormat
-                                                            .convertToIdr(
-                                                                data.docs[index]
-                                                                    ['total_t'],
-                                                                2),
+                                                        data.docs[index][
+                                                                    'total_t'] ==
+                                                                0.toDouble()
+                                                            ? "Used E-voucher"
+                                                            : CurrencyFormat
+                                                                .convertToIdr(
+                                                                    data.docs[
+                                                                            index]
+                                                                        [
+                                                                        'total_t'],
+                                                                    2),
                                                         style: TextStyle(
-                                                            color:
-                                                                Color.fromARGB(
-                                                                    255,
-                                                                    255,
-                                                                    255,
-                                                                    255),
-                                                            fontSize: 16),
+                                                            color: data.docs[
+                                                                            index]
+                                                                        [
+                                                                        'total_t'] !=
+                                                                    0.toDouble()
+                                                                ? Color
+                                                                    .fromARGB(
+                                                                        255,
+                                                                        196,
+                                                                        196,
+                                                                        196)
+                                                                : Color
+                                                                    .fromARGB(
+                                                                        255,
+                                                                        220,
+                                                                        238,
+                                                                        15),
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w600),
                                                       ),
                                                     ),
                                                   ],
@@ -825,18 +845,29 @@ class onHistory extends StatelessWidget {
                                                                   ),
                                                                 ),
                                                                 Text(
-                                                                  CurrencyFormat.convertToIdr(
-                                                                      data.docs[
-                                                                              index]
-                                                                          [
-                                                                          'total_t'],
-                                                                      2),
+                                                                  data.docs[index]
+                                                                              [
+                                                                              'total_t'] ==
+                                                                          0
+                                                                              .toDouble()
+                                                                      ? "Used E-voucher"
+                                                                      : CurrencyFormat.convertToIdr(
+                                                                          data.docs[index]
+                                                                              [
+                                                                              'total_t'],
+                                                                          2),
                                                                   style: TextStyle(
-                                                                      color: Color.fromARGB(
-                                                                          255,
-                                                                          196,
-                                                                          196,
-                                                                          196),
+                                                                      color: data.docs[index]['total_t'] != 0.toDouble()
+                                                                          ? Color.fromARGB(
+                                                                              255,
+                                                                              196,
+                                                                              196,
+                                                                              196)
+                                                                          : Color.fromARGB(
+                                                                              255,
+                                                                              220,
+                                                                              238,
+                                                                              15),
                                                                       fontSize:
                                                                           14,
                                                                       fontWeight:
