@@ -26,24 +26,29 @@ class UserAkunView extends GetView<UserAkunController> {
               Padding(
                 padding: const EdgeInsets.only(top: 24.0, left: 14, right: 14),
                 child: Row(
-                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Image.asset('assets/gambar/logo_1.png',
                         width: 30, height: 30, fit: BoxFit.fill),
-                    SizedBox(
-                      width: 80,
-                    ),
+                    // SizedBox(
+                    //   width: 80,
+                    // ),
                     Text('My Account',
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w500,
+                            fontFamily: 'poppins',
                             fontSize: 20.0)),
+
+                    SizedBox(
+                      width: 80,
+                    ),
                   ],
                 ),
               ),
               Container(
                 margin: EdgeInsets.only(top: 10),
-                height: 2,
+                height: 0.3,
                 decoration: BoxDecoration(color: Colors.white),
               ),
               SizedBox(

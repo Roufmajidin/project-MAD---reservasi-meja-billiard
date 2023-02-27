@@ -27,6 +27,7 @@ abstract class Routes {
   static const PESANAN_ON_USER = _Paths.PESANAN_ON_USER;
   static const PESANAN_ON_KASIR = _Paths.PESANAN_ON_KASIR;
   static const DETAIL_PESANAN_USER = _Paths.DETAIL_PESANAN_USER;
+  static const NOTIFI = _Paths.NOTIFI;
 }
 
 abstract class _Paths {
@@ -55,4 +56,5 @@ abstract class _Paths {
   static const PESANAN_ON_USER = '/pesanan-on-user';
   static const PESANAN_ON_KASIR = '/pesanan-on-kasir';
   static const DETAIL_PESANAN_USER = '/detail-pesanan-user';
+  static const NOTIFI = '/notifi';
 }

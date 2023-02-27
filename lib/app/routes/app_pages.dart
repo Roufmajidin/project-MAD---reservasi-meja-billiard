@@ -14,6 +14,8 @@ import '../modules/homeAdmin/bindings/home_admin_binding.dart';
 import '../modules/homeAdmin/views/home_admin_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
+import '../modules/notifi/bindings/notifi_binding.dart';
+import '../modules/notifi/views/notifi_view.dart';
 import '../modules/onBoarding/bindings/on_boarding_binding.dart';
 import '../modules/onBoarding/views/on_boarding_view.dart';
 import '../modules/pemesanan/bindings/pemesanan_binding.dart';
@@ -144,5 +146,10 @@ class AppPages {
         page: () => const DetailPesananUserView(),
         binding: DetailPesananUserBinding(),
         transition: Transition.noTransition),
+    GetPage(
+      name: _Paths.NOTIFI,
+      page: () => const NotifiView(),
+      binding: NotifiBinding(),
+    ),
   ];
 }

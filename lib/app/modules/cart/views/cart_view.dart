@@ -1,5 +1,6 @@
 import 'dart:ffi';
 
+import 'package:Coruja_billiard/app/modules/notifi/views/notifi_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:custom_check_box/custom_check_box.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -135,13 +136,15 @@ class CartView extends StatelessWidget {
                 borderRadius: BorderRadius.only(
                     topRight: Radius.circular(14),
                     topLeft: Radius.circular(14))),
-            height: cController.tabUkuran == 1 ? 300 : 120,
+            height: cController.tabUkuran == 1 ? 300 : 160,
             // width: double.infinity,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  padding: EdgeInsets.all(10),
+                  padding: cController.tabI == 1
+                      ? EdgeInsets.all(16)
+                      : EdgeInsets.all(14),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -153,17 +156,23 @@ class CartView extends StatelessWidget {
                             },
                             child: Text(
                               "Rincian",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 16),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                              ),
                             ),
                           ),
                         ],
                       ),
-                      // SizedBox(height: 8),
+                      cController.tabI != 1 && cController.tabI == null
+                          ? SizedBox(height: 10)
+                          : SizedBox(
+                              height: 2,
+                            ),
 
                       cController.tabUkuran == 1
                           ? Container(
-                              padding: EdgeInsets.only(bottom: 12),
+                              padding: EdgeInsets.only(bottom: 14),
                               child: Row(
                                 children: [
                                   Column(
@@ -175,55 +184,76 @@ class CartView extends StatelessWidget {
                                         "paket Terpilih",
                                         // "as",
                                         style: TextStyle(
-                                            color: Colors.white, fontSize: 14),
+                                            color: Colors.white,
+                                            fontSize: 14,
+                                            fontFamily: 'Poppins'),
                                       ),
                                       Text(
                                         // "Rp. ${cController.tot}",
                                         'Meja Terpilih',
                                         // "as",
                                         style: TextStyle(
-                                            color: Colors.white, fontSize: 14),
+                                            color: Colors.white,
+                                            fontSize: 14,
+                                            fontFamily: 'Poppins'),
                                       ),
                                       Text(
                                         'harga Paket',
                                         // "as",
                                         style: TextStyle(
-                                            color: Colors.white, fontSize: 14),
+                                            color: Colors.white,
+                                            fontSize: 14,
+                                            fontFamily: 'Poppins'),
                                       ),
                                       Text(
                                         'Inklud',
                                         // "as",
                                         style: TextStyle(
-                                            color: Colors.white, fontSize: 14),
+                                            color: Colors.white,
+                                            fontSize: 14,
+                                            fontFamily: 'Poppins'),
                                       ),
                                     ],
                                   ),
-                                  SizedBox(width: 20),
+                                  SizedBox(
+                                    width: 12,
+                                    // height: 50,
+                                  ),
                                   // isi
                                   Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
+                                    // mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
+                                      // SizedBox(
+                                      //   height: 16,
+                                      // ),
                                       Text(
                                         // "Rp. ${cController.tot}",
                                         ": ${cController.paket}",
                                         // "as",
                                         style: TextStyle(
-                                            color: Colors.white, fontSize: 14),
+                                            color: Colors.white,
+                                            fontSize: 14,
+                                            fontFamily: 'Poppins'),
                                       ),
                                       Text(
                                         // "Rp. ${cController.tot}",
                                         ': ${cController.meja}',
                                         // "as",
                                         style: TextStyle(
-                                            color: Colors.white, fontSize: 14),
+                                            color: Colors.white,
+                                            fontSize: 14,
+                                            fontFamily: 'Poppins'),
                                       ),
                                       Text(
                                         // "Rp. ${cController.tot}",
-                                        ': ${CurrencyFormat.convertToIdr(cController.hargaP.toInt(), 2)}',
+                                        ': ${CurrencyFormat.convertToIdr(cController.hargaP.toInt(), 0)}, -',
                                         // "as",
                                         style: TextStyle(
-                                            color: Colors.white, fontSize: 14),
+                                            color: Colors.white,
+                                            fontSize: 14,
+                                            fontFamily: 'Poppins'),
                                       ),
                                       Column(
                                         crossAxisAlignment:
@@ -249,19 +279,23 @@ class CartView extends StatelessWidget {
                                                         overflow: TextOverflow
                                                             .ellipsis,
                                                         style: TextStyle(
-                                                            color:
-                                                                Colors.white),
+                                                            color: Colors.white,
+                                                            fontFamily:
+                                                                'Poppins'),
                                                       ),
                                                     ),
                                                     Container(
                                                       // width: 120,
                                                       child: Text(
-                                                        '${CurrencyFormat.convertToIdr(cController.inkl[index2]['harga'].toInt(), 2)}',
+                                                        '${CurrencyFormat.convertToIdr(cController.inkl[index2]['harga'].toInt(), 0)}, -',
                                                         overflow: TextOverflow
                                                             .ellipsis,
                                                         style: TextStyle(
+                                                            letterSpacing: 1.3,
                                                             color: Colors.white,
-                                                            fontSize: 12),
+                                                            fontSize: 14,
+                                                            fontFamily:
+                                                                'Poppins'),
                                                       ),
                                                     ),
                                                   ],
@@ -279,10 +313,10 @@ class CartView extends StatelessWidget {
                               ),
                             )
                           : Text(""),
-                      // SizedBox(
-                      //   height: 20,
-                      // ),
-                      SizedBox(height: 10),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      // SizedBox(height: 0),
 
                       cController.tabUkuran == 1
                           ?
@@ -357,12 +391,14 @@ class CartView extends StatelessWidget {
                                                 cController.showPoin();
                                                 cController.minusupdateCkl();
                                               },
+                                              // ttt
                                               child: Container(
                                                 padding:
                                                     EdgeInsets.only(right: 12),
                                                 child: Icon(
-                                                  Icons.check_box_outlined,
-                                                  color: Colors.white,
+                                                  Icons.check_box_sharp,
+                                                  color: Color.fromARGB(
+                                                      255, 229, 216, 71),
                                                 ),
                                               ),
                                             )
@@ -386,7 +422,11 @@ class CartView extends StatelessWidget {
                                                 : "Tidak ada",
                                             overflow: TextOverflow.ellipsis,
                                             style: TextStyle(
-                                                color: Colors.white,
+                                                color:
+                                                    cController.isAmbil != true
+                                                        ? Colors.white
+                                                        : Color.fromARGB(
+                                                            255, 229, 216, 71),
                                                 fontSize: 12),
                                           )),
                                         ],
@@ -395,7 +435,15 @@ class CartView extends StatelessWidget {
                                   ),
                                 )
                           : SizedBox(),
+                      cController.tabI == 1
+                          ? SizedBox(
+                              height: 12,
+                            )
+                          : SizedBox(
+                              height: 0,
+                            ),
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Obx(() {
@@ -403,73 +451,86 @@ class CartView extends StatelessWidget {
                                 ? Text(
                                     // "Rp. ${cController.tot}",
 
-                                    CurrencyFormat.convertToIdr(
-                                        cController.tot.toInt(), 2),
+                                    '${CurrencyFormat.convertToIdr(cController.tot.toInt(), 0)}, -',
 
                                     // "as",
                                     style: TextStyle(
-                                        color: Colors.white, fontSize: 24),
+                                        letterSpacing: 1.8,
+                                        color: Colors.white,
+                                        fontSize: 24,
+                                        fontFamily: 'Poppins'),
                                   )
                                 : Text(
                                     // "Rp. ${cController.tot}",
 
-                                    '${CurrencyFormat.convertToIdr(0.toInt(), 2)} (Ceklist Terlebih Dahulu)',
+                                    '${CurrencyFormat.convertToIdr(0.toInt(), 0)} (Ceklist Terlebih Dahulu)',
 
                                     // "as",
                                     style: TextStyle(
-                                        color: Colors.white, fontSize: 14),
+                                        color: Colors.white,
+                                        fontSize: 14,
+                                        fontFamily: 'Poppins'),
                                   );
                           }),
                           SizedBox(
                             width: 50,
                           ),
                           Container(
-                              alignment: Alignment.centerRight,
+                              // alignment: Alignment.topCenter,
                               // padding: EdgeInsets.all(12),
                               // decoration: BoxDecoration(
                               //     color: Colors.amber,
                               //     borderRadius: BorderRadius.circular(12)),
                               // tt
                               child: GetBuilder<CartController>(
-                                builder: (_) {
-                                  return ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: cController.tabI == 1
-                                            ? Color.fromARGB(255, 229, 216, 71)
-                                            : Color.fromARGB(248, 24, 30, 42),
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 12, vertical: 12),
-                                      ),
-                                      onPressed: () {
-                                        var data = cController.tot.toInt();
-                                        cController.showDisplayName();
-                                        _showDialog(context, index, data);
-                                        // cController.toogleCekout(index); ==> sudah berjalan, then
-                                        // update
-                                        // final a = cController.selected.contains(index);
-                                        // var selectedPesanann =
-                                        //     cController.selected.contains(index);
-                                        // cController.updatepesananCekot(data);
-                                        // cController.obsClear(data);
-                                      },
-                                      // child: const Text("Show Success Confirm"),
-
-                                      child: cController.tabUkuran != 0
-                                          ? Text(
-                                              "Check Out",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Color.fromARGB(
-                                                      255, 152, 152, 152)),
-                                            )
-                                          : Text(
-                                              "",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.white),
-                                            ));
+                            builder: (_) {
+                              return ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: cController.tabI == 1
+                                      ? Color.fromARGB(255, 229, 216, 71)
+                                      : Color.fromARGB(248, 24, 30, 42),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 12, vertical: 12),
+                                ),
+                                onPressed: () {
+                                  var data = cController.tot.toInt();
+                                  cController.showDisplayName();
+                                  cController.tabUkuran != 0
+                                      ? _showDialog(context, index, data)
+                                      : null;
+                                  // cController.toogleCekout(index); ==> sudah berjalan, then
+                                  // update
+                                  // final a = cController.selected.contains(index);
+                                  // var selectedPesanann =
+                                  //     cController.selected.contains(index);
+                                  // cController.updatepesananCekot(data);
+                                  // cController.obsClear(data);
                                 },
-                              )),
+                                child: Padding(
+                                  padding: cController.tabI != 1 &&
+                                          cController.tabI == null
+                                      ? const EdgeInsets.symmetric(
+                                          horizontal: 18.0, vertical: 4)
+                                      : const EdgeInsets.symmetric(
+                                          horizontal: 12.0, vertical: 0),
+                                  child: cController.tabUkuran != 0
+                                      ? Text(
+                                          "Check Out",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Color.fromARGB(
+                                                  255, 62, 62, 62)),
+                                        )
+                                      : Text(
+                                          "",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
+                                        ),
+                                ),
+                              );
+                            },
+                          )),
                         ],
                       ),
                     ],
@@ -497,9 +558,15 @@ void _showDialog(context, index, data) {
           // contentPadding: EdgeInsets.zero,
           // clipBehavior: Clip.antiAliasWithSaveLayer,
           elevation: 0.8,
-          backgroundColor: Color.fromARGB(248, 51, 58, 74),
-          title: const Text('Konfirmasi dong!'),
-          content: const Text('Anda Yakin akan Check Out yang terceklist?'),
+          backgroundColor: Color.fromARGB(248, 11, 20, 41),
+          title: const Text(
+            'Konfirmasi dong!',
+            style: TextStyle(
+                color: Colors.white, fontFamily: 'Poppins', fontSize: 16),
+          ),
+          content: const Text('Anda Yakin akan Check Out yang terceklist ?',
+              style: TextStyle(
+                  color: Colors.white, fontFamily: 'Poppins', fontSize: 14)),
           actions: [
             ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
@@ -509,7 +576,8 @@ void _showDialog(context, index, data) {
                 },
                 child: const Text('No')),
             ElevatedButton(
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromARGB(255, 229, 216, 71)),
                 onPressed: () {
                   // Write code to delete item
                   //  cController.toogleCekout(index); ==> sudah berjalan, then
@@ -527,11 +595,12 @@ void _showDialog(context, index, data) {
 
                   Navigator.pop(context);
                   // dialogBox();
-                  QuickAlert.show(
-                    context: context,
-                    type: QuickAlertType.info,
-                    text: 'Yeay, Sukses Check Out !',
-                  );
+                  Get.to(NotifiView());
+                  // QuickAlert.show(
+                  //   context: context,
+                  //   type: QuickAlertType.info,
+                  //   text: 'Yeay, Sukses Check Out !',
+                  // );
 
                   // showDialog(context: context, builder: (context) => alert);
 
@@ -539,6 +608,7 @@ void _showDialog(context, index, data) {
                 },
                 child: const Text(
                   'Confirm',
+                  style: TextStyle(color: Colors.black),
                 )),
           ],
         );
@@ -803,8 +873,7 @@ class cartV extends StatelessWidget {
                                           Container(
                                             // padding: EdgeInsets.only(left: 10),
                                             child: Text(
-                                              CurrencyFormat.convertToIdr(
-                                                  data.docs[index]['harga'], 2),
+                                              '${CurrencyFormat.convertToIdr(data.docs[index]['harga'], 2)}, -',
                                               style: TextStyle(
                                                   color: Color.fromARGB(
                                                       255, 201, 201, 201),
