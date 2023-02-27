@@ -251,6 +251,7 @@ class CartView extends StatelessWidget {
                                         ': ${CurrencyFormat.convertToIdr(cController.hargaP.toInt(), 0)}, -',
                                         // "as",
                                         style: TextStyle(
+                                            letterSpacing: 1.0,
                                             color: Colors.white,
                                             fontSize: 14,
                                             fontFamily: 'Poppins'),
@@ -273,12 +274,15 @@ class CartView extends StatelessWidget {
                                                 Row(
                                                   children: [
                                                     Container(
+                                                      padding: EdgeInsets.only(
+                                                          left: 4, right: 2),
                                                       width: 120,
                                                       child: Text(
-                                                        '${cController.inkl[index2]['namamenu'].toString()}',
+                                                        '- ${cController.inkl[index2]['namamenu'].toString()}',
                                                         overflow: TextOverflow
                                                             .ellipsis,
                                                         style: TextStyle(
+                                                            letterSpacing: 1.0,
                                                             color: Colors.white,
                                                             fontFamily:
                                                                 'Poppins'),
