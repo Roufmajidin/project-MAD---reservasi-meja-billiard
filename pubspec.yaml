@@ -6,6 +6,7 @@ environment:
   sdk: '>=2.18.5 <3.0.0'
 
 dependencies:
+  animated_text_kit: ^4.2.2
   badges: ^3.0.2
   bottom_sheet: ^3.1.2
   carousel_slider: ^4.1.1
@@ -79,7 +80,6 @@ flutter:
     - assets/gambar/33.jpeg
     - assets/gambar/4.jpeg
     - assets/gambar/5.jpeg
-
     # - assets/on_boarding/
   uses-material-design: true
   fonts:

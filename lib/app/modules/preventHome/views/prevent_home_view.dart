@@ -1,3 +1,4 @@
+import 'package:Coruja_billiard/app/modules/test/views/test_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -27,7 +28,7 @@ class PreventHomeView extends GetView<PreventHomeController> {
               children: [
                 HomeView(),
                 ReservationView(),
-                UserAkunView(),
+                TestView(),
               ],
             ),
           ),

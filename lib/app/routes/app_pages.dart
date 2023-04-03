@@ -40,6 +40,8 @@ import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 import '../modules/splashLogin/bindings/splash_login_binding.dart';
 import '../modules/splashLogin/views/splash_login_view.dart';
+import '../modules/test/bindings/test_binding.dart';
+import '../modules/test/views/test_view.dart';
 
 part 'app_routes.dart';
 
@@ -150,6 +152,11 @@ class AppPages {
       name: _Paths.NOTIFI,
       page: () => const NotifiView(),
       binding: NotifiBinding(),
+    ),
+    GetPage(
+      name: _Paths.TEST,
+      page: () => TestView(),
+      binding: TestBinding(),
     ),
   ];
 }
